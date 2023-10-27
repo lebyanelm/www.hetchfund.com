@@ -1,0 +1,539 @@
+@import "../../../variables.scss";
+
+.story-tab {
+  padding: $_20_SPACING_SIZE;
+  background: $THEME_COLOR;
+  color: $WHITE_COLOR;
+  border-radius: $BORDER_RADIUS;
+
+  & * {
+    color: $WHITE_COLOR !important;
+  }
+}
+
+app-rich-text-editor {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+// Ttitle section
+.egg-campaign-description {
+  margin: 0 0 $_20_SPACING_SIZE 0;
+}
+
+// CATEGORIES OF THE COMPANY
+.categories {
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  * {
+    font-family: $FONT_FAMILY !important;
+  }
+}
+
+.categories .primary-category {
+  font-weight: bold;
+  text-decoration-style: solid;
+}
+
+.categories .secondary-category {
+  opacity: 0.5;
+}
+
+// Thumbnail and Stages, THE EGG CONTAINER BODY CONTENT SECTION
+.egg-campaign-thumbnail-stages,
+.bottom-body-section,
+.tab-selector-section {
+  display: grid;
+  grid-template-columns: 1fr 0.56fr;
+  gap: $_20_SPACING_SIZE;
+}
+
+.tab-selector-section {
+  background: $BACKGROUND_COLOR;
+}
+
+.egg-campaign-thumbnail-stages {
+  margin-top: 10px;
+}
+
+// When pitch stages are unavailable.
+.egg-campaign-thumbnail-stages[data-is-show-stages="false"] {
+  grid-template-columns: 1fr;
+}
+
+.egg-campaign-thumbnail-stages .pitch-media-files {
+  display: flex;
+}
+
+.egg-campaign-thumbnail-stages .pitch-media-files .media-files {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: $_10_SPACING_SIZE;
+  margin: calc($_20_SPACING_SIZE + $_10_SPACING_SIZE) 0;
+}
+
+.egg-campaign-thumbnail-stages .pitch-media-files .media-files .media-file {
+  border: $BORDER;
+  background: $GRAY_COLOR;
+  min-width: 80px;
+  min-height: 80px;
+  height: 80px;
+  opacity: 0.8;
+  background-size: cover;
+  background-position: center center;
+
+  // HOVER STATE.
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.egg-campaign-thumbnail-stages .egg-campaign-thumbnail-container {
+  flex: 1;
+  margin-top: 5px;
+}
+
+.egg-campaign-thumbnail-stages
+  .egg-campaign-thumbnail-container
+  .egg-campaign-funding-purpose {
+  margin-bottom: $_10_SPACING_SIZE;
+  font-size: 40px;
+}
+
+.to-prefix {
+  font-size: 40px;
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  opacity: 0.8;
+}
+
+.egg-campaign-thumbnail-stages .egg-campaign-thumbnail,
+.egg-campaign-thumbnail-stages .egg-campaign-videoplayer {
+  width: 100%;
+  background-position: center;
+  background-size: cover !important;
+  margin-top: 20px;
+  border: $BORDER;
+  border-radius: $BORDER_RADIUS;
+  position: relative;
+}
+
+.egg-campaign-thumbnail-stages .egg-campaign-thumbnail {
+  height: 400px;
+  background-repeat: no-repeat;
+}
+
+app-video {
+  display: block;
+}
+
+.hetchfund-attribution {
+  display: block;
+  position: absolute;
+  bottom: 40px;
+  right: $_20_SPACING_SIZE;
+  z-index: 10;
+  height: 50px;
+  width: 50px;
+  background: transparent;
+  background-image: url("/assets/icon.svg");
+  filter: opacity(0.8);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+// BOTTOM CONTRACT ATTRIBUTES
+.bottom-attribute-items {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transform: translateX(-4px);
+}
+
+// PLACE THE CONTRACT WAS PUBLISHED.
+.pitch-publish-location {
+  display: flex;
+  // justify-content: flex-end;
+  align-items: center;
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.pitch-publish-location ion-icon {
+  // font-size: 30px;
+  opacity: 0.5;
+}
+
+ion-icon[name="heart-circle-outline"] {
+  color: red;
+}
+
+.pitch-publish-location span {
+  font-size: small;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: "IBM Plex Mono";
+}
+
+.pitch-publish-location span.country {
+  // font-weight: bold;
+  margin-left: 5px;
+}
+
+.pitch-publish-location span.country.comma::after {
+  content: ",";
+  display: inline-block;
+  margin-right: 5px;
+}
+
+// THE STAGES
+.egg-campaign-stages-container .egg-campaign-stages-title-top {
+  padding-bottom: $_10_SPACING_SIZE;
+  border-bottom: $BORDER;
+  margin-bottom: $_10_SPACING_SIZE;
+}
+
+.egg-campaign-stages-container .pitch-media-files {
+  background: red;
+}
+
+// TABS SECTION
+.tab-selector-section {
+  align-items: center;
+  border: $BORDER;
+  border-radius: $BORDER_RADIUS;
+  width: 100%;
+  margin: 40px 0;
+  padding: 0 20px;
+}
+
+.tab-selector-section .tabs .tab {
+  display: inline-block;
+  margin: 0 $_20_SPACING_SIZE;
+  color: transparentize($DARK_COLOR, 0.4);
+  text-transform: uppercase;
+  border-bottom: 8px solid transparent;
+  padding: 30px 0;
+  font-family: $FONT_FAMILY !important;
+}
+
+.tab-selector-section .tabs .tab a:hover {
+  display: block;
+  background: transparent;
+}
+
+.tab-selector-section .tabs .tab[isActiveTab="true"] {
+  border-bottom-color: $SECONDARY_THEME_COLOR;
+  color: $SECONDARY_THEME_COLOR;
+}
+
+.tab-selector-section .tabs .tab:hover {
+  border-bottom-color: $DARK_COLOR;
+  color: transparentize($DARK_COLOR, 0);
+}
+
+.tab-selector-section .tabs .tab:first-child {
+  margin-left: 0;
+}
+
+// THE TABS SECTION
+.bottom-body-section {
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.bottom-body-section .selected-tab-view {
+  flex: 1;
+  width: 100%;
+  margin-bottom: $_20_SPACING_SIZE;
+}
+
+.bottom-body-section .selected-tab-view > * {
+  margin: 0;
+}
+
+.tab-view {
+  margin: 0;
+}
+
+.bottom-body-section .campaign-information-stats {
+  flex: 0.56;
+}
+
+.bottom-body-section .campaign-information-stats app-hetchers-list {
+  display: block;
+  margin-top: $_20_SPACING_SIZE;
+}
+
+// EGG CAMPAIGN STATISTICS INFORMATION
+.campaign-statistics {
+  display: flex;
+  align-items: center;
+}
+
+// GRAPHBAR: HETCHING STRENGTH
+.campaign-statistics .graphbars {
+  display: flex;
+  align-items: flex-end;
+}
+
+.campaign-statistics .graphbars span {
+  display: inline-block;
+  width: 2.5px;
+  background: $GRAY_COLOR;
+}
+
+// GRAPHBARS ACORDING TO LEVEL
+
+.campaign-statistics .graphbars.danger-color span.filled {
+  background: rgb(183, 54, 32);
+}
+
+.campaign-statistics .graphbars.warning-color span.filled {
+  background: orange;
+}
+
+.campaign-statistics .graphbars.success-color span.filled {
+  background: $SECONDARY_THEME_COLOR;
+}
+
+.campaign-statistics .graphbars span:nth-child(1) {
+  height: 10px;
+}
+.campaign-statistics .graphbars span:nth-child(2) {
+  height: 10px;
+  margin-right: 2px;
+}
+
+.campaign-statistics .graphbars span:nth-child(3) {
+  height: 15px;
+}
+.campaign-statistics .graphbars span:nth-child(4) {
+  height: 15px;
+  margin-right: 2px;
+}
+
+.campaign-statistics .graphbars span:nth-child(5) {
+  height: 20px;
+}
+.campaign-statistics .graphbars span:nth-child(6) {
+  height: 20px;
+  margin-right: 2px;
+}
+
+// EGG CAMPAIGN STATISTIC
+.campaign-statistics {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  position: relative;
+  transform: translateY(-10px);
+}
+
+.campaign-statistics .statistic {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.campaign-statistics .statistic .value {
+  font-size: 19px;
+  font-weight: 900;
+  color: $SECONDARY_THEME_COLOR;
+  // font-family: "IBM Plex Mono";
+}
+
+.campaign-statistics .statistic .name {
+  font-size: small;
+  text-transform: uppercase;
+  font-family: "IBM Plex Mono";
+  letter-spacing: 1px;
+  font-weight: bold;
+  transform: translateY(-4px);
+  color: $DARK_COLOR;
+  opacity: 0.5;
+}
+
+.hetching-progress {
+  width: 100%;
+  height: 15px;
+  background-color: $GRAY_COLOR;
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+}
+
+.hetching-progress-current {
+  height: 100%;
+  background: $SECONDARY_THEME_COLOR;
+}
+
+// CURATOR INFORMATION
+.egg-campaign-curator {
+  margin: $_20_SPACING_SIZE 0;
+  padding: $_10_SPACING_SIZE 0;
+}
+
+.egg-campaign-curator .curator {
+  display: block;
+  height: 80px;
+  width: 80px;
+  border: $BORDER;
+  border-radius: 100px;
+  background: $LIGHT_COLOR;
+  background-position: center center;
+  background-size: cover;
+}
+
+// FUNDING PURPOSE
+.egg-campaign-name {
+  display: block;
+  padding: 10px 20px;
+  background: $DARK_COLOR;
+  border-radius: $BORDER_RADIUS;
+}
+
+.egg-campaign-name:first-child {
+  padding: 20px 20px 10px 20px;
+}
+
+.egg-campaign-name:last-child {
+  padding: 10px 20px 20px 20px;
+  box-shadow: 0 8px 6px -6px gray;
+}
+
+.egg-campaign-name ion-icon {
+  display: inline-block;
+  font-size: 25px;
+  margin-left: 10px;
+  color: $WHITE_COLOR;
+  transform: translateY(4px);
+
+  &[name="checkmark-circle-sharp"] {
+    color: $SECONDARY_THEME_COLOR;
+  }
+}
+
+.egg-campaign-name .header-text-style,
+.egg-campaign-name .paragraph-text-style {
+  color: $LIGHT_COLOR;
+}
+
+.egg-campaign-name .paragraph-text-style {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: small;
+  font-weight: bold;
+}
+
+.egg-campaign-name .header-text-style {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+
+  &::before {
+    content: "";
+    display: block;
+    height: 24px;
+    width: 5px;
+    margin-right: 10px;
+    background: $SUCCESS_COLOR;
+  }
+}
+
+.egg-campaign-name .paragraph-text-style {
+  opacity: 0.7;
+}
+
+.egg-campaign-name .funding-purpose {
+  color: transparentize($LIGHT_COLOR, 0.2);
+  // font-style: italic;
+}
+
+.egg-campaign-name .to {
+  font-weight: bolder !important;
+}
+
+// CATEGORIES LISTING
+.egg-campaign-categories-list {
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.egg-campaign-categories-list a {
+  display: inline-block;
+  padding: $_5_SPACING_SIZE 0;
+  margin-right: $_10_SPACING_SIZE;
+  color: $DARK_COLOR;
+}
+
+// RELATED CAMPAIGNS
+.related-egg-campaigns {
+  margin-top: calc($_10_SPACING_SIZE);
+  padding-top: calc($_10_SPACING_SIZE);
+}
+
+// CURATORS / CONTRACTORS SECTION
+.egg-campaign-curator .curator {
+  border-bottom: $BORDER;
+}
+
+// SECTION TITLES
+.egg-campaign-curator .header-text-style,
+.egg-campaign-categories-list .header-text-style,
+.egg-campaign-name .header-text-style {
+  margin-bottom: $_5_SPACING_SIZE;
+}
+
+// HETCHERS LIST
+app-hetchers-list.ten-column-hetcher-grid {
+  display: block;
+  margin-top: calc($_20_SPACING_SIZE);
+}
+
+app-hetchers-list {
+  margin-bottom: $_20_SPACING_SIZE;
+}
+
+// STICKY BOTTOM FUNDING AND SOCIALS BUTTONS
+.sticky-funding-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  padding: $_10_SPACING_SIZE $_20_SPACING_SIZE;
+  background: $BACKGROUND_COLOR;
+  border-radius: $BORDER_RADIUS;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border: $BORDER;
+  z-index: 200;
+  bottom: 0;
+  left: 0;
+}
+
+.sticky-funding-button button {
+  background: transparent;
+}
+
+.sticky-funding-button button {
+  ion-icon {
+    color: $SECONDARY_THEME_COLOR;
+  }
+
+  &[data-is-bookmarked="true"] ion-icon {
+    color: $DANGER_COLOR;
+  }
+}
+
+.sticky-funding-button button.pledge {
+  background: $SECONDARY_THEME_COLOR;
+}
+
+.sticky-funding-button button.pledge ion-icon {
+  color: $LIGHT_COLOR;
+}

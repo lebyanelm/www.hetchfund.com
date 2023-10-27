@@ -1,0 +1,51 @@
+@import "../../../variables.scss";
+
+// NEW COMMENT SECTION: TEXTAREA, BUTTONS
+.new-comment-section {
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.new-comment-section button:not(.secondary) {
+  background: $SECONDARY_THEME_COLOR;
+}
+
+.new-comment-section textarea[data-reply] {
+  position: relative;
+}
+
+.new-comment-section textarea[data-reply]::after {
+  content: attr(data-reply);
+  display: block;
+  padding: 10px;
+  background: $DARK_COLOR;
+  color: $WHITE_COLOR;
+  font-weight: bold;
+  font-style: italic;
+  border-radius: $BORDER_RADIUS $BORDER_RADIUS 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+// WHERE COMMENTS ARE POSTED TO.
+.discussions {
+  margin: $_20_SPACING_SIZE 0 calc($_20_SPACING_SIZE + $_10_SPACING_SIZE) 0;
+  border: $BORDER;
+  border-radius: $BORDER_RADIUS;
+  padding: 0 $_20_SPACING_SIZE $_20_SPACING_SIZE $_20_SPACING_SIZE;
+  position: relative;
+}
+
+app-comment:not(:last-child) {
+  display: block;
+  margin-bottom: $_10_SPACING_SIZE;
+}
+
+app-comment[data-isfocusedreply="true"] {
+  opacity: 1;
+
+  &:not([data-isfocusedreply="true"]) {
+    opacity: 0.4;
+  }
+}

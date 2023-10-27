@@ -1,0 +1,169 @@
+@import "../../../variables.scss";
+
+.contributions-balance-container {
+  display: flex;
+  padding: $_20_SPACING_SIZE;
+  background: $THEME_COLOR;
+  border-radius: $BORDER_RADIUS;
+  height: 250px;
+  align-items: center;
+  justify-content: center;
+
+  * {
+    color: $WHITE_COLOR !important;
+  }
+}
+
+.contributions-balance-container .balance-amount {
+  font-weight: bold;
+  text-align: left;
+}
+
+.contributions-balance-container .payout-button {
+  display: block;
+  margin: $_5_SPACING_SIZE 0;
+}
+
+.t-and-c-note ion-icon {
+  transform: translateY(4px);
+}
+
+.split-pane-content {
+  display: flex;
+  gap: $_20_SPACING_SIZE;
+
+  .contributions-balance-container {
+    flex: 0.3;
+  }
+
+  .all-transactions-history {
+    flex: 0.7;
+  }
+}
+
+.all-transactions-history {
+  background: $LIGHT_COLOR;
+  border: $BORDER;
+  border-color: $GRAY_COLOR;
+  border-radius: $BORDER_RADIUS;
+  padding: $_20_SPACING_SIZE;
+}
+
+.all-transactions-history .formfields {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.all-transactions-history .formfields .formfield.search {
+  transform: translateY(-5px);
+  position: relative;
+}
+
+.all-transactions-history .formfields .formfield.search input {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  margin-top: 0;
+  text-indent: 50px;
+}
+
+.all-transactions-history .formfields .formfield.search ion-icon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+}
+
+.all-transactions-history .formfields .filter-hueristic {
+  display: block;
+  padding: 10px;
+  border: $BORDER;
+  border-color: $GRAY_COLOR;
+  border-radius: 100px;
+  background: $BACKGROUND_COLOR;
+  text-align: center;
+  cursor: pointer;
+  font-family: "IBM Plex Sans Medm", $FONT_FAMILY;
+
+  &:hover {
+    border-color: $DARK_COLOR;
+  }
+
+  &[data-state="active"] {
+    border-color: $SECONDARY_THEME_COLOR;
+    background-color: $SECONDARY_THEME_COLOR;
+    color: $WHITE_COLOR;
+  }
+}
+
+// TRANSACTION LIST TABLE.
+.all-transactions-history table {
+  width: 100%;
+}
+
+.all-transactions-history table thead {
+  border-bottom: $BORDER;
+}
+
+.all-transactions-history table thead td {
+  font-weight: bold;
+}
+
+.all-transactions-history table td {
+  padding: $_20_SPACING_SIZE $_10_SPACING_SIZE;
+
+  &.name * {
+    font-weight: bold !important;
+  }
+
+  &[data-status] {
+    text-transform: capitalize;
+  }
+
+  &[data-status="captured"] {
+    color: $SUCCESS_COLOR;
+  }
+
+  &[data-status="error"] {
+    color: $DANGER_COLOR;
+  }
+
+  &[data-status="refunded"] {
+    color: $WARNING_COLOR;
+  }
+}
+
+.all-transactions-history table tbody td,
+.all-transactions-history table tbody td a {
+  color: #555;
+  font-weight: normal;
+}
+
+.all-transactions-history table tbody tr:hover {
+  cursor: pointer;
+  background: $GRAY_COLOR;
+}
+
+.all-transactions-history table tbody tr:not(:last-child) td {
+  border-bottom: $BORDER;
+  border-bottom-color: $GRAY_COLOR;
+}
+
+// PAGINATION SECTION.
+.pagination-section {
+  display: flex;
+  width: 100%;
+  padding: $_10_SPACING_SIZE;
+  border: $BORDER_THIN;
+  border-color: $DARK_GRAY_COLOR;
+  border-radius: $BORDER_RADIUS;
+  align-items: center;
+  justify-content: center;
+  gap: $_20_SPACING_SIZE;
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.pagination-section .pages-counters {
+  display: flex;
+  gap: $_10_SPACING_SIZE;
+}

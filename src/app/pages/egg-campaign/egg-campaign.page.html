@@ -1,0 +1,290 @@
+<ion-content>
+  <app-header highlightHeader="pitches"></app-header>
+
+  <div class="page-content">
+    <div class="content-wrapper">
+      <!-- The title of the project / campaign -->
+      <div class="categories">
+        <a
+          [href]="'/categories/'+ this.URLEncode(this.data?.primary_category)"
+          class="header-text-style smaller light primary-category"
+          >{{this.data?.primary_category.trim()}}</a
+        >{{ " " }}<a
+          [href]="'/categories/'+ this.URLEncode(this.data?.secondary_category)"
+          class="header-text-style smaller light secondary-category"
+        >
+          {{ !!this.data?.secondary_category ? " / " : "" }}{{
+          this.data?.secondary_category.trim() }}</a
+        >
+      </div>
+
+      <!-- The thumbnail / video based thumbnail with the campaign stages. -->
+      <div
+        class="egg-campaign-thumbnail-stages"
+        [attr.data-is-show-stages]="true"
+      >
+        <!-- The thumbnail / video. -->
+        <div class="egg-campaign-thumbnail-container">
+          <div class="egg-campaign-funding-purpose header-text-style circled">
+            <span class="to-prefix">To: </span> {{ this.data?.funding_purpose }}
+          </div>
+
+          <div
+            class="egg-campaign-thumbnail"
+            *ngIf="!this.data?.presentation_video"
+            [style.background-image]="'url(' + this.data?.thumbnail_url + ')'"
+          >
+            <div class="hetchfund-attribution"></div>
+          </div>
+
+          <div
+            class="egg-campaign-videoplayer"
+            *ngIf="this.data?.presentation_video"
+          >
+            <div class="hetchfund-attribution"></div>
+            <app-video [src]="this.data?.presentation_video"></app-video>
+          </div>
+
+          <div class="bottom-attribute-items">
+            <div
+              class="bottom-attribute-item pitch-publish-location"
+              *ngIf="!this.data?.is_hetch_favourite"
+            >
+              <ion-icon name="heart-circle-outline"></ion-icon>
+              <span class="country">Our favourite</span>
+            </div>
+
+            <div
+              class="bottom-attribute-item pitch-publish-location"
+              *ngIf="this.data?.country_published && this.data?.province_published"
+            >
+              <ion-icon name="compass-outline"></ion-icon>
+              <span class="country comma"
+                >{{this.data?.country_published}}</span
+              >
+              <span class="province">{{this.data?.province_published}}</span>
+            </div>
+
+            <div class="bottom-attribute-item pitch-publish-location">
+              <ion-icon name="calendar-outline"></ion-icon>
+              <span class="country"
+                >Published on {{this.data?.time_created?.formatted_date}}</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- The stages. -->
+        <div class="pitch-media-files">
+          <!-- Section title. -->
+          <div class="egg-campaign-stages-title-top">
+            <div class="header-text-style small">Pitch media files</div>
+            <div class="paragraph-text-style">
+              Speed through media files attached in this pitch.
+            </div>
+
+            <div class="media-files">
+              <div
+                class="media-file"
+                *ngFor="let mediaFile of this.mediaFiles"
+                [style.background-image]="'url(' + mediaFile.url + ')'"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-milestones-band
+        *ngIf="false"
+        [milestones]="this.data?.milestones"
+      ></app-milestones-band>
+
+      <app-hetchers-list
+        class="ten-column-hetcher-grid"
+        title="Pitch contributors"
+        [hetchers]="this.hetchers"
+        [fourGridFormat]="false"
+      >
+      </app-hetchers-list>
+
+      <div class="tab-selector-section">
+        <div class="tabs">
+          <a
+            class="tab no-decoration header-text-style smaller"
+            [attr.isActiveTab]="this.activeTab === 'about'"
+            (click)="this.setActiveTab('about')"
+            >Story</a
+          >
+          <a
+            class="tab no-decoration header-text-style smaller"
+            [attr.isActiveTab]="this.activeTab === 'community'"
+            (click)="this.setActiveTab('community')"
+            >Comments ({{this.data?.comments.length}})</a
+          >
+          <a
+            class="tab no-decoration header-text-style smaller"
+            [attr.isActiveTab]="this.activeTab === 'resources'"
+            (click)="this.setActiveTab('resources')"
+            >Frequently Asked Questions ({{this.data?.faqs.length}})</a
+          >
+        </div>
+
+        <div class="campaign-statistics">
+          <div class="statistic" data-title="Progress contributed.">
+            <span class="value smaller"
+              >{{( (this.data?.hetched_funds / this.data?.hetching_goal) * 100
+              )?.toFixed(2) || 0 }}%</span
+            >
+            <div class="name">Progress</div>
+          </div>
+
+          <div class="statistic" data-title="Funds raised.">
+            <span class="value smaller currency-selectable"
+              >{{this.currencyResolver.translate(this.data?.hetched_funds)}}</span
+            >
+            <div class="name">Funded</div>
+          </div>
+
+          <div class="statistic" data-title="Target funding.">
+            <span class="value smaller currency-selectable"
+              >{{this.currencyResolver.translate(this.data?.hetching_goal)}}</span
+            >
+            <div class="name">Goal</div>
+          </div>
+
+          <div class="statistic" data-title="Total contribution made.">
+            <span class="value smaller">{{this.data?.hetchers.length}}</span>
+            <div class="name">Contributions</div>
+          </div>
+
+          <div class="hetching-progress">
+            <div
+              class="hetching-progress-current"
+              [style.width]="(this.data?.hetched_funds_perc >= 100
+              ? 100
+              : this.data?.hetched_funds_perc) +
+            '%'"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-body-section">
+        <!-- View of the currently opened Tab. -->
+        <div class="selected-tab-view">
+          <div class="story-tab tab-view" *ngIf="this.activeTab === 'about'">
+            <app-rich-text-editor
+              [isReadOnly]="true"
+              [isAwaitData]="true"
+              #StoryBody
+            ></app-rich-text-editor>
+          </div>
+
+          <div class="community-tab" *ngIf="this.activeTab === 'community'">
+            <app-comments-section
+              [comments]="this.comments"
+              [pitchKey]="this.eggKey"
+              [isDisabled]="!(this.data?.hetchers.includes(this.sessionService.data?.email_address) || this.data?.curator === this.sessionService.data?.email_address || this.data?.other_curators.includes(this.sessionService.data?.email_address))"
+            ></app-comments-section>
+          </div>
+          <div class="resources-tab" *ngIf="this.activeTab === 'resources'">
+            <app-faqs [faqs]="this.data?.faqs"></app-faqs>
+          </div>
+        </div>
+
+        <!-- Stats and Information of the campaign egg. -->
+        <div class="campaign-information-stats" data-title="Pitch verified">
+          <!-- A short-description why the campany deserves the funding. -->
+          <div class="egg-campaign-name">
+            <div class="paragraph-text-style">Pitch reviewed by:</div>
+            <div class="header-text-style smaller">
+              Libby Lebyane
+              <ion-icon name="checkmark-circle-sharp"></ion-icon>
+            </div>
+          </div>
+
+          <div class="egg-campaign-name">
+            <div class="paragraph-text-style">Reward delivery rate:</div>
+            <div class="header-text-style smaller">
+              88% Gauranteed
+              <ion-icon name="rocket-sharp"></ion-icon>
+            </div>
+          </div>
+
+          <div class="egg-campaign-name">
+            <div class="paragraph-text-style">Comment response rate:</div>
+            <div class="header-text-style smaller">
+              92% Fast
+              <ion-icon name="chatbox-ellipses-sharp"></ion-icon>
+            </div>
+          </div>
+
+          <!-- Curator information: Admin of the campaign egg -->
+          <app-hetchers-list
+            class="curators"
+            title="Pitch curators"
+            [hetchers]="this.curators"
+            [fourGridFormat]="true"
+          >
+          </app-hetchers-list>
+        </div>
+      </div>
+
+      <div class="sticky-funding-button">
+        <div class="pitch-buttons">
+          <button class="pledge icon-button" (click)="this.commitPledge()">
+            <ion-icon name="hand-right-sharp"></ion-icon>
+            Contribute to this Pitch
+          </button>
+
+          <button
+            [class]="(this.isbookmarked ? 'danger-text-style' : 'theme-text-style') + ' icon-button'"
+            [attr.data-is-bookmarked]="this.isbookmarked"
+            (click)="this.bookmark()"
+          >
+            <ion-icon
+              [name]="this.isbookmarked ? 'heart' : 'heart-outline'"
+            ></ion-icon>
+
+            {{ this.isbookmarked ? "Remove follow" : "Add follow"}}
+            <div class="spinner small" *ngIf="this.isLoadingBookmark"></div>
+          </button>
+        </div>
+
+        <!-- TO SHARE THE CONTRACT ON OTHER PLATFORMS. -->
+        <app-social-buttons
+          [pitch_name]="this.data?.funding_purpose || this.data?.name"
+          [pitch_key]="this.data?.key"
+        ></app-social-buttons>
+      </div>
+
+      <div class="related-egg-campaigns">
+        <div
+          class="header-text-style"
+          *ngIf="this.isLoadingRelated == false && this.related.length != 0"
+        >
+          Similar pitches
+        </div>
+        <div class="paragraph-text-style" *ngIf="this.related.length > 0">
+          With keywords of this campaign here are related pitches.
+        </div>
+
+        <div
+          class="paragraph-text-style text-loader"
+          *ngIf="this.isLoadingRelated"
+        >
+          Loading related
+        </div>
+
+        <div class="page-eggs-layout" *ngIf="this.related.length > 0">
+          <app-egg
+            *ngFor="let related of this.related"
+            [data]="related"
+          ></app-egg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

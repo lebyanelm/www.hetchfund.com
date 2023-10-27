@@ -1,0 +1,346 @@
+<ion-content>
+  <app-header [hasBackground]="true"></app-header>
+
+  <!-- Header that shows the steps of the pitch creation process -->
+  <app-pitch-create-steps
+    [step]="4"
+    [draftProgress]="this.draft?.draft_progress"
+  ></app-pitch-create-steps>
+
+  <div class="page-content content-wrapper">
+    <div class="header-text-style">Rewards</div>
+    <div class="field-status">(REQUIRED)</div>
+
+    <div class="paragraph-text-style flexbox flexbox-center">
+      <ion-icon name="information-circle"></ion-icon>
+
+      Setup rewards, perks and benefits that your funders will recieve for
+      funding a contribution on your pitch.
+
+      <div class="readmore" hidden>
+        As a business owner seeking funding for a contribution on a pitch, it is
+        important to establish rewards, perks, and benefits that will
+        incentivize funders to invest in your project.
+
+        <br />
+        You could offer exclusive perks such as early access to the product or
+        service being developed, discounted prices, or free upgrades. This would
+        add value to the investment and encourage funders to commit to your
+        project. Thirdly, you could offer non-financial benefits such as
+        recognition, brand exposure, or networking opportunities. For example,
+        you could publicly acknowledge the contribution of your funders on your
+        website or social media channels, or feature their logo or name in your
+        marketing materials. This would provide exposure for their brand and
+        build goodwill towards your business.
+
+        <br />
+        Finally, you could offer personalized rewards tailored to individual
+        funders, such as personalized thank you notes or exclusive merchandise.
+        This would show your appreciation for their support and make them feel
+        valued as a contributor to your project. In summary, by offering a
+        combination of financial incentives, exclusive perks, non-financial
+        benefits, and personalized rewards, you can create a compelling package
+        that will motivate funders to invest in your project and help you
+        achieve your business goals.
+      </div>
+    </div>
+
+    <!-- Pitch name and brief description -->
+    <div class="field-section">
+      <div class="field-section-description">
+        <div class="field-name">
+          Reward title, brief description, and contribution amount
+        </div>
+        <div class="paragraph-text-style field-description">
+          A name or title of the reward that you are offering to funders in
+          exchange for their support, a short summary highlighting the key
+          features, benefits, and value proposition and the minimum amount that
+          funders need to commit in order to receive the reward.
+        </div>
+      </div>
+
+      <div class="field-section-input">
+        <div class="formfield">
+          <label for="">Reward title</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+            <textarea
+              class="larger"
+              type="text"
+              rows="1"
+              placeholder="e.g. Early Bird Special"
+              [(ngModel)]="this.rewardTitle"
+              #RewardTitle
+            ></textarea>
+          </div>
+          <div class="paragraph-text-style">
+            <ion-icon name="information-circle"></ion-icon>
+
+            A reward title should be concise, catchy, and descriptive of the
+            benefits that funders will receive. Be creative.
+          </div>
+        </div>
+
+        <br />
+        <div class="formfield">
+          <label for="">Reward description</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+            <textarea
+              class="larger"
+              type="text"
+              rows="3"
+              placeholder="e.g. For a contribution of R5 or more, you'll get early access to our product or service before it's available to the public."
+              [(ngModel)]="this.rewardDescription"
+              #BriefDescription
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Reward availability</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+            <select [(ngModel)]="this.rewardAvailability" #RewardAvailability>
+              <option value="available">Available in larger stock</option>
+              <option value="limited">Limited stock</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Ships to</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+            <select [(ngModel)]="this.rewardShipsTo" #RewardShipping>
+              <option value="anywhere">Reward ships to anywhere</option>
+              <option value="limited">
+                Reward shipping limited to certain areas
+              </option>
+              <option value="restricted">
+                Reward shipping strictly limited to country of origin
+              </option>
+            </select>
+          </div>
+
+          <div class="paragraph-text-style">
+            <ion-icon name="information-circle"></ion-icon>
+
+            Due to costs it may be necessary to limit the areas you ship rewards
+            to.
+            <i
+              ><b
+                >NB: But it's recommended that you cater for everyone willing to
+                fund your pitch.</b
+              ></i
+            >
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Available quantity</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+            <input
+              class="larger"
+              type="number"
+              placeholder="e.g. 5"
+              [(ngModel)]="this.availableQuantity"
+              #AvailableQuantity
+            />
+          </div>
+        </div>
+
+        <br />
+        <div class="formfield">
+          <label for=""
+            >Contribution amount (digits only, in ZAR currency)</label
+          >
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+            <textarea
+              class="larger"
+              type="text"
+              rows="1"
+              placeholder="e.g. 5"
+              [(ngModel)]="this.rewardContributionAmount"
+              #ContributionAmount
+            ></textarea>
+          </div>
+        </div>
+
+        <br />
+        <div class="formfield">
+          <label for=""
+            >Reward thumbnail (optional)
+            <span
+              class="thumbnail-status"
+              [attr.data-is-uploaded]="this.isUploadedRewardThumbnail === true || this.rewardThumbnail ? 'uploaded' : (this.isUploadingRewardThumbnail ?
+              'uploading' : 'error')"
+              *ngIf="RewardThumbnail.files.length === 1 || this.rewardThumbnail"
+              ><ion-icon
+                [name]="this.isUploadedRewardThumbnail === true || this.rewardThumbnail ? 'checkmark' : (this.isUploadingRewardThumbnail ? '' : 'close')"
+              ></ion-icon>
+              <span
+                >{{this.isUploadedRewardThumbnail === true ||
+                this.rewardThumbnail ? this.rewardThumbnail.filename :
+                (this.isUploadingRewardThumbnail ? 'Uploading thumbnail...' :
+                'Something went wrong.')}}</span
+              ></span
+            ></label
+          >
+          <div class="field-status optional">(OPTIONAL | RECOMMENDED)</div>
+
+          <div class="input-container">
+            <input
+              class="larger"
+              type="file"
+              placeholder="Please select a reward thumbnail image."
+              [disabled]="this.isUploadingRewardThumbnail"
+              #RewardThumbnail
+            />
+          </div>
+
+          <div class="paragraph-text-style">
+            This refers to the thumbnail image that represents the reward you're
+            promising to fulful to your potential funders.
+            <b>Recommended: </b> Potential funders may be motivated to fund your
+            pitch if they can visually see what they benefit from the
+            contribution.
+          </div>
+
+          <br />
+        </div>
+
+        <!-- Button to add the milestones or archievement -->
+        <div>
+          <button
+            (click)="this.addReward()"
+            [disabled]="(this.rewardTitle?.length == 0 && this.rewardDescription?.length == 0 && this.rewardContributionAmount?.length > 0 && this.window.isNaN(this.window.parseFloat(this.rewardContributionAmount))) || this.isEditMode || this.isUploadingRewardThumbnail"
+          >
+            Add reward
+          </button>
+
+          <button (click)="this.saveRewardEdits()" *ngIf="this.isEditMode">
+            Save reward edits
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-section">
+      <div class="field-section-description"></div>
+      <div class="field-section-input">
+        <div class="header-text-style small">
+          Added rewards (ones you added so far).
+        </div>
+
+        <div class="contribution-preview">
+          <div class="paragraph-text-style">
+            This is how your funders will see the rewards you've added.
+          </div>
+
+          <!-- Contribution options -->
+          <div class="reward-options contribution-options">
+            <i class="paragraph-text-style" *ngIf="this.rewards.length == 0">
+              <br />
+              No rewards added yet. Enter reward details and click (Add reward
+              to record)</i
+            >
+
+            <br />
+            <div
+              class="contribution-option"
+              *ngFor="let reward of this.rewards"
+              [attr.data-is-selected-edit]="this.selectedEditId == reward.id"
+              [attr.data-is-edit-mode]="this.isEditMode"
+            >
+              <!-- Levels which the hetcher will receive for funding this egg -->
+              <div class="option-level">
+                <div class="level">
+                  +{{ (this.rewards.indexOf(reward) + 1) * 4 }}
+                </div>
+                <div class="name">Reputation</div>
+              </div>
+
+              <div class="option-content">
+                <!-- Title of the reward, contribution amount included. -->
+                <div class="contribution-amount">
+                  {{ reward.name + " - " }}
+                  <b
+                    >{{ this.currencyService.format(reward.contribution_amount)
+                    }} or above</b
+                  >
+                </div>
+
+                <!-- Description of the reward. -->
+                <div class="paragraph-text-style option-rewards">
+                  {{ reward.description }}
+                </div>
+
+                <!-- Attributes that assist the funders to know what to expect from the rewards. -->
+                <div class="reward-attribute-pills">
+                  <!-- Availability of the reward. -->
+                  <div
+                    class="reward-attribute-pill"
+                    [title]='reward.availability == "limited" ? "Rewards with this attribute means they are limited in stock and are not gauranteed to everyone funding the pitch." :
+                  "Reward available in unlimited stocks to funders of the pitch."'
+                  >
+                    {{ reward.availability == "limited" ? "Reward stock limited"
+                    : "Reward stock unlimited" }}
+                  </div>
+
+                  <!-- Availability of shipping of the reward. -->
+                  <div
+                    class="reward-attribute-pill"
+                    [title]='reward.ships_to == "anywhere" ? "Reward shipping can be commited to anywhere internationally without any restrictions. Remember: Hetchfund does not gaurantee rewards, its the pitch owners responsibility to keep you updated." :
+                  (reward.ships_to == "limited" ? "Reward shipping is limited to certain areas, pitch curators should update you if you will qualify for the reward. Remember: Regardless of of recieving a reward funding a pitch goes a long way to assist startups." :
+                  "Reward shipping limited to the country pitch is published from, eg. Country of pitch may be South Africa.")'
+                  >
+                    {{ reward.ships_to == "anywhere" ? "Ships to anywhere" :
+                    (reward.ships_to == "limited" ? "Ships to limited areas" :
+                    "Reward limited to country of pitch.") }}
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="option-image"
+                [style.background]="'url(' + reward.thumbnail + ')'"
+              ></div>
+
+              <div
+                class="contribution-edit-button"
+                (click)="this.editReward(reward.id)"
+              >
+                Edit reward
+              </div>
+
+              <div
+                class="contribution-delete-button"
+                (click)="this.deleteReward(reward.id)"
+              >
+                Delete reward
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-create-bottom-footer
+      [key]="this.draft_key"
+      [progress]="this.draft"
+      [save]="this.setRewards"
+      [binder]="this"
+    ></app-create-bottom-footer>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

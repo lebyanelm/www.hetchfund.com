@@ -1,0 +1,236 @@
+<ion-content>
+  <app-header></app-header>
+
+  <div class="page-content">
+    <!-- Section seperator -->
+    <section class="content-wrapper">
+      <div *ngIf="this.isLoading">
+        <div class="header-text-style underlined">Hetcher profile</div>
+        <span class="paragraph-text-style text-loader"
+          >Loading hetcher profile</span
+        >
+        <br />
+      </div>
+
+      <div *ngIf="!this.isLoading && !this.isFound">
+        <div class="header-text-style">Hetcher profile not found</div>
+        <span class="paragraph-text-style"
+          >Seems we don't have the hetcher profile in record.</span
+        >
+        <br />
+      </div>
+
+      <div class="hetcher-information-container" *ngIf="isFound">
+        <div class="hetcher-details-avatar">
+          <div
+            class="hetcher-avatar"
+            [style]="'background-image: url(' + this.hetcher?.profile_image + ')'"
+            [attr.isChangable]="this.hetcher?.username === this.sessionService.data?.username"
+            (click)="this.chooseNewAvatarFile()"
+          >
+            <span
+              *ngIf="this.hetcher?.username === this.sessionService.data?.username"
+              >Change</span
+            >
+          </div>
+
+          <div class="hetcher-minimal-details">
+            <div
+              class="hetcher-name header-text-style small"
+              [contentEditable]="this.isEditingProfile"
+            >
+              {{this.hetcher?.display_name}}
+              <!-- Toggle editing and changing the profile. -->
+              <a
+                class="button"
+                data-title="Edit your profile"
+                (click)="this.showEditProfileModal()"
+                *ngIf="this.hetcher?.username === this.sessionService.data?.username"
+              >
+                Edit profile
+              </a>
+
+              <!-- Following and unfollowing other hetchers. -->
+              <button
+                class="secondary"
+                [title]="!this.sessionService.data?.follows?.includes(this.hetcher._id) ? 'Get updates from hetcher campaigns' : 'Stop getting updates from this hetcher'"
+                [attr.isUnfollow]="this.sessionService.data?.follows?.includes(this.hetcher._id)"
+                (click)="this.followHetcher()"
+                *ngIf="this.hetcher?.username !== this.sessionService.data?.username"
+              >
+                {{!this.sessionService.data?.follows?.includes(this.hetcher._id)
+                ? "Follow" : "Unfollow"}}
+              </button>
+            </div>
+            <div class="hetcher-title">
+              <span
+                >{{this.hetcher?.occupation}}{{this.hetcher?.is_collective ? "s"
+                : ""}}</span
+              >
+              <i
+                >{{this.hetcher?.occupation && (this.hetcher?.nationality ||
+                this.hetcher?.home_city) ? " in " : "" }}</i
+              >
+              <span
+                >{{this.hetcher?.nationality}}{{this.hetcher?.nationality &&
+                this.hetcher?.home_city ? "," : "" }}
+                {{this.hetcher?.home_city}}</span
+              >
+            </div>
+          </div>
+
+          <div class="hetcher-follow-stats">
+            <div class="hetcher-followers">
+              <div class="value">{{this.hetcher?.followers.length}}</div>
+              <div class="name"><a>Followers</a></div>
+            </div>
+            <div class="hetcher-followers">
+              <div class="value">{{this.hetcher?.follows.length}}</div>
+              <div class="name"><a>Following</a></div>
+            </div>
+            <div class="hetcher-followers">
+              <div class="value">
+                +{{this.hetcher?.pitches_funded.length}}{{this.determineLevelEnding(this.hetcher?.pitches_funded.length)}}
+              </div>
+              <div class="name"><a>Reputation</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hetcher-bio-description">
+          <div class="header-text-style small">About me</div>
+          <span class="hetcher-bio">
+            {{this.hetcher?.biography || "No biography for this hetcher."}}
+          </span>
+        </div>
+      </div>
+
+      <div class="curated-egg-campaigns" *ngIf="isFound">
+        <div></div>
+        <div class="page-eggs">
+          <div class="tabs">
+            <a
+              class="header-text-style colored small no-decoration"
+              [attr.isFocused]="this.currentTab === 'issued-pitches'"
+              (click)="this.focusTab('issued-pitches')"
+            >
+              Issued pitches
+              <span> ({{this.pitches_issued.length}})</span>
+            </a>
+
+            <a
+              class="header-text-style small no-decoration"
+              (click)="this.focusTab('bookmarked-pitches')"
+              [attr.isFocused]="this.currentTab === 'bookmarked-pitches'"
+            >
+              Bookmarked pitches
+              <span> ({{this.pitches_bookmarked.length}})</span>
+            </a>
+
+            <a
+              class="header-text-style small no-decoration"
+              (click)="this.focusTab('drafted-pitches')"
+              [attr.isFocused]="this.currentTab === 'drafted-pitches'"
+            >
+              My draft pitches
+              <span> ({{this.pitches_drafted.length}})</span>
+            </a>
+
+            <a
+              class="header-text-style small no-decoration"
+              (click)="this.focusTab('supported-pitches')"
+              [attr.isFocused]="this.currentTab === 'supported-pitches'"
+            >
+              Supporting pitches
+              <span> ({{this.pitches_supported.length}})</span>
+            </a>
+          </div>
+
+          <div class="">
+            <!-- ISSUED CONTRACTS -->
+            <div
+              class="tab-layout page-eggs-layout issued-pitches"
+              id="issued-pitches"
+            >
+              <div
+                class="illustration-message"
+                *ngIf="this.pitches_issued.length === 0"
+              >
+                <span class="header-text-style small"
+                  >You have not "issued" any pitches yet.</span
+                >
+                <img src="/assets/illustrations/not_found.svg" alt="" />
+              </div>
+              <app-egg
+                *ngFor="let pitch of this?.pitches_issued"
+                ref="profile-page"
+                [data]="pitch"
+              ></app-egg>
+            </div>
+
+            <!-- BOOKMAKED CONTRACTS -->
+            <div
+              class="tab-layout page-eggs-layout issued-pitches"
+              id="bookmarked-pitches"
+            >
+              <div
+                class="illustration-message"
+                *ngIf="this.pitches_bookmarked.length === 0"
+              >
+                <span class="header-text-style small"
+                  >You have not "bookmarked" any pitches yet.</span
+                >
+                <img src="/assets/illustrations/not_found.svg" alt="" />
+              </div>
+              <app-egg
+                *ngFor="let pitch of this?.pitches_bookmarked"
+                [data]="pitch"
+              ></app-egg>
+            </div>
+
+            <!-- DRAFTED CONTRACTS -->
+            <div
+              class="tab-layout page-eggs-layout issued-pitches"
+              id="drafted-pitches"
+            >
+              <div
+                class="illustration-message"
+                *ngIf="this.pitches_drafted.length === 0"
+              >
+                <span class="header-text-style small"
+                  >You have not "drafted" any pitches yet.</span
+                >
+                <img src="/assets/illustrations/not_found.svg" alt="" />
+              </div>
+              <app-egg
+                *ngFor="let pitch of this?.pitches_drafted"
+                [data]="pitch"
+              ></app-egg>
+            </div>
+
+            <!-- SUPPORTED CONTRACTS -->
+            <div
+              class="tab-layout page-eggs-layout issued-pitches"
+              id="supported-pitches"
+            >
+              <div
+                class="illustration-message"
+                *ngIf="this?.pitches_supported?.length === 0"
+              >
+                <span class="header-text-style small"
+                  >You have not "supported" any pitches yet.</span
+                >
+                <img src="/assets/illustrations/not_found.svg" alt="" />
+              </div>
+              <app-egg
+                *ngFor="let pitch of this?.pitches_supported"
+                [data]="pitch"
+              ></app-egg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <app-footer></app-footer>
+</ion-content>

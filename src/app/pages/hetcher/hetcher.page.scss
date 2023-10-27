@@ -1,0 +1,188 @@
+@import "../../../variables.scss";
+
+// HETCHER INFORMATION CONTAINER
+.hetcher-information-container {
+  display: flex;
+  gap: $_20_SPACING_SIZE;
+  margin: $_20_SPACING_SIZE 0;
+}
+
+.hetcher-information-container > *:first-child {
+  flex: 0.4;
+}
+
+.hetcher-information-container > *:last-child {
+  flex: 0.6;
+}
+
+// HETCHER AVATAR
+.hetcher-information-container .hetcher-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+  // background: $LIGHT_COLOR;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  font-weight: 900;
+  color: $WHITE_COLOR;
+  border-radius: 100px;
+  // border: 2px dashed $DARK_COLOR;
+}
+
+.hetcher-information-container .hetcher-avatar[ischangable="true"] {
+  cursor: pointer;
+}
+
+.hetcher-information-container .hetcher-avatar[ischangable="true"]::after {
+  content: "";
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: transparentize($DARK_COLOR, 0.4);
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hetcher-information-container .hetcher-avatar[ischangable="true"] span {
+  position: absolute;
+  z-index: 10;
+}
+
+.hetcher-information-container .hetcher-avatar[ischangable="true"]::after,
+.hetcher-information-container .hetcher-avatar[ischangable="true"] span {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.hetcher-information-container .hetcher-avatar[ischangable="true"]:hover::after,
+.hetcher-information-container .hetcher-avatar[ischangable="true"]:hover span {
+  opacity: 1;
+}
+
+// THE NAME OF THE HETCHER AND POSITION TITLE
+.hetcher-information-container .hetcher-minimal-details {
+  margin: $_10_SPACING_SIZE 0;
+  padding: $_10_SPACING_SIZE 0;
+  border-bottom: $BORDER;
+}
+
+.hetcher-information-container .hetcher-title,
+.hetcher-information-container .hetcher-follow-stats .name,
+.hetcher-information-container .hetcher-name {
+  text-transform: capitalize;
+}
+
+.hetcher-information-container .hetcher-name {
+  display: flex;
+  outline: none;
+  align-items: center;
+  align-self: flex-start;
+  gap: 20px;
+  color: $THEME_COLOR;
+  transition: color, background 300ms ease;
+  cursor: pointer;
+}
+
+.hetcher-information-container .hetcher-name a {
+  transform: translateY(3px);
+  font-size: 16px !important;
+}
+
+.hetcher-information-container .hetcher-name[contenteditable="true"] {
+  border: $BORDER;
+  border-color: $THEME_COLOR;
+  padding: $_10_SPACING_SIZE $_10_SPACING_SIZE;
+}
+
+.hetcher-information-container .hetcher-name span {
+  font-size: small;
+}
+
+.hetcher-information-container .hetcher-name .edit-profile-button {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: $DARK_COLOR;
+}
+
+.hetcher-information-container .hetcher-name .edit-profile-button:hover {
+  text-decoration-thickness: 1.5px;
+}
+
+.hetcher-information-container
+  .hetcher-name
+  .edit-profile-button[isunfollow="true"] {
+  color: $DANGER_COLOR;
+}
+
+.hetcher-information-container .hetcher-name ion-icon:hover {
+  color: $THEME_COLOR;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.hetcher-information-container .hetcher-title *,
+.hetcher-information-container .hetcher-follow-stats .name * {
+  font-size: small;
+  color: transparentize($DARK_COLOR, 0.4);
+}
+
+// HETCHER FOLLOW/FOLLOWING STATS
+.hetcher-information-container .hetcher-follow-stats {
+  display: flex;
+  align-items: center;
+  margin: 0 0;
+  gap: $_20_SPACING_SIZE;
+}
+
+.hetcher-information-container .hetcher-follow-stats .hetcher-followers {
+  display: flex;
+  flex-direction: column;
+}
+
+.hetcher-information-container .hetcher-follow-stats .value {
+  font-weight: 900;
+  font-family: "Arial Black", sans-serif;
+  font-size: larger;
+}
+
+// HETCHER BIO
+.hetcher-information-container .hetcher-bio {
+  display: block;
+  margin-top: 10px;
+  color: transparentize($DARK_COLOR, 0.2);
+}
+
+// LISTED CURATED CAMPAIGN EGGS
+.tabs {
+  display: flex;
+  gap: $_20_SPACING_SIZE;
+  align-items: center;
+  margin-bottom: $_10_SPACING_SIZE;
+  border-bottom: $BORDER;
+}
+
+.tabs a {
+  // padding-bottom: $_10_SPACING_SIZE;
+  color: $DARK_COLOR;
+  border-bottom: 10px solid transparent;
+}
+
+.tabs a:hover,
+.tabs a[isFocused="true"] {
+  border-color: $DARK_COLOR;
+}
+
+.curated-egg-campaigns {
+  margin: calc($_20_SPACING_SIZE * 2) 0;
+}
+
+.tab-layout {
+  display: none;
+  width: 100%;
+}

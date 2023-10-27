@@ -1,0 +1,58 @@
+@import "../../../variables.scss";
+
+// CROSSPLATFORM HEADER
+.header-container {
+  display: flex;
+  position: relative;
+  padding: 20px;
+  align-items: center;
+  gap: 20px;
+  background: $DARK_COLOR;
+  border-bottom: $BORDER !important;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+
+  * {
+    color: $LIGHT_COLOR;
+  }
+
+  .hamburger-menu-button {
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  .hamburger-menu-button .hamburger-line {
+    display: block;
+    height: 3px;
+    width: 20px;
+    background: $LIGHT_COLOR;
+
+    &:first-child {
+      margin-bottom: 5px;
+    }
+  }
+
+  .hetchfund-header-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden;
+
+    img {
+      height: 30px;
+    }
+  }
+
+  .search-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+.header-container[data-is-logovisible="true"] {
+  .hetchfund-header-logo {
+    visibility: visible;
+  }
+}

@@ -1,0 +1,196 @@
+<div class="steps-header">
+  <div class="flexbox-space"></div>
+
+  <a
+    (click)="this.navigateTo('/pitches/create/basics')"
+    class="step no-decoration"
+    [attr.is-current]="this.step === 1"
+  >
+    <span
+      >Basics
+      <ion-icon
+        *ngIf="this.draftProgress?.basic?.has_unread_reviews"
+        class="danger-text-style"
+        name="ellipse"
+      ></ion-icon
+    ></span>
+    <div
+      class="status"
+      [attr.data-required]="this.draftProgress?.basic.required"
+      [attr.data-status]="this.draftProgress?.basic.value"
+    >
+      {{
+        this.draftProgress?.basic.required
+          ? this.draftProgress?.basic.value
+            ? "Complete"
+            : "Incomplete"
+          : "Optional"
+      }}
+    </div>
+  </a>
+
+  <a
+    (click)="this.navigateTo('/pitches/create/story')"
+    class="step no-decoration"
+    [attr.is-current]="this.step === 2"
+  >
+    <span
+      >Story
+      <ion-icon
+        *ngIf="this.draftProgress?.story?.has_unread_reviews"
+        class="danger-text-style"
+        name="ellipse"
+      ></ion-icon
+    ></span>
+    <div
+      class="status"
+      [attr.data-required]="this.draftProgress?.story.required"
+      [attr.data-status]="this.draftProgress?.story.value"
+    >
+      {{
+        this.draftProgress?.story.required
+          ? this.draftProgress?.story.value
+            ? "Complete"
+            : "Incomplete"
+          : "Optional"
+      }}
+    </div>
+  </a>
+
+  <a
+    (click)="this.navigateTo('/pitches/create/finances')"
+    class="step no-decoration"
+    [attr.is-current]="this.step === 3"
+  >
+    <span
+      >Finances
+      <ion-icon
+        *ngIf="this.draftProgress?.finances?.has_unread_reviews"
+        class="danger-text-style"
+        name="ellipse"
+      ></ion-icon
+    ></span>
+    <div
+      class="status"
+      [attr.data-required]="this.draftProgress?.finances.required"
+      [attr.data-status]="this.draftProgress?.finances.value"
+    >
+      {{
+        this.draftProgress?.finances.required
+          ? this.draftProgress?.finances.value
+            ? "Complete"
+            : "Incomplete"
+          : "Optional"
+      }}
+    </div>
+  </a>
+
+  <a
+    (click)="this.navigateTo('/pitches/create/rewards')"
+    class="step no-decoration"
+    [attr.data-required]="this.draftProgress?.review.required"
+    [attr.data-status]="this.draftProgress?.review.value"
+    [attr.is-current]="this.step === 4"
+  >
+    <span
+      >Rewards
+      <ion-icon
+        *ngIf="this.draftProgress?.rewards?.has_unread_reviews"
+        class="danger-text-style"
+        name="ellipse"
+      ></ion-icon
+    ></span>
+    <div
+      class="status"
+      [attr.data-required]="this.draftProgress?.rewards.required"
+      [attr.data-status]="this.draftProgress?.rewards.value"
+    >
+      {{
+        this.draftProgress?.rewards.required
+          ? this.draftProgress?.rewards.value
+            ? "Complete"
+            : "Incomplete"
+          : "Optional"
+      }}
+    </div>
+  </a>
+
+  <a
+    (click)="this.navigateTo('/pitches/create/curators')"
+    class="step no-decoration"
+    [attr.is-current]="this.step === 5"
+  >
+    <span
+      >Curators
+      <ion-icon
+        *ngIf="this.draftProgress?.curators?.has_unread_reviews"
+        class="danger-text-style"
+        name="ellipse"
+      ></ion-icon
+    ></span>
+    <div
+      class="status"
+      [attr.data-required]="this.draftProgress?.curators.required"
+      [attr.data-status]="this.draftProgress?.curators.value"
+    >
+      {{
+        this.draftProgress?.curators.required
+          ? this.draftProgress?.curators.value
+            ? "Complete"
+            : "Incomplete"
+          : "Optional"
+      }}
+    </div>
+  </a>
+
+  <a
+    (click)="this.navigateTo('/pitches/create/documentation')"
+    class="step no-decoration"
+    [attr.is-current]="this.step === 7"
+  >
+    <span
+      >Documentation
+      <ion-icon
+        *ngIf="this.draftProgress?.documentation?.has_unread_reviews"
+        class="danger-text-style"
+        name="ellipse"
+      ></ion-icon
+    ></span>
+    <div
+      class="status"
+      [attr.data-required]="this.draftProgress?.documentation.required"
+      [attr.data-status]="this.draftProgress?.documentation.value"
+    >
+      {{
+        this.draftProgress?.documentation.required
+          ? this.draftProgress?.documentation.value
+            ? "Complete"
+            : "Incomplete"
+          : "Optional"
+      }}
+    </div>
+  </a>
+
+  <a
+    (click)="this.navigateTo('/pitches/create/review')"
+    class="step no-decoration"
+    [attr.is-current]="this.step === 8"
+  >
+    <span>Review</span>
+    <div
+      class="status"
+      [attr.data-required]="this.draftProgress?.review.required"
+      [attr.data-status]="this.draftProgress?.review.value"
+    >
+      {{
+        this.draftProgress?.review.required
+          ? this.draftProgress?.basic.value
+            ? "Complete"
+            : "Incomplete"
+          : "Optional"
+      }}
+    </div>
+  </a>
+
+  <div class="flexbox-space"></div>
+</div>

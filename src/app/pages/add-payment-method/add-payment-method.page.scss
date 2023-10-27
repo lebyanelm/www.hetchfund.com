@@ -1,0 +1,50 @@
+@import "../../../variables.scss";
+
+// PAYMENT INFORMATION CONTAINER
+.payment-information-container {
+  display: flex;
+  gap: $_20_SPACING_SIZE;
+}
+
+.payment-information-container > * {
+  flex: 1;
+}
+
+input[hasError="true"],
+label[hasError="true"],
+span[hasError="true"] {
+  border-color: $DANGER_COLOR !important;
+  color: $DANGER_COLOR;
+}
+
+// INSTANT PAYMENT METHODS
+.payment-information-container .instant-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $_10_SPACING_SIZE;
+  margin: $_10_SPACING_SIZE 0;
+}
+
+// PAYMENTS DISCLAIMER
+.payments-disclaimer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: $_20_SPACING_SIZE;
+  background: transparentize($GRAY_COLOR, 0.5);
+  border-radius: 10px;
+}
+
+.payments-disclaimer .disclaimer-text {
+  margin-top: 10px;
+}
+
+.peach-payments-logo {
+  filter: grayscale(1);
+}
+
+// PAYMENT RESPONSE
+.response-error {
+  font-weight: 700 !important;
+}

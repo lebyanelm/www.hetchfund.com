@@ -1,0 +1,60 @@
+@import "../../../variables.scss";
+
+.article-wrapper {
+  display: grid;
+  width: 100%;
+  place-items: center;
+}
+
+// ARTICLE HEADER
+.back-button {
+  margin-bottom: $_20_SPACING_SIZE;
+}
+
+.article-header {
+  padding: $_20_SPACING_SIZE;
+  max-width: 60%;
+  height: auto;
+}
+
+.article-name {
+  font-size: 48px;
+  font-weight: 900;
+  font-family: "Archivo", $FONT_FAMILY;
+}
+
+.article-short-answer {
+  margin: 10px 0;
+}
+
+.article-short-answer b {
+  color: $SECONDARY_THEME_COLOR !important;
+}
+
+// ARTICLE BODY
+.article-body,
+.article-body app-rich-text-editor {
+  width: 100%;
+}
+
+// ARTICLE FOOTER
+.article-footer .article-footer-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $_20_SPACING_SIZE;
+  width: 100%;
+}
+
+.article-footer .article-footer-buttons button {
+  display: grid;
+  place-items: center;
+  height: 60px;
+  width: 60px;
+  border-radius: 50px;
+  border: $BORDER_THIN;
+}
+
+.article-footer .article-footer-buttons button ion-icon {
+  //   transform: translateY(-4px);
+}

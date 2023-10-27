@@ -1,0 +1,115 @@
+@import "../../../variables.scss";
+
+.support-portal-header-searchbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $_20_SPACING_SIZE;
+  height: auto;
+  width: 100%;
+  background: $THEME_COLOR;
+  padding: $_20_SPACING_SIZE;
+}
+
+.support-portal-header-searchbox * {
+  color: $WHITE_COLOR;
+}
+
+.support-portal-header-searchbox .search-input-container {
+  height: auto;
+  width: 80%;
+  background: $WHITE_COLOR;
+}
+
+.support-portal-header-searchbox .search-input-container input {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.support-portal-header-searchbox .search-input-container input,
+.support-portal-header-searchbox .search-input-container input::placeholder {
+  font-size: 42px;
+  font-weight: 600;
+}
+
+.support-portal-header-searchbox .search-input-container ion-icon {
+  font-size: 42px;
+  color: $DARK_COLOR;
+  position: absolute;
+  top: 0;
+  left: 20px;
+}
+
+// SUPPORT ARTICLES
+.support-portal-articles {
+  padding: $_20_SPACING_SIZE 0;
+}
+
+.support-portal-articles .articles-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: $_20_SPACING_SIZE;
+  margin: $_20_SPACING_SIZE 0;
+}
+
+.support-portal-articles .articles-content .article {
+  display: flex;
+  flex-direction: column;
+}
+
+.support-portal-articles .articles-content .article .thumbnail-container {
+  height: 150px;
+  width: 100%;
+  background: $GRAY_COLOR;
+  margin-bottom: $_10_SPACING_SIZE;
+  background-image: url(https://cdn.openart.ai/uploads/image_knhkoCT4_1695310397517_512.webp);
+  background-size: cover;
+  background-position: center;
+}
+
+.support-portal-articles
+  .articles-content
+  .article
+  .article-content
+  .article-category {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: small;
+  margin-bottom: 5px;
+}
+
+.article-content .article-main-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.article-content .article-main-author ion-icon {
+  font-size: 20px;
+  color: $SECONDARY_THEME_COLOR;
+}
+
+// TOPICS
+.topics {
+  text-align: center;
+}
+
+.topics-content {
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.topics .topic {
+  display: inline-block;
+  padding: 10px;
+  background: $THEME_COLOR;
+  font-weight: bold;
+  font-size: small;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-right: 10px;
+  color: $LIGHT_COLOR;
+}

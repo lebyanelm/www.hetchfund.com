@@ -1,0 +1,165 @@
+<div
+  class="comment-container"
+  [attr.data-isreply]="this.data?.reply_of !== undefined"
+>
+  <div class="comment">
+    <!-- AVATAR OF THE COMMENTOR. -->
+    <div class="commentor-avatar-container">
+      <div
+        class="commentor-avatar"
+        [style.background-image]="
+          'url(' + this.data?.commentor?.profile_image + ')'
+        "
+      ></div>
+    </div>
+
+    <!-- DETAILS OF THE COMMENT. -->
+    <div class="comment-details-container">
+      <!-- DETAILS OF THE COMMENTOR. -->
+      <div class="commentor-details">
+        <a class="commentor-name no-decoration">{{
+          this.data?.commentor?.display_name
+        }}</a>
+        <div
+          class="commentor-role contributor"
+          [attr.data-role]="this.data?.commentor?.role.replace(' ', '_')"
+        >
+          {{ this.data?.commentor?.role }}
+        </div>
+        <div class="flexbox-space"></div>
+        <a
+          class="danger-text-style delete-comment-button"
+          (click)="this.deleteMethod.bind(this.binder)(this.data?.key)"
+          *ngIf="
+            this.data?.commentor?.email_address ===
+            this.sessionService.data?.email_address
+          "
+          ><ion-icon name="trash-outline"></ion-icon
+        ></a>
+      </div>
+
+      <div class="comment-body">
+        <span class="comment-body-text">{{ this.data?.body }}</span>
+      </div>
+
+      <div class="comment-action-buttons">
+        <app-comment-action-buttons
+          [data]="this.data"
+        ></app-comment-action-buttons>
+      </div>
+
+      <!-- REPLIES. -->
+      <div class="comment-replies" *ngIf="this.isRepliesToggled">
+        <div
+          class="comment-container"
+          [attr.data-isreply]="reply.reply_of ? true : false"
+          *ngFor="let reply of this.replies"
+        >
+          <div class="comment">
+            <div class="commentor-avatar-container">
+              <div
+                class="commentor-avatar"
+                [style.background-image]="
+                  'url(' + reply.commentor?.profile_image + ')'
+                "
+              ></div>
+            </div>
+
+            <div class="comment-details-container">
+              <!-- DETAILS OF THE COMMENTOR. -->
+              <div class="commentor-details">
+                <a class="commentor-name no-decoration">{{
+                  reply.commentor?.display_name
+                }}</a>
+                <div class="commentor-role" [attr.data-role]="'pitch-owner'">
+                  {{ reply.commentor?.role }}
+                </div>
+
+                <div class="flexbox-space"></div>
+
+                <!-- REPLY DELETE BUTTON -->
+                <a
+                  class="danger-text-style delete-comment-button"
+                  (click)="
+                    this.deleteMethod.bind(this.binder)(
+                      this.data?.key,
+                      reply?.key
+                    )
+                  "
+                  *ngIf="
+                    this.data?.commentor?.email_address ===
+                      this.sessionService.data?.email_address && this.isDisabled
+                  "
+                  ><ion-icon name="trash-outline"></ion-icon
+                ></a>
+              </div>
+
+              <div class="comment-body">
+                <span class="comment-body-text">{{ reply.body }}</span>
+              </div>
+
+              <div class="comment-action-buttons">
+                <app-comment-action-buttons
+                  [data]="reply"
+                ></app-comment-action-buttons>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <span
+          class="paragraph-text-style italic"
+          *ngIf="this.data?.replies.length === 0"
+          >No replies in this comment.</span
+        >
+      </div>
+
+      <!-- TOGGLE REPLIES IN VIEW. -->
+      <a
+        class="expand-replies-button"
+        [attr.data-title]="
+          this.isRepliesToggled
+            ? 'Close all comment replies.'
+            : 'Show next 5 comment replies.'
+        "
+        (click)="this.loadReplies()"
+        >{{
+          this.isRepliesToggled &&
+          this.replies.length !== this.data?.replies.length
+            ? "Hide all replies"
+            : "Show more replies"
+        }}</a
+      >
+
+      <!-- REPLY INPUT. -->
+      <div
+        class="reply-inputbox-container"
+        *ngIf="this.isRepliesToggled === true"
+      >
+        <div class="formfields">
+          <div class="formfield">
+            <div class="input-container">
+              <textarea
+                name=""
+                id=""
+                cols="30"
+                rows="2"
+                [(ngModel)]="this.commentReplyBody"
+                placeholder="Please enter your reply. Please avoid unnecesary comments, ask something or suggest more to the pitch owner."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="replybox-buttons">
+          <button
+            class="icon-button reply-button"
+            (click)="this.postReplyComment()"
+          >
+            <ion-icon name="arrow-redo"></ion-icon>
+            Reply comment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

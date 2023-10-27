@@ -1,0 +1,86 @@
+<ion-content>
+  <app-header></app-header>
+
+  <div class="page-content">
+    <!-- Section seperator -->
+    <section class="content-wrapper">
+      <div class="header-text-style underlined">Search our pitches library</div>
+      <br />
+      <br />
+
+      <textarea
+        name="search"
+        rows="1"
+        placeholder="Enter search keywords..."
+        [value]="this.searchKey"
+        (keyup)="this.searchKey = SearchInput.value"
+        #SearchInput
+      ></textarea>
+
+      <section class="search-results" *ngIf="searchKey.length">
+        <br />
+        <div
+          class="paragraph-text-style"
+          *ngIf="!this.isLoadingResults && this.searchResults.length"
+        >
+          Showing {{this.totalResults}} search result{{this.searchResults.length
+          > 1 ? "s" : ""}} for
+          <strong>"{{searchKey}}"</strong>
+        </div>
+
+        <div
+          class="paragraph-text-style text-loader"
+          *ngIf="this.isLoadingResults"
+        >
+          Fetching relevent resutls
+        </div>
+
+        <div
+          class="paragraph-text-style"
+          *ngIf="!this.isLoadingResults && !this.searchResults.length"
+        >
+          No search results found for <strong>"{{searchKey}}"</strong>
+        </div>
+
+        <div class="page-eggs-layout">
+          <app-egg
+            *ngFor="let result of this.searchResults"
+            ref="search"
+            [data]="result"
+          ></app-egg>
+        </div>
+      </section>
+
+      <div class="pagination-links" *ngIf="this.searchResults.length">
+        <a href="" class="no-decoration" *ngFor="let page of this.totalResults"
+          >{{page}}</a
+        >
+
+        <a>Next</a>
+      </div>
+
+      <section class="popular-searches">
+        <div class="header-text-style small">
+          Explore trendy keywords and searches for pitches
+        </div>
+
+        <div class="searches">
+          <a
+            class="search"
+            [href]="'/search?keyword=' + search"
+            *ngFor="let search of this.trendingSearches"
+            >{{search}}</a
+          >
+
+          <span
+            class="text-loader paragraph-text-style"
+            *ngIf="this.trendingSearches.length === 0"
+            >Loading trending searches</span
+          >
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

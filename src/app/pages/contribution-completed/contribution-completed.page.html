@@ -1,0 +1,87 @@
+<ion-content>
+  <app-header [hasBackground]="true"></app-header>
+
+  <div class="page-content">
+    <div class="content-wrapper split">
+      <div class="left-side">
+        <div class="header-text-style circled">Contribution successful</div>
+        <br />
+        <br />
+        <div class="paragraph-text-style monospace"></div>
+
+        <br />
+
+        <div class="paragraph-text-style thank-you-note">
+          "Your belief in these projects helps build
+          <span style="color: #ffa500; font-weight: bold"
+            >a brighter future</span
+          >
+          for all. Thank you for being a cornerstone of our
+          <span style="color: #ffa500; font-weight: bold">mission.</span>"
+        </div>
+
+        <br />
+
+        <div class="paragraph-text-style italic">
+          <ion-icon name="information-circle"></ion-icon>
+          <b>Remember: </b>
+          <span
+            >Our commitment to keeping you informed remains steadfast throughout
+            this journey. We're here to guide you and ensure you're always in
+            the loop as we hit each milestone along the way. This includes not
+            only the progress of the pitch but also the delivery of rewards.
+            Your satisfaction is paramount, and we're dedicated to making sure
+            you're well-informed and we deem to your expectations at every step
+            of the process.</span
+          >
+        </div>
+
+        <div class="session-buttons" *ngIf="this.sessionService.sessionToken">
+          <button (click)="this.backToPitch()">Back to pitch</button>
+          <button (click)="this.goToHome()" class="secondary">
+            Fund more pitches
+          </button>
+        </div>
+
+        <div
+          class="no-session-buttons"
+          *ngIf="!this.sessionService.sessionToken"
+        >
+          <div>
+            <div class="formfields">
+              <div class="formfield">
+                <label for="">Enter your reward delivery address</label>
+                <div class="input-container">
+                  <input type="text" placeholder="eg. youremail@website.com" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button (click)="this.backToPitch()">
+            Subscribe to pitch updates
+          </button>
+          <button (click)="this.goToHome()" class="secondary">
+            Fund more pitches
+          </button>
+        </div>
+      </div>
+      <div class="right-side">
+        <img
+          src="/assets/illustrations/Charco_-_High_Five.svg"
+          alt="Checklist"
+        />
+      </div>
+    </div>
+
+    <div class="disclaimers">
+      <div class="paragraph-text-style">
+        All transactions are secured and safely processed with, Yoco.
+      </div>
+      <div class="policies-anchors">
+        <a href="">Our payment policy</a>
+        <a href="">Our third-party disclosures</a>
+      </div>
+    </div>
+  </div>
+</ion-content>

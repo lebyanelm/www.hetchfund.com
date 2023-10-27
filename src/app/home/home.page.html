@@ -1,0 +1,85 @@
+<ion-content>
+  <app-header highlightHeader="pitches"></app-header>
+
+  <div class="page-content">
+    <section class="pitches-tiles one-display-size dark-style content-wrapper">
+      <span class="pitches-subsection-label">Featured pitch</span>
+      <div class="pitch" *ngIf="this.featured !== null">
+        <div class="thumbnail-container">
+          <div
+            class="thumbnail"
+            [style.background-image]="'url(' + this.featured?.thumbnail_url + ')'"
+          ></div>
+        </div>
+        <div class="pitch-details">
+          <a
+            [href]="'/pitches/' + this.featured?.key"
+            class="header-text-style pitch-funding-purpose"
+          >
+            {{ this.featured?.funding_purpose }}
+          </a>
+
+          <div class="amount-funded-percentage">
+            <div>
+              <ins class="percentage-funded currency-selectable first"
+                >{{ this.featured?.hetched_funds_perc }}%</ins
+              >
+              <span class="gray-text-style"> OUT OF </span>
+              <ins
+                class="currency-selectable last"
+                (click)="this.currencyResolver.openCurrencySelectorModal()"
+                >{{
+                this.currencyResolver.translate(this.featured?.hetching_goal)
+                }}</ins
+              >
+              <span class="gray-text-style"> FUNDED</span>
+            </div>
+          </div>
+
+          <div class="funding-progress">
+            <div class="progress-total">
+              <div
+                class="progress-current"
+                [style.width]="(this.featured?.hetched_funds_perc >= 100 ? 100 : this.featured?.hetched_funds_perc) + '%'"
+              ></div>
+            </div>
+          </div>
+
+          <div class="pitch-description">
+            {{ this.featured?.brief_description }}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div
+      class="recommended-sections"
+      *ngFor="let section_name of this.recommended_sections"
+    >
+      <section
+        class="pitches-tiles one-display-size dark-style content-wrapper section-header"
+      >
+        <div class="header-text-style light-colored section-name">
+          {{section_name}}
+        </div>
+        <a
+          class="paragraph-text-style light-colored undecorated section-more"
+          [href]="'/categories/' + section_name"
+        >
+          View more
+        </a>
+      </section>
+      <div
+        class="page-eggs-layout dark-background-style default-padding-style content-wrapper"
+      >
+        <app-egg
+          *ngFor="let pitch_recommended of this.recommended[section_name]"
+          color_style="light"
+          [data]="pitch_recommended"
+        ></app-egg>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

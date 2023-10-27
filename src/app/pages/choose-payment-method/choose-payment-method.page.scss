@@ -1,0 +1,297 @@
+@import "../../../variables.scss";
+
+// PROJECT NAME
+.project-name {
+  font-weight: normal;
+}
+
+// PAYMENT METHOD
+.payment-methods-wrapper {
+  padding: $_20_SPACING_SIZE 0;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $_20_SPACING_SIZE;
+  background: $WHITE_COLOR;
+  border: $BORDER;
+  margin-bottom: $_10_SPACING_SIZE;
+  border-radius: $BORDER_RADIUS;
+  position: relative;
+}
+
+.payment-method:last-child {
+  padding-bottom: none !important;
+}
+
+.payment-method .payment-method-details {
+  flex: 0.6;
+}
+
+.payment-method .payment-method-credentials {
+  flex: 0.3;
+}
+
+.payment-method .payment-method-owner,
+.payment-method .payment-method-cvv {
+  display: inline-block;
+  font-weight: 900;
+  margin-bottom: 5px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.payment-method .payment-method-credentials {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.payment-method .payment-method-code,
+.payment-method .payment-method-exp {
+  font-family: "Fira Code", monospace;
+}
+
+// PAYMENT METHOD SELECTION\\
+.payment-method .selection-radio,
+.payment-method .payment-method-credentials {
+  transition: transform 250ms ease;
+}
+
+.payment-method:hover .selection-radio,
+.payment-method:hover .payment-method-credentials {
+  transform: translateX(-40px);
+}
+
+.payment-method:hover {
+  cursor: pointer;
+}
+
+.payment-method .selection-state {
+  height: 15px;
+  width: 15px;
+  border-radius: 50px;
+  border: $BORDER;
+  border-width: 2px;
+  border-color: $DARK_COLOR;
+}
+
+// PAYMENT METHOD DELETE BUTTON
+.payment-method .payment-method-delete {
+  opacity: 0;
+  position: absolute;
+  right: $_20_SPACING_SIZE;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.payment-method:hover .payment-method-delete {
+  opacity: 1;
+}
+
+.payment-method .payment-method-delete ion-icon {
+  font-size: 25px;
+  transition: color 100ms ease;
+}
+
+.payment-method .payment-method-delete ion-icon:hover {
+  color: tomato;
+}
+
+.payment-method[isSelected="true"] {
+  background: $DARK_COLOR;
+  border: none;
+}
+
+.payment-method[isSelected="true"] * {
+  color: $WHITE_COLOR;
+}
+
+.payment-method .selection-state[isSelected="true"] {
+  background: $DARK_COLOR;
+}
+
+.most-supported-cards {
+  margin-left: $_10_SPACING_SIZE;
+}
+
+.most-supported-cards img.visa {
+  height: 30px;
+}
+
+.most-supported-cards img.mastercard {
+  height: 40px;
+}
+
+.most-supported-cards img.amex {
+  height: 30px;
+}
+
+.payment-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  border-radius: $BORDER_RADIUS + 5px;
+  margin: $_10_SPACING_SIZE 0;
+  cursor: pointer;
+}
+
+.coinbase-button img {
+  height: 22px !important;
+}
+
+.payment-button span {
+  font-weight: bold;
+  color: $WHITE_COLOR;
+}
+
+.payment-button:hover {
+  opacity: 0.8;
+}
+
+// SPECIFIC PLATFORMS
+
+.paypal-button {
+  margin-bottom: $_20_SPACING_SIZE;
+}
+
+.yoco-button img {
+  height: 40px;
+  margin-left: 10px;
+}
+
+.yoco-button {
+  background: #000;
+  position: relative;
+  padding: 15px 10px;
+}
+
+.yoco-button span {
+  font-family: "IBM Plex Sans" !important;
+}
+
+// .yoco-button::after {
+//   content: "Recommended: Quicker";
+//   display: block;
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   transform: translateX(20%) translateY(-50%);
+//   padding: 5px 15px;
+//   border-radius: 50px;
+//   background: $SECONDARY_THEME_COLOR;
+//   color: $WHITE_COLOR;
+//   font-size: small;
+//   font-weight: bolder;
+// }
+
+.coinbase-button {
+  background: #011082;
+  padding: 25px 0 20px 0;
+}
+
+.coinbase-button span {
+  margin-right: 10px;
+  transform: translateY(-2px);
+}
+
+// SUPPORTED PAYMENT METHODS
+.supported-payment-methods {
+  display: flex;
+  align-items: center;
+  gap: $_5_SPACING_SIZE;
+  height: 30px;
+  justify-content: flex-end;
+}
+
+.supported-payment-methods img {
+  height: 100%;
+  filter: grayscale(1);
+}
+
+.supported-payment-methods img.amex {
+  height: 40px;
+}
+
+// OTHER METHODS
+.other-methods {
+  display: flex;
+  align-items: center;
+  gap: $_20_SPACING_SIZE;
+  margin-top: $_10_SPACING_SIZE;
+}
+
+.other-methods img {
+  height: 40px;
+  cursor: pointer;
+}
+
+.other-methods img.yoco {
+  height: 45px;
+}
+
+.other-methods img.coinbase {
+  transform: translateY(-5px);
+}
+
+.yoco-button,
+.coinbase-button {
+  border-radius: $BORDER_RADIUS;
+}
+
+// COMMITMENT AMOUNT SUMMARY
+.contribution-amount-summary {
+  border: $BORDER;
+  padding: 20px;
+  margin-bottom: 30px;
+  background: $DARK_COLOR;
+  border-radius: $BORDER_RADIUS;
+  text-align: center;
+}
+
+.contribution-amount-summary * {
+  color: $WHITE_COLOR;
+}
+
+.contribution-amount-summary .contribution-add-section {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contribution-amount-summary span.amount,
+.supercharges-options .supercharge-amount {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  padding: 10px;
+  border-radius: $BORDER_RADIUS;
+  background: transparentize($WHITE_COLOR, 0.7);
+  border: 2px solid transparent;
+
+  &:hover,
+  &[data-selected="true"] {
+    cursor: pointer;
+    border: 2px solid transparentize($WHITE_COLOR, 0.5);
+  }
+
+  &[data-selected="true"] {
+    border-color: $SECONDARY_THEME_COLOR;
+    background: $SECONDARY_THEME_COLOR;
+  }
+}
+
+.supercharges-options {
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.supercharges-options .supercharge-amount {
+  padding: 5px;
+  border-radius: $BORDER_RADIUS;
+  font-weight: bold;
+  margin: 5px;
+}

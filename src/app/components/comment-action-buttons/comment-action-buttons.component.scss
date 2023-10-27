@@ -1,0 +1,90 @@
+@import "../../../variables.scss";
+
+// COMMENTOR ACTION BUTTONS.
+.comment-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: $_10_SPACING_SIZE;
+  margin-top: $_10_SPACING_SIZE;
+}
+
+.commentor-role {
+  display: inline-block;
+  padding: 5px;
+  border-radius: $BORDER_RADIUS;
+  background: $SECONDARY_THEME_COLOR;
+  color: $WHITE_COLOR;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: small;
+  letter-spacing: 1px;
+}
+
+.comment-body,
+.comment-action-butons {
+  margin-top: $_5_SPACING_SIZE;
+}
+
+// COMMENT ACTION BUTTONS.
+
+.action-buttons,
+.action-buttons .action-button {
+  display: flex;
+  align-items: center;
+  gap: $_5_SPACING_SIZE;
+}
+
+.action-buttons,
+.action-buttons .action-button.reply {
+  border-right: none;
+  border-left: $BORDER;
+  padding-left: $_10_SPACING_SIZE;
+}
+
+.action-buttons .action-button {
+  cursor: pointer;
+
+  &[data-isactive="true"] ion-icon {
+    color: red !important;
+  }
+}
+
+.action-buttons .action-button ion-icon {
+  font-size: 25px;
+}
+
+.action-buttons .action-button.reply ion-icon {
+  font-size: 23px;
+}
+
+.action-buttons .action-button span {
+  opacity: 0.78;
+}
+
+.action-buttons .action-button:hover ion-icon {
+  opacity: 0.9;
+}
+
+// INDIVIDUAL BUTTONS.
+
+.action-buttons .action-button ion-icon {
+  transition: transform 300ms ease-in-out;
+}
+
+.action-buttons .action-button:hover ion-icon {
+  transform: scale(1.1);
+}
+
+.action-buttons {
+  gap: $_10_SPACING_SIZE;
+}
+
+.comment-age {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+.action-buttons .action-button[data-isactive="true"] .count {
+  font-weight: bold;
+}

@@ -1,0 +1,262 @@
+<ion-content>
+  <app-header [hasBackground]="true"></app-header>
+
+  <!-- Header that shows the steps of the pitch creation process -->
+  <app-pitch-create-steps
+    [step]="3"
+    [saveMethod]="this.saveContributions"
+    [draftProgress]="this.draft?.draft_progress"
+    [binder]="this"
+  ></app-pitch-create-steps>
+
+  <div class="page-content content-wrapper">
+    <div class="header-text-style">Costs breakdown</div>
+    <div class="field-status">(REQUIRED)</div>
+
+    <div
+      class="paragraph-text-style page-header-description"
+      [style.max-width]="'40%'"
+    >
+      <ion-icon name="information-circle"></ion-icon> Be able to update your
+      customers on upcoming pitch events. This is a cost break-down of your
+      "Hetching goal".
+      <b
+        >This will help potential funders track your current funding stage.
+        Milestones are meant for estimation purposes.</b
+      >
+
+      <br />
+      <br />
+      <span class="paragraph-text-style"
+        ><b>Remeber:</b> All these costs will amount to the funding goal. These
+        values can be changed with proof of qoutation by email at
+        <b>support@hetchfund.com.</b></span
+      >
+    </div>
+
+    <!-- Pitch name and brief description -->
+    <div class="field-section">
+      <div class="field-section-description">
+        <div class="field-name">Milestone details and stages</div>
+        <div class="paragraph-text-style field-description">
+          A descriptive name of the milestone, and description of what has
+          occured or will occur in the milestone.
+
+          <br />
+          <br />
+          <i
+            ><b
+              >Remember: This will help potential funders know the current state
+              of the pitch and know how much or how they can offer assistance.
+              These must be in ascending order, i.e. From past to future, small
+              details matter.</b
+            ></i
+          >
+        </div>
+      </div>
+      <div class="field-section-input">
+        <div class="formfield">
+          <label for="">Prototype costs</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="paragraph-text-style">
+            This should involve the amount of funds required to start
+            prototyping the project.
+          </div>
+
+          <div class="input-container">
+            <input
+              class="larger"
+              type="number"
+              rows="3"
+              placeholder="e.g. 1000."
+              [(ngModel)]="this.finances.design_and_prototype.amount"
+              #MilestoneTitle
+            />
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Regulatory compliance costs</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="paragraph-text-style">
+            Fees for permits, licenses, and compliance with local, state, and
+            federal regulations.
+          </div>
+
+          <div class="input-container">
+            <input
+              class="larger"
+              type="number"
+              rows="3"
+              placeholder="e.g. 1000."
+              [(ngModel)]="this.finances.regulatory_compliance.amount"
+              #MilestoneTitle
+            />
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Development costs</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="paragraph-text-style">
+            Costs for raw materials, equipment, tools, and consumables needed
+            for the project.
+          </div>
+
+          <div class="input-container">
+            <input
+              class="larger"
+              type="number"
+              rows="3"
+              placeholder="e.g. 1000."
+              [(ngModel)]="this.finances.development.amount"
+              #MilestoneTitle
+            />
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Testing costs</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="paragraph-text-style">
+            Costs for testing, quality control, and quality assurance
+            activities.
+          </div>
+
+          <div class="input-container">
+            <input
+              class="larger"
+              type="number"
+              rows="3"
+              placeholder="e.g. 1000."
+              [(ngModel)]="this.finances.testing.amount"
+              #MilestoneTitle
+            />
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Professional fees and Consulting costs</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="paragraph-text-style">
+            Fees for specialized consultants or experts brought in to address
+            specific project challenges.
+          </div>
+
+          <div class="input-container">
+            <input
+              class="larger"
+              type="number"
+              rows="3"
+              placeholder="e.g. 1000."
+              [(ngModel)]="this.finances.professional_fees.amount"
+              #MilestoneTitle
+            />
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Final development costs</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="paragraph-text-style">
+            Fees for final developments on the project.
+          </div>
+
+          <div class="input-container">
+            <input
+              class="larger"
+              type="number"
+              rows="3"
+              placeholder="e.g. 1000."
+              [(ngModel)]="this.finances.final_development.amount"
+              #MilestoneTitle
+            />
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Reward Fulfillment and Shipping costs</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="paragraph-text-style">
+            Once production is complete, you ship rewards to funders. Properly
+            managing this stage is crucial to maintain funders' trust.
+          </div>
+          <div class="input-container">
+            <input
+              class="larger"
+              type="number"
+              rows="1"
+              placeholder="e.g. 1000."
+              [(ngModel)]="this.finances.reward_fulfullment.amount"
+              #MilestoneTarget
+            />
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Funding goal (Total of all above defined costs.)</label>
+          <div class="field-status optional">(CALCULATED VALUE)</div>
+
+          <div class="input-container">
+            <input
+              class="funding-goal"
+              [value]="this.currencyService.format(this.getTotalCosts()) + ' | (Change costs above to change this value.)'"
+              [disabled]="true"
+              #PitchFundingGoal
+            />
+          </div>
+        </div>
+
+        <br />
+        <div class="formfield">
+          <label for="">Pitch period, end after (can be set once)</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+            <select
+              (change)="this.acceptDigits(PitchPeriod, 'pitchPeriod')"
+              [value]="this.pitchPeriod"
+              [disabled]="this.draft?.pitch_period !== null"
+              #PitchPeriod
+            >
+              <option value="2">2 months</option>
+              <option value="4">4 months</option>
+              <option value="6">6 months</option>
+              <option value="8">8 months</option>
+              <option value="10">10 months</option>
+              <option value="12">12 months</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="paragraph-text-style italic">
+          <ion-icon name="information-circle"></ion-icon> Pitchs can only be
+          active for a maximum of 1 year to give a chance to other pitches in
+          need of funding.
+          <i
+            ><b
+              >After pitch period is reached your accumulated funds will be
+              provided to you even if maximum amount hasn't been reached. Pitch
+              period can't be changed once set.</b
+            ></i
+          >
+        </div>
+      </div>
+    </div>
+
+    <app-create-bottom-footer
+      [key]="this.draft_key"
+      [progress]="this.draft?.draft_progress"
+      [save]="this.saveContributions"
+      [binder]="this"
+    ></app-create-bottom-footer>
+  </div>
+  <app-footer></app-footer>
+</ion-content>

@@ -1,0 +1,128 @@
+<div
+  class="recently-viewed-egg-container content-wrapper"
+  *ngIf="this.has_recently_viewed && !this.is_closed"
+>
+  <!-- Curator section -->
+  <div class="egg-container" *ngIf="!this.isLoading">
+    <!-- Egg information -->
+    <div class="egg">
+      <div class="egg-container-thumbnail-container">
+        <div
+          class="egg-container-thumbnail"
+          [style.background-image]="'url(' + this.data?.thumbnail_url + ')'"
+        ></div>
+      </div>
+      <div class="egg-container-details">
+        <div class="section-title paragraph-text-style">
+          Recently viewed pitch
+        </div>
+        <a
+          class="egg-container-name header-text-style no-decoration small"
+          [href]="'/pitches/' + this.data?.key"
+          >{{ this.data?.name }}</a
+        >
+        <div class="egg-container-description paragraph-text-style">
+          {{ this.data?.brief_description }}
+        </div>
+
+        <a class="recently-viewed-link" href="/pitches/view-history"
+          >Show other recently viewed</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Egg perfomance and social sharing -->
+  <div class="egg-perfomance-socials" *ngIf="!this.isLoading">
+    <div class="header-text-style smaller">
+      Let your friends know about this
+    </div>
+    <div class="paragraph-text-style">
+      Share this campaign with friends and family to help it perform better and
+      reach it's defined goal.
+    </div>
+
+    <div class="egg-perfomance-progress">
+      <div
+        class="egg-perfomance-current"
+        [style]="
+          'width: ' +
+          (this.data?.hetched_funds_perc >= 100
+            ? 100
+            : this.data?.hetched_funds_perc) +
+          '%'
+        "
+      ></div>
+    </div>
+
+    <div class="paragraph-text-style uppercase statistics">
+      <span>
+        <b class="egg-perfomance-funded-percentage"
+          >{{ this.data?.hetched_funds_perc }}%</b
+        >
+
+        {{ " " }} OUT OF {{ " " }}
+
+        <b> {{ this.currencyResolver.translate(this.data?.hetching_goal) }}</b>
+        FUNDED | {{ " " }}
+      </span>
+
+      <b>Expires {{ this.getPitchExpiry() ? this.getPitchExpiry() : "" }}</b>
+    </div>
+
+    <!-- <a
+      class="paragraph-text-style small currency-selectable"
+      (click)="this.currencyResolver.showCurrencyMenu()"
+    >
+      {{ this.currencyResolver.translate(this.data?.hetched_funds) }} RAISED IN
+      TOTAL</a
+    > -->
+
+    <div class="egg-socials-buttons">
+      <button
+        class="social-button linkedin pledge icon-button"
+        (click)="this.commitPledge()"
+      >
+        <ion-icon name="hand-right-sharp"></ion-icon>
+        Pledge a contribution
+      </button>
+      <app-social-buttons [isShowText]="false"></app-social-buttons>
+    </div>
+  </div>
+
+  <div class="recent-placeholder-pitch-container" *ngIf="this.isLoading">
+    <div class="placeholder-pitch-information">
+      <div class="placeholder-pitch-thumbnail">
+        <img src="/assets/icon.svg" alt="Hetchfund" />
+      </div>
+
+      <div class="placeholder-pitch-details">
+        <div class="placeholder-space"></div>
+
+        <div class="placeholder-text"></div>
+        <div class="placeholder-text pitch-name section-title"></div>
+
+        <div class="placeholder-space"></div>
+
+        <div class="placeholder-text pitch-description"></div>
+        <div class="placeholder-text pitch-description"></div>
+        <div class="placeholder-text pitch-description"></div>
+
+        <div class="placeholder-space"></div>
+
+        <div class="placeholder-text recent-pitches-link"></div>
+      </div>
+    </div>
+
+    <div class="pitch-perfomance-container">
+      <div class="section-title"></div>
+      <div class="pitch-description"></div>
+      <div class="pitch-description"></div>
+      <div class="pitch-description"></div>
+      <div class="placeholder-space"></div>
+      <div class="pitch-perfomance"></div>
+      <div class="pitch-perfomance-text"></div>
+      <div class="pitch-buttons"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,202 @@
+@import "../variables.scss";
+
+ion-app {
+  display: block;
+}
+
+.whole-winder-loader-container {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparentize($DARK_COLOR, 0.05);
+  transition: opacity 300ms ease;
+  filter: grayscale(1);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.whole-winder-loader-container app-loader {
+  visibility: hidden;
+  position: absolute;
+}
+
+.whole-winder-loader-container[isLoaderShown="true"],
+.whole-winder-loader-container[isSidebarShown="true"] {
+  display: flex;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.whole-winder-loader-container[isLoaderShown="true"] app-loader,
+.whole-winder-loader-container[isSidebarShown="true"] .sidebar {
+  visibility: visible;
+  position: relative;
+}
+
+.whole-winder-loader-container[isSidebarShown="true"] .sidebar {
+  left: 100%;
+}
+
+.whole-winder-loader-container[isSidebarShown="false"] .sidebar {
+  left: 200%;
+}
+
+.whole-winder-loader-container .sidebar {
+  display: block;
+  height: 100vh;
+  width: 600px;
+  position: absolute !important;
+  top: 0;
+  transform: translateX(-100%);
+  background: $THEME_COLOR;
+  padding: $_20_SPACING_SIZE 40px;
+  border-left: 1px solid $DARK_COLOR;
+  border-left-color: $WHITE_COLOR;
+  transition: left 400ms ease-in-out;
+  overflow-y: scroll;
+
+  section {
+    border-top: 1px solid $LIGHT_COLOR;
+    padding: 15px 0;
+    margin-bottom: 20px;
+  }
+
+  section .section-title {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $LIGHT_COLOR;
+  }
+
+  section .section-content {
+    padding: 10px 0 10px 80px;
+  }
+
+  section .section-content .paragraph-text-style {
+    color: $LIGHT_COLOR;
+  }
+
+  section .section-content .paragraph-text-style.subscribe-text {
+    margin: 10px 0;
+  }
+
+  section .section-content a {
+    font-size: 24px;
+  }
+}
+
+.whole-winder-loader-container .sidebar .top-sidebar-header {
+  display: flex;
+  border-bottom: $BORDER;
+  border-color: $WHITE_COLOR;
+}
+
+.whole-winder-loader-container .sidebar .close-button {
+  gap: $_10_SPACING_SIZE;
+  padding: $_10_SPACING_SIZE 0;
+}
+
+.whole-winder-loader-container .sidebar a,
+.whole-winder-loader-container .sidebar a span,
+.whole-winder-loader-container .sidebar .close-button ion-icon {
+  font-size: 24px;
+  color: $WHITE_COLOR;
+}
+
+.whole-winder-loader-container .sidebar .close-button ion-icon {
+  transform: translateY(2px);
+}
+
+.whole-winder-loader-container .sidebar a {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.whole-winder-loader-container .sidebar a.signout {
+  color: tomato !important;
+}
+
+.toast-messages-container {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  padding: $_20_SPACING_SIZE 0;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000000000;
+  user-select: none !important;
+}
+
+.toast-messages-container .toast-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $_10_SPACING_SIZE $_20_SPACING_SIZE;
+  width: 100%;
+  background: $DARK_COLOR;
+  color: $WHITE_COLOR;
+  border-radius: $BORDER_RADIUS;
+  font-weight: 600;
+}
+
+.toast-messages-container .toast-message .message,
+.toast-messages-container ion-icon {
+  color: $WHITE_COLOR;
+}
+
+.toast-messages-container ion-icon {
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.toast-messages-container .toast-message:not(:last-child) {
+  margin-bottom: $_10_SPACING_SIZE;
+}
+
+.toast-messages-container .toast-message .message {
+  flex: 1;
+}
+
+.toast-messages-container .toast-message .close-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  transform: translateX(10px);
+  cursor: pointer;
+}
+
+@keyframes flicker {
+  0% {
+    fill: $SECONDARY_THEME_COLOR;
+  }
+  40% {
+    fill: gray;
+  }
+  60% {
+    fill: $SECONDARY_THEME_COLOR;
+  }
+  80% {
+    fill: gray;
+  }
+}
+
+.mobile-device-message .messages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-device-message .error-message {
+  display: block;
+  color: transparentize($DARK_COLOR, $amount: 0.6);
+  font-weight: 500;
+  margin-top: $_5_SPACING_SIZE;
+}

@@ -1,0 +1,28 @@
+<div class="comment-action-buttons">
+  <span class="comment-age">{{ this.commentAge ? this.commentAge : "" }}</span>
+  <div class="action-buttons">
+    <!-- LOVE. -->
+    <div
+      class="thumbs-up action-button"
+      [attr.data-isactive]="
+        this.data?.approvals?.includes(this.sessionService?.data.email_address)
+      "
+      (click)="this.addCommentReaction(this.data?._for, this.data?.key, true)"
+      data-title="Love comment"
+    >
+      <ion-icon name="heart-outline"></ion-icon>
+      <span class="count">{{ this.data?.approvals_count }}</span>
+    </div>
+
+    <!-- REPLY. -->
+    <div
+      class="reply action-button"
+      data-title="Reply comment"
+      *ngIf="!this.data?.reply_of"
+      (click)="this.openCommentReply.bind(this.binder)(this.data)"
+    >
+      <ion-icon name="git-pull-request"></ion-icon>
+      <span class="count">{{ this.data?.replies_count }}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,164 @@
+@import "../../../variables.scss";
+
+.recently-viewed-egg-container {
+  display: flex;
+  align-items: center;
+  // gap: $_10_SPACING_SIZE;
+  padding: $_20_SPACING_SIZE;
+  background: $GRAY_COLOR;
+  border-radius: $BORDER_RADIUS;
+  border: $BORDER;
+}
+
+.recently-viewed-egg-container .egg-container {
+  flex: 0.7;
+}
+
+.recently-viewed-egg-container .egg-perfomance-socials {
+  flex: 0.4;
+}
+
+.egg-container .curator-section {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: $_5_SPACING_SIZE;
+  text-align: center;
+}
+
+.egg-container,
+.egg-container .egg {
+  display: flex;
+  align-items: center;
+}
+
+.egg-container-thumbnail {
+  height: 200px;
+  width: 200px;
+  background: #ddd;
+  background-position: center center;
+  background-size: cover;
+  border-radius: $BORDER_RADIUS;
+}
+
+.egg-container .egg-container-details {
+  display: flex;
+  padding: 0 15px;
+  flex-direction: column;
+}
+
+.egg-container .egg-container-details .egg-container-description {
+  margin-top: $_10_SPACING_SIZE;
+}
+
+.egg-container .section-title {
+  opacity: 0.7;
+}
+
+.egg-container .egg-container-name,
+.egg-container .recently-viewed-link {
+  display: block;
+  width: fit-content !important;
+  color: $DARK_COLOR;
+  cursor: pointer;
+}
+
+.egg-container .egg-container-name,
+.egg-container .egg-container-name * {
+  text-decoration: none !important;
+}
+
+.egg-container .recently-viewed-link {
+  display: block !important;
+  margin-top: $_10_SPACING_SIZE;
+}
+
+.egg-container .egg-container-name:hover {
+  color: $THEME_COLOR;
+}
+
+// Egg perfomance and social sharing
+.recently-viewed-egg-container .egg-perfomance-socials {
+  display: flex;
+  flex-direction: column;
+  gap: $_10_SPACING_SIZE;
+}
+
+.recently-viewed-egg-container
+  .egg-perfomance-socials
+  .egg-perfomance-funds-raised {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.recently-viewed-egg-container
+  .egg-perfomance-socials
+  .egg-perfomance-funds-raised
+  .currency {
+  color: $THEME_COLOR;
+}
+
+.recently-viewed-egg-container
+  .egg-perfomance-socials
+  .egg-perfomance-progress {
+  width: 100%;
+  height: 15px;
+  background: transparentize($DARK_COLOR, 0.8);
+  border: $BORDER;
+}
+
+.recently-viewed-egg-container
+  .egg-perfomance-progress
+  .egg-perfomance-current {
+  height: 100%;
+  background: $SECONDARY_THEME_COLOR;
+}
+
+// Social buttons
+.recently-viewed-egg-container .egg-perfomance-socials .social-button.LinkedIn {
+  background: $THEME_COLOR;
+}
+
+// PLACEHOLDER LOADER
+.placeholder-pitch-thumbnail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 200px;
+  background: rgb(211, 211, 211);
+  animation: PlaceholderBlink 1000ms ease alternate-reverse infinite;
+}
+
+.placeholder-pitch-thumbnail img {
+  filter: grayscale(1);
+  opacity: 0.7;
+  height: 40px;
+}
+
+.recent-placeholder-pitch-container,
+.placeholder-pitch-information {
+  display: flex;
+}
+
+.placeholder-pitch-details {
+  display: block;
+  height: 50%;
+}
+
+.paragraph-text-style.statistics {
+  max-width: 100%;
+}
+
+app-social-buttons {
+  display: inline-block;
+}
+
+.egg-socials-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.pledge {
+  background: $SECONDARY_THEME_COLOR;
+}

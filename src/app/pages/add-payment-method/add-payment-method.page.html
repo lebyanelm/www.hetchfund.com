@@ -1,0 +1,161 @@
+<ion-content>
+  <app-header></app-header>
+
+  <div class="page-content">
+    <div class="content-wrapper">
+      <div class="payment-information-container">
+        <!-- Fields and options on which payment methods to use. -->
+        <div class="payment-information">
+          <div class="header-text-style">Add a new payment method</div>
+
+          <div class="formfields credit-card-formfield">
+            <div class="formfields">
+              <div class="formfield">
+                <label for="" [attr.hasError]="this.holderError !== ''"
+                  >Card holder</label
+                >
+                <div class="input-container">
+                  <input
+                    type="text"
+                    placeholder="eg. MR YM DAVIS"
+                    [attr.hasError]="this.holderError !== ''"
+                    value="MR LM LEBYANE"
+                    #CardName
+                    (keyup)="this.holderError=''"
+                  />
+                </div>
+                <span
+                  class="paragraph-text-style"
+                  [attr.hasError]="this.holderError !== ''"
+                  >{{this.holderError || "The name of the owner / card."}}</span
+                >
+                <br *ngIf="this.holderError" />
+              </div>
+            </div>
+
+            <div class="formfields">
+              <div class="formfield">
+                <label for="" [attr.hasError]="this.numberError !== ''"
+                  >Card number</label
+                >
+                <div class="input-container">
+                  <input
+                    type="text"
+                    placeholder="eg. 4200000000000001"
+                    [attr.hasError]="this.numberError !== ''"
+                    value="4200000000000091"
+                    (keyup)="this.numberError=''"
+                    #CardNumber
+                  />
+                </div>
+                <span
+                  class="paragraph-text-style"
+                  [attr.hasError]="this.numberError !== ''"
+                  >{{this.numberError || "Long number on the card."}}</span
+                >
+                <br *ngIf="this.numberError" />
+              </div>
+            </div>
+
+            <div class="split-formfields">
+              <div class="formfields">
+                <div class="formfield">
+                  <label for="" [attr.hasError]="this.expError !== ''"
+                    >Expiry date</label
+                  >
+                  <div class="input-container">
+                    <input
+                      type="text"
+                      placeholder="eg. YYYY/MM"
+                      value="2028/05"
+                      [attr.hasError]="this.expError !== ''"
+                      (keyup)="this.expError=''"
+                      #CardExpiry
+                    />
+                  </div>
+                  <span
+                    class="paragraph-text-style"
+                    [attr.hasError]="this.expError !== ''"
+                    >{{this.expError || "Date this card will void being\
+                    valid."}}</span
+                  >
+                  <br *ngIf="this.expError" />
+                </div>
+              </div>
+
+              <div class="formfields">
+                <div class="formfield">
+                  <label for="" [attr.hasError]="this.cvvError !== ''"
+                    >Security code / CVV</label
+                  >
+                  <div class="input-container">
+                    <input
+                      type="text"
+                      placeholder="eg. 434/3"
+                      value="198"
+                      [attr.hasError]="this.cvvError !== ''"
+                      (keyup)="this.cvvError=''"
+                      #SecurityCode
+                    />
+                    <input
+                      class="visually-hidden"
+                      tabindex="-1"
+                      autocomplete="off"
+                      #InvisibleField
+                    />
+                  </div>
+                  <span
+                    class="paragraph-text-style"
+                    [attr.hasError]="this.cvvError !== ''"
+                    >{{this.cvvError || "3 / 4 digit number behind\
+                    card."}}</span
+                  >
+                  <br *ngIf="this.cvvError" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            (click)="this.verifyCardAndPayContribution()"
+            [disabled]="!!this.holderError || !!this.numberError || !!this.expError || !!this.cvvError"
+          >
+            {{ (this.contributionKey) ? "Approve and Complete contribution (" +
+            this.currencyResolver.translate(this.contributionAmount, false) +
+            ")" : "Approve and Add payment method" }}
+          </button>
+
+          <b class="response-error paragraph-text-style danger-text-style"
+            >{{this.responseError}}</b
+          >
+        </div>
+
+        <!-- Disclaimers about adding payment methods -->
+        <div class="payments-disclaimer">
+          <label>Payments disclaimer</label>
+          <div class="paragraph-text-style disclaimer-text">
+            Our contribution payments are proudly processed by a South African
+            payment processor, Peach Payments Ltd. All payment information and
+            transactions are handled securely and stored for security.
+            <b
+              ><i
+                >Note: To confirm payment details costs a minimum of R0.01c.</i
+              ></b
+            >
+
+            <br />
+            <br />
+            <br />
+            <img
+              class="peach-payments-logo"
+              src="https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/47184167916/logo/NDy8ExqhL8wmMKE95IgwmbV2tSj_RW2jZg.png"
+              alt="Peach Payments"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

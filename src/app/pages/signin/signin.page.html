@@ -1,0 +1,106 @@
+<ion-content>
+  <app-header></app-header>
+  <div class="page-content centered-content with-pattern">
+    <div class="formfields account-formfields">
+      <div class="header-text-style decorated small underlined">
+        Signin to your account with your username.
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style" for="">Email address</label>
+        <div class="input-container">
+          <input
+            type="email"
+            class="input-field"
+            name="email"
+            placeholder="eg. aegontechnologies@aegon.com"
+            autocomplete="email"
+            rows="1"
+            (keyup)="this.errorMessage = ''"
+            #EmailAddressField
+          />
+        </div>
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style" for="">Password</label>
+        <div class="input-container">
+          <input
+            type="password"
+            class="input-field"
+            name="password"
+            placeholder="Please enter your password."
+            autocomplete="new-password"
+            (keyup)="this.errorMessage = ''"
+            #PasswordField
+          />
+        </div>
+      </div>
+
+      <!-- Error message when something goes wrong. -->
+      <p class="danger-text-style bold-text-style" *ngIf="this.errorMessage">
+        {{this.errorMessage}}
+      </p>
+
+      <p class="paragraph-text-style clause-notice">
+        By signing in to your account or using social media login on our
+        platform you agree to our terms and conditions that are stated in our
+        <a href="">Terms & Conditions Page.</a>
+      </p>
+
+      <ng-hcaptcha
+        [class]="'hcaptcha'"
+        (verify)="this.hCaptchaVerify($event)"
+        (expired)="this.hCaptchaExpired($event)"
+        (error)="this.hCaptchaError($event)"
+      >
+      </ng-hcaptcha>
+
+      <div class="formfield-buttons">
+        <button
+          (click)="this.signin()"
+          [attr.data-title]="(this.hCaptchaToken === undefined || (EmailAddressField.value.length === 0 && PasswordField.value.length === 0)) ? 'Complete fields above and hCaptcha.' : 'Continue to sign in'"
+          [disabled]="this.isLoading || (this.hCaptchaToken === undefined || (EmailAddressField.value.length === 0 && PasswordField.value.length === 0))"
+        >
+          <app-loader [attr.state]="isLoading"></app-loader>
+          Signin to my account
+        </button>
+        <a class="button secondary" href="/create-account"
+          >Create a new account</a
+        >
+      </div>
+    </div>
+
+    <div class="formfields account-formfields social-buttons">
+      <div class="header-text-style decorated small underlined">
+        Signin to your account using social media.
+      </div>
+      <br />
+      <br />
+
+      <div class="social-buttons">
+        <!-- GOOGLE SIGNON -->
+        <asl-google-signin-button
+          type="standard"
+          size="large"
+          text="continue_with"
+          width="360"
+          theme="filled_black"
+          shape="pill"
+        >
+        </asl-google-signin-button>
+
+        <!-- FACEBOOK SIGNON -->
+        <div class="facebook-signin-button" (click)="this.loginWithFacebook()">
+          <span>Continue with Facebook</span>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

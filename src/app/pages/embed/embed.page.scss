@@ -1,0 +1,15 @@
+// Contains the pitch in the middle.
+.embed-container {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: auto;
+
+  * {
+    line-height: 1.5px;
+  }
+}
+
+.middle-pitch-container {
+  width: 400px !important;
+}

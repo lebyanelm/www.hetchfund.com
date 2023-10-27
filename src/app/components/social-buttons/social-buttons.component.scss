@@ -1,0 +1,75 @@
+.pitch-social-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pitch-social-buttons svg {
+  height: 30px;
+  transform: translateY(-1px);
+}
+
+// Change the colors of each icon.
+svg[name="linkedin"] {
+  fill: #0e76a8;
+}
+
+svg[name="facebook"] {
+  fill: #4267b2;
+}
+
+svg[name="twitter"] {
+  fill: #1da1f2;
+}
+
+// TWITTER SHARE BUTTON
+.share__btn__container {
+  border: 2px solid rgb(75, 149, 225);
+  background: rgb(75, 149, 225);
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// FACEBOOK BUTTON
+#fb-share-button {
+  background: #3b5998;
+  border-radius: 3px;
+  font-weight: 600;
+  padding: 0px 8px;
+  display: inline-block;
+  position: static;
+  text-decoration: none !important;
+
+  &.linkedin {
+    background: rgba(75, 149, 225, 0.8);
+
+    &:hover {
+      background: rgb(75, 149, 225);
+    }
+  }
+}
+
+#fb-share-button:hover {
+  cursor: pointer;
+  background: #213a6f;
+}
+
+#fb-share-button svg {
+  width: 15px;
+  fill: white;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+#fb-share-button span {
+  vertical-align: middle;
+  color: white;
+  font-size: 14px;
+  padding: 0 3px;
+}
+
+.linkedin {
+  background-color: #0976b4;
+}

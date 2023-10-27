@@ -1,0 +1,33 @@
+<ion-content>
+  <div class="page-content content-wrapper">
+    <div
+      class="verified-checkmark"
+      [attr.data-is-verified]="this.status === null ? 'loading' : this.status"
+    >
+      <ion-icon
+        [name]="this.status === null ? 'reload' : (this.status === true ? 'checkmark' : 'close')"
+      ></ion-icon>
+    </div>
+    <span class="verification-title header-text-style"
+      >{{this.title || "Loading..."}}</span
+    >
+    <span class="verification-message paragraph-text-style"
+      >{{this.message}}
+      <br />
+      <br />
+      <div class="bold-text-style" *ngIf="this.status">
+        Remember: This is a OneTime&trade; Authentication Link. It has already
+        expired, to generate another one you have to login again.
+      </div></span
+    >
+
+    <button *ngIf="this.status" (click)="this.continue()">Continue</button>
+    <button *ngIf="!this.status" (click)="this.retryVerification()">
+      Retry verification
+    </button>
+
+    <div class="bottom-attributions">
+      Courtesy of Towards Common Foundry, Limited. All rights reserved.
+    </div>
+  </div>
+</ion-content>

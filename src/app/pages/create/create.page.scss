@@ -1,0 +1,15 @@
+@import "../../../variables.scss";
+
+app-rich-text-editor {
+  display: block;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+.page-content {
+  padding-top: 20px;
+}
+
+.media-selector.image[isProcessed="true"] {
+  height: 300px;
+}

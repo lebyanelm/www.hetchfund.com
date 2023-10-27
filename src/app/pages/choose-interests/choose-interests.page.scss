@@ -1,0 +1,62 @@
+@import "../../../variables.scss";
+
+// Categories container
+.interests-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: $_10_SPACING_SIZE;
+  padding: $_10_SPACING_SIZE 0;
+  margin-bottom: $_20_SPACING_SIZE;
+}
+
+.letter-separation {
+  font-weight: 900;
+  color: $THEME_COLOR;
+}
+
+.interests-container .interest {
+  padding: $_20_SPACING_SIZE;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  background: $GRAY_COLOR;
+  color: $DARK_COLOR;
+  border-radius: 0;
+  text-decoration: none;
+}
+
+.interests-container .interest[data-is-selected="true"] {
+  background: $THEME_COLOR !important;
+  color: $WHITE_COLOR !important;
+}
+
+.interests-container .interest:hover {
+  color: $LIGHT_COLOR;
+  background: $DARK_COLOR;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1260px) {
+  .interests-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  .interests-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// MOBILE DEVICES
+@media screen and (max-width: 650px) {
+  .interests-container {
+    grid-template-columns: 1fr;
+  }
+
+  .interests-container .interest {
+    background: transparent;
+    border-bottom: $BORDER;
+    border-radius: 0;
+  }
+}

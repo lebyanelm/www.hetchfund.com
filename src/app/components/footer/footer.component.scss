@@ -1,0 +1,203 @@
+@import "../../../variables.scss";
+
+.footer-container {
+  background: $THEME_COLOR;
+  color: $WHITE_COLOR;
+  padding: 0 0 40px 0;
+}
+
+.full-width-content {
+  width: 100%;
+  height: 2px;
+  background: $WHITE_COLOR;
+  margin-bottom: 60px;
+}
+
+// FOOTER SITE LOGO
+.footer-container .desktop-footer-container .site-footer-logo img {
+  width: 120px;
+  margin-bottom: $_10_SPACING_SIZE;
+}
+
+.footer-container .desktop-footer-container .footer-brand-name {
+  color: $WHITE_COLOR;
+  margin-bottom: $_20_SPACING_SIZE;
+}
+
+// FOOTER NAVIGATION LINKS
+.footer-container .desktop-footer-container .footer-navigation-sections {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation-section-title {
+  color: $LIGHT_COLOR;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.company-name {
+  font-weight: 900 !important;
+}
+
+.footer-container
+  .desktop-footer-container
+  .footer-navigation-sections
+  .navigation-section-title {
+  margin-bottom: $_20_SPACING_SIZE;
+}
+
+.footer-container .desktop-footer-container .footer-navigation-sections a {
+  display: block;
+  margin: $_10_SPACING_SIZE 0;
+  color: $WHITE_COLOR;
+}
+
+.footer-container
+  .desktop-footer-container
+  .footer-navigation-section
+  .paragraph-text-style {
+  max-width: 290px;
+}
+
+.footer-container a:hover {
+  color: $THEME_COLOR;
+  cursor: pointer;
+}
+
+// FOOTER BOTTOM LINKS: LEGAL AND SOCIAL LINKS
+.footer-container .footer-bottom-links {
+  border-top: 4px solid $THEME_COLOR;
+}
+
+.footer-container .footer-bottom-links,
+.footer-container .footer-social-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $_10_SPACING_SIZE;
+}
+
+.footer-container .footer-legal-links a {
+  margin-top: $_20_SPACING_SIZE;
+  color: $WHITE_COLOR !important;
+  opacity: 0.7;
+}
+
+.footer-container .footer-social-links a {
+  display: inline-block;
+  margin-right: $_10_SPACING_SIZE;
+  color: transparentize($LIGHT_COLOR, 0.2);
+}
+
+.footer-container .footer-social-links a:last-child {
+  margin-right: 0;
+}
+
+.footer-container .footer-social-links a ion-icon {
+  font-size: 25px;
+  color: $WHITE_COLOR;
+}
+
+.footer-container .footer-legal-links a:not(:first-child) {
+  margin: 0 $_10_SPACING_SIZE;
+}
+
+// BOTTOM CURRENCY SELECTOR
+.bottom-currency-selector {
+  display: flex;
+  align-items: center;
+  gap: $_10_SPACING_SIZE;
+  padding: $_10_SPACING_SIZE $_20_SPACING_SIZE;
+  border: $BORDER;
+  border-color: $WHITE_COLOR;
+  border-radius: $BORDER_RADIUS;
+  margin-top: $_10_SPACING_SIZE;
+  width: fit-content;
+  transition: background 300ms ease-in-out, color 300ms ease-in-out;
+  cursor: pointer;
+
+  span,
+  ion-icon {
+    color: $LIGHT_COLOR;
+  }
+}
+
+.bottom-currency-selector span {
+  font-weight: 400;
+}
+
+.bottom-currency-selector ion-icon {
+  font-size: 25px;
+}
+
+.bottom-currency-selector:hover {
+  background: $WHITE_COLOR;
+
+  span,
+  ion-icon {
+    color: $DARK_COLOR;
+  }
+}
+
+// FOOTER ATTRIBUTION
+.footer-center-attribution {
+  margin: $_20_SPACING_SIZE 0;
+  text-align: center;
+  opacity: 0.5;
+  font-size: small;
+  font-weight: normal;
+  background: $WHITE_COLOR;
+}
+
+// MOBILE VERSION
+@media screen and (max-width: 650px) {
+  .footer-container .desktop-footer-container .footer-navigation-sections {
+    flex-direction: column;
+  }
+
+  .footer-container .desktop-footer-container .footer-navigation-section {
+    margin-top: $_20_SPACING_SIZE;
+  }
+
+  .navigation-section-title {
+    margin-top: 20px;
+    margin-bottom: 5px !important;
+  }
+
+  .footer-container .desktop-footer-container .footer-navigation-section a {
+    color: transparentize($LIGHT_COLOR, 0.2);
+  }
+
+  .footer-container .footer-bottom-links {
+    flex-direction: column;
+    margin: $_20_SPACING_SIZE 0 $_10_SPACING_SIZE 0;
+  }
+
+  .footer-container .footer-bottom-links .footer-legal-links {
+    align-self: flex-start;
+  }
+
+  .footer-container .footer-bottom-links .footer-legal-links a {
+    display: block;
+    margin: 0;
+  }
+
+  .footer-container .footer-bottom-links .footer-legal-links a,
+  .footer-container .footer-bottom-links .footer-social-links a {
+    padding: $_10_SPACING_SIZE 0;
+  }
+
+  .footer-container .footer-bottom-links .footer-social-links {
+    margin-top: 20px;
+  }
+
+  .footer-container .footer-bottom-links .footer-social-links a:first-child {
+    margin-left: 0;
+  }
+}
+
+// COMPANY MISSION STATEMENT
+.company-mission-statement {
+  font-weight: bold;
+}

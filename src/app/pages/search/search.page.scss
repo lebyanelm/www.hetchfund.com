@@ -1,0 +1,60 @@
+@import "../../../variables.scss";
+
+// SEARCH TEXTAREA BOX
+textarea {
+  width: 100%;
+  font-size: 4rem;
+  font-weight: 900;
+  color: $THEME_COLOR;
+  padding: 0;
+  text-indent: 0;
+  outline: none !important;
+  border-bottom: 4px solid #444;
+}
+
+textarea:focus {
+  border-color: $THEME_COLOR;
+}
+
+// PAGINATION LINKS
+.pagination-links {
+  display: flex;
+  align-items: center;
+  gap: $_10_SPACING_SIZE;
+  margin-top: $_10_SPACING_SIZE;
+}
+
+.pagination-links a {
+  font-weight: bold;
+}
+
+// POPULAR SEARCHES.
+.popular-searches {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.popular-searches .search {
+  display: inline-block;
+  color: black;
+  padding: 10px;
+  border: $BORDER;
+  font-weight: bold;
+  margin: 0 10px 10px 10px;
+  border-radius: 60px;
+
+  // HOVER
+  &:hover {
+    background: $SECONDARY_THEME_COLOR;
+    border-color: $SECONDARY_THEME_COLOR;
+    color: $WHITE_COLOR;
+  }
+}
+
+.popular-searches .search:first-child {
+  margin-left: 0;
+}
+
+.popular-searches .search:last-child {
+  margin-right: 0;
+}

@@ -1,0 +1,43 @@
+<ion-content>
+  <app-header></app-header>
+
+  <div class="page-content">
+    <!-- Section seperator -->
+    <section class="content-wrapper">
+      <div class="header-text-style underlined">Choose a category</div>
+
+      <div
+        class="paragraph-text-style danger-color"
+        *ngIf="this.isLoading === false && this.isUnableToLoad"
+      >
+        Failed to load categories from server. Please refresh this page, if
+        error persists contact us.
+      </div>
+
+      <div
+        class="paragraph-text-style danger-color text-loader"
+        *ngIf="this.isLoading === true"
+      >
+        Loading
+      </div>
+
+      <div
+        class="paragraph-text-style danger-color"
+        *ngIf="this.isLoading === false && this.isUnableToLoad === false"
+      ></div>
+
+      <div *ngFor="let categoryLetter of this.categoryKeys">
+        <div class="letter-separation">{{categoryLetter}}</div>
+        <div class="categories-container">
+          <a
+            class="category"
+            *ngFor="let category of this.categories?.[categoryLetter]"
+            [href]="'/categories/' + category.replace('/', '^').replace(' ', '_')"
+            >{{category}}</a
+          >
+        </div>
+      </div>
+    </section>
+  </div>
+  <app-footer></app-footer>
+</ion-content>

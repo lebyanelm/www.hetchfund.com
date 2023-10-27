@@ -1,0 +1,200 @@
+@import "../../../variables.scss";
+
+.page-content {
+  background: $LIGHT_COLOR;
+}
+
+.back-buttons-container .back-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back-buttons-container .back-buttons span {
+  font-family: "IBM Plex Sans", $FONT_FAMILY;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.paper-document-wrapper {
+  padding: 40px 20%;
+
+  * {
+    font-family: "IBM Plex Sans", $FONT_FAMILY;
+  }
+}
+
+.paper-document-immitation {
+  padding: calc($_20_SPACING_SIZE * 2);
+  border: $BORDER;
+  border-color: $GRAY_COLOR;
+  background: $WHITE_COLOR;
+}
+
+// DOCUMENT HEADER
+.paper-document-immitation .document-header .document-logo-address {
+  display: flex;
+
+  position: relative;
+
+  .company-address {
+    width: 700px;
+    text-align: right;
+
+    span {
+      display: block;
+    }
+
+    span.company-name {
+      font-weight: bold;
+    }
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
+// .paper-document-immitation .document-header img {
+//   height: 80px;
+// }
+
+.paper-document-immitation .document-header .header-text-style {
+  margin-top: $_20_SPACING_SIZE;
+
+  &:first-child {
+    margin-top: 50px;
+  }
+}
+
+.paper-document-immitation .document-header .paragraph-text-style {
+  margin-bottom: $_20_SPACING_SIZE;
+
+  &:last-child {
+    margin-bottom: 40px;
+  }
+}
+
+.paper-document-immitation .document-header .header-text-style,
+.paper-document-immitation .document-header .paragraph-text-style {
+  width: 100%;
+  text-align: center !important;
+}
+
+.paper-document-immitation .document-header .header-text-style.xs {
+  font-size: 18px;
+}
+
+// DOCUMENT BODY
+.paper-document-immitation .document-body table {
+  width: 100%;
+}
+
+.paper-document-immitation .document-body table tr td {
+  padding: $_10_SPACING_SIZE 0;
+  align-items: flex-start;
+
+  &:first-child {
+    font-weight: 500;
+
+    &::after {
+      content: ":";
+    }
+  }
+
+  &:last-child {
+    text-align: right;
+    width: 40% !important;
+  }
+}
+
+.paper-document-immitation .document-body table tr td.long-text,
+.document-footer > * {
+  font-style: italic !important;
+  font-weight: bold;
+}
+
+.paper-document-immitation .document-body table tr.key-attribute td {
+  font-weight: bold;
+  padding-bottom: calc($_20_SPACING_SIZE + $_10_SPACING_SIZE);
+}
+
+// SEPARATOR
+.paper-document-immitation .separator {
+  margin-bottom: 40px;
+}
+
+// PROGRESS CONTRIBUTED
+.progress-contributed .progress-indicator {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  background: $SECONDARY_THEME_COLOR;
+  border-radius: $BORDER_RADIUS;
+  margin-left: 10px;
+  transform: translateY(2.5px);
+}
+
+.progress-contributed-bar-total {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  width: 100%;
+  border: $BORDER;
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.progress-contributed-bar-total .progress-contributed-bar-before,
+.progress-contributed-bar-total .progress-contributed-bar-current {
+  display: block;
+  height: 100%;
+}
+
+.progress-contributed-bar-total .progress-contributed-bar-before {
+  width: 40.9%;
+  background: $GRAY_COLOR;
+}
+
+.progress-contributed-bar-total .progress-contributed-bar-current {
+  width: 10.88%;
+  background: $SECONDARY_THEME_COLOR;
+}
+
+// DOCUMENT FOOTER
+.document-footer {
+  color: $GRAY_COLOR;
+  width: 100%;
+}
+
+.document-footer > * {
+  margin: 40px 0;
+  text-align: center;
+  font-style: italic;
+}
+
+@media print {
+  app-header,
+  app-footer {
+    display: none;
+  }
+
+  .paper-document-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+
+  .paper-document-immitation {
+    border: none;
+  }
+
+  .hide-printout {
+    display: none;
+  }
+
+  * {
+    overflow-y: hidden !important;
+  }
+}

@@ -1,0 +1,34 @@
+<ion-content>
+  <app-header></app-header>
+
+  <div class="page-content">
+    <!-- Section seperator -->
+    <section class="content-wrapper">
+      <a class="button icon-button transparent" (click)="this.goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+        <span>Go back</span>
+      </a>
+      <div class="header-text-style circled">
+        {{this.selectedCategory.replace("_", " ")}}
+      </div>
+
+      <div class="page-eggs-layout">
+        <app-egg [data]="pitch" *ngFor="let pitch of this.pitches"></app-egg>
+
+        <div
+          class="illustrative-error fullsize"
+          *ngIf="this.pitches.length === 0"
+        >
+          <img
+            src="/assets/illustrations/Charco_-_Broken.svg"
+            alt="Not found."
+            class="image"
+          />
+          <div class="header-text-style">Nothing in this space yet.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

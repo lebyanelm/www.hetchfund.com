@@ -1,0 +1,147 @@
+<ion-app [attr.isLoaderShown]="this.isLoaderShown">
+  <ion-router-outlet></ion-router-outlet>
+  <div class="toast-messages-container">
+    <div
+      class="toast-message"
+      *ngFor="let message of this.toastManager.currentMessages"
+    >
+      <ion-icon name="information-circle"></ion-icon>
+
+      <span class="message">{{ message.message }}</span>
+      <div class="close-button">
+        <span class="currency-selectable">Close</span>
+      </div>
+    </div>
+
+    <div class="toast-message" *ngIf="this.toastManager.persistantMessage">
+      <ion-icon name="alert-circle"></ion-icon>
+
+      <span class="message">{{
+        this.toastManager.persistantMessage.message
+      }}</span>
+      <div class="close-button">
+        <span
+          class="currency-selectable"
+          (click)="this.toastManager.persistantMessage = null"
+          >Close</span
+        >
+      </div>
+    </div>
+  </div>
+  <div
+    class="whole-winder-loader-container"
+    [attr.isLoaderShown]="this.isLoaderShown"
+    [attr.isSidebarShown]="this.isSidebarShown"
+    (click)="
+      this.isLoaderShown === false
+        ? this.sidebarService.state.next(false)
+        : null
+    "
+  >
+    <app-loader></app-loader>
+    <div class="sidebar">
+      <div class="top-sidebar-header">
+        <div class="flexbox-space"></div>
+
+        <a class="close-button" (click)="this.sidebarService.state.next(false)">
+          <ion-icon name="close-sharp"></ion-icon>
+          <span>close</span>
+        </a>
+      </div>
+
+      <div class="navigation-links">
+        <section *ngIf="this.sessionService.sessionToken !== undefined">
+          <div class="section-title">My Account</div>
+          <div class="section-content">
+            <a [href]="'/hetcher/' + this.sessionService.data?.username"
+              >View profile</a
+            >
+            <a href="/pitches/create/basics">New pitch</a>
+            <a href="/history/contributions/">Contribution history</a>
+            <a href="/history/view">Browsing history</a>
+            <a href="/settings">Settings</a>
+            <a (click)="this.signout()" class="danger-text-style" href=""
+              >Sign out and remove session</a
+            >
+          </div>
+        </section>
+
+        <section *ngIf="this.sessionService.sessionToken === undefined">
+          <div class="section-title">My Account</div>
+          <div class="section-content">
+            <a href="/signin">Sign in</a>
+            <a href="/join">Join our community</a>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">Featured</div>
+          <div class="section-content">
+            <a href="/categories/Transportation">Transportation</a>
+            <a href="/categories/Energy">Energy</a>
+            <a href="/categories/Technology">Technology</a>
+            <a href="/categories/Internet">Internet</a>
+            <a href="/categories/Consumer_Products">Consumer Products</a>
+            <a href="/categories/Robots_and_AI">Robots and AI</a>
+            <a href="/categories/Health">Health</a>
+            <a href="/categories/Community">Community</a>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">Hetchfund</div>
+          <div class="section-content smaller">
+            <a href="">About Hetchfund</a>
+            <a href="">Become a sponsor</a>
+            <a href="">Careers</a>
+            <a href="">Privacy Policy</a>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">Become a <b>super</b>-follower</div>
+          <div class="section-content">
+            <span class="paragraph-text-style light-color subscribe-text"
+              >Hetchfund, empowers entrepreneurs to turn their visions into
+              reality. Our focus lies in fostering business development and
+              driving innovation.
+            </span>
+
+            <a href="">Subscribe to our newsletters</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</ion-app>
+<!-- <div class="mobile-device-message">
+  <svg
+    width="136"
+    height="142"
+    viewBox="0 0 136 142"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M0.917328 0.905243H44.2365V49.9621H91.5613V84.3879H44.2365V141.095H0.917328V0.905243ZM91.572 84.431V141.095H135.082V84.431H91.572Z"
+    />
+  </svg>
+
+  <div class="message">
+    <span class="header-text-style error-title">:/ (Under development.)</span>
+
+    <br />
+    <span class="error-message"
+      >Mobile devices are not supported yet. Please check at a future time or
+      visit from <b>supported desktop devices</b>.
+
+      <br />
+      <br />
+      <a href="https://hetchfund.com/learn-more/unsupported-devices"
+        >Learn more.</a
+      ></span
+    >
+  </div>
+</div> -->

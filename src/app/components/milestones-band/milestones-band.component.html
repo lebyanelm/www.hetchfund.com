@@ -1,0 +1,31 @@
+<div class="milestones-container">
+  <div
+    class="milestone"
+    [attr.data-iscompleted]="milestone.is_completed"
+    [attr.data-isreached]="milestone.is_reached"
+    [attr.data-title]="
+      milestone.is_completed
+        ? 'Milestone has been completed.'
+        : milestone.is_reached
+        ? 'Funding target reached, but not yet completed.'
+        : 'Funding target not reached yet.'
+    "
+    *ngFor="let milestone of this.milestones"
+  >
+    <span class="name">{{ milestone.name }}</span>
+    <ion-icon name="trophy-sharp" *ngIf="milestone.is_completed"></ion-icon>
+    <ion-icon
+      name="checkmark-sharp"
+      *ngIf="milestone.is_reached && !milestone.is_completed"
+    ></ion-icon>
+    <ion-icon
+      name="alert-sharp"
+      *ngIf="!milestone.is_completed && !milestone.is_reached"
+    ></ion-icon>
+
+    <div class="background-container">
+      <span class="background-top"></span>
+      <span class="background-bottom"></span>
+    </div>
+  </div>
+</div>

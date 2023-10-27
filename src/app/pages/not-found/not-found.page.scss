@@ -1,0 +1,83 @@
+@import "../../../variables.scss";
+
+/* ERROR PAGES */
+.error-page-container {
+  display: flex;
+  width: 100%;
+  gap: $_20_SPACING_SIZE;
+  position: relative;
+}
+
+.error-page-container img.platform-logo {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+.error-page-container > div.section {
+  height: 90vh;
+  max-height: 90vh;
+}
+
+.error-page-container > div.section:last-child {
+  overflow-y: scroll;
+}
+
+.error-page-container > div.section:first-child {
+  padding: $_20_SPACING_SIZE;
+  border-right: $BORDER;
+  flex: 0.8;
+}
+
+.error-page-container > div.section:last-child {
+  flex: 1;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 4px;
+}
+
+.page-eggs-layout {
+  grid-template-columns: 1fr 1fr;
+}
+
+.error-page-container > div.section:first-child img {
+  height: 45px;
+}
+
+.error-page-container .error-page-header {
+  display: block;
+  font-size: 60px;
+  font-weight: 500;
+  margin-top: 50px;
+  font-weight: 900;
+}
+
+.error-page-container .error-page-title {
+  font-size: large;
+  font-weight: 500;
+}
+
+.error-page-container .error-page-buttons {
+  margin: 50px 0 $_10_SPACING_SIZE 0;
+}
+
+// RECOMMENDED ITEMS LIST
+.recommended-items-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  gap: $_5_SPACING_SIZE;
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.recommended-items-list .recommended-item {
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+  border: $BORDER;
+  opacity: 0.8;
+  border-radius: $BORDER_RADIUS;
+}
+
+.recommended-items-list .recommended-item:hover {
+  opacity: 1;
+}

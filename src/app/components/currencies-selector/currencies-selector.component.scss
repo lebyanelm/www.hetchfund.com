@@ -1,0 +1,67 @@
+@import "../../../variables.scss";
+
+.currencies {
+  border-top: $BORDER;
+  width: calc(100% - 8px);
+}
+
+.currencies .currency {
+  align-items: center;
+  border-bottom: $BORDER;
+  border-width: 1px;
+  border-bottom-color: $GRAY_COLOR;
+
+  &,
+  .code {
+    display: flex;
+    align-items: center;
+    gap: $_10_SPACING_SIZE;
+  }
+
+  .code ion-icon {
+    visibility: hidden;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &[data-selected="true"] {
+    background: $DARK_COLOR;
+
+    .symbol {
+      background: $DARK_COLOR;
+    }
+
+    .name,
+    .code {
+      font-weight: bold;
+      color: $WHITE_COLOR;
+    }
+
+    .code ion-icon {
+      visibility: visible;
+    }
+  }
+
+  // HOVER
+  &:hover {
+    background: $GRAY_COLOR;
+    cursor: pointer;
+  }
+}
+
+.currencies .currency .symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  width: 100px;
+  background: $DARK_GRAY_COLOR;
+  color: $WHITE_COLOR;
+  font-size: 20px;
+
+  &::before[code] {
+    content: attr(code);
+  }
+}

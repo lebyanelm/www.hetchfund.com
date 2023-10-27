@@ -1,0 +1,109 @@
+<ion-content>
+  <app-header></app-header>
+  <div class="page-content centered-content with-pattern">
+    <div class="formfields account-formfields">
+      <div class="formfields-header">
+        <div class="header-text-style">Create an account.</div>
+        <span class="paragraph-text-style"
+          >Become part of an economic building platform to better the
+          world.</span
+        >
+      </div>
+
+      <div class="separator" title="Use your email address"></div>
+
+      <div class="unique-avatar-preview">
+        <div class="avatar-container">
+          <div
+            class="avatar"
+            [style.background-image]="'url(https://ui-avatars.com/api/?size=128&rounded=true&bold=true&format=svg&name=' + NameField.value.replace(' ', '+') + ')'"
+          ></div>
+        </div>
+        <i class="paragraph-text-style">
+          Your avatar based on your username.
+        </i>
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style" for="">Display name</label>
+        <br />
+        <br />
+        <input
+          type="text"
+          class="input-field"
+          name="name"
+          placeholder="eg. Towards Common Foundry, Ltd"
+          autocomplete="name"
+          (keyup)="this.errorMessage = ''"
+          #NameField
+        />
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style" for="">Email address</label>
+        <br />
+        <br />
+        <input
+          type="text"
+          class="input-field"
+          name="username"
+          placeholder="eg. support@towardscommonfoundry.com"
+          autocomplete="email"
+          (keyup)="this.errorMessage = ''"
+          #EmailAddressField
+        />
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style" for="">Password</label>
+        <br />
+        <br />
+        <input
+          type="password"
+          class="input-field"
+          name="password"
+          placeholder="8 characters, with a number and symbol."
+          autocomplete="new-password"
+          (keyup)="this.errorMessage = ''"
+          #PasswordField
+        />
+      </div>
+
+      <!-- Error message when something goes wrong. -->
+      <p class="danger-text-style bold-text-style" *ngIf="this.errorMessage">
+        {{this.errorMessage}}
+      </p>
+
+      <p class="paragraph-text-style clause-notice">
+        By creating an account with our platform you agree to our terms and
+        conditions that are stated in our
+        <a href="">Terms & Conditions Page.</a>
+      </p>
+
+      <div class="formfield-buttons">
+        <button (click)="this.createAccount()" [disabled]="this.isLoading">
+          <app-loader [attr.state]="isLoading"></app-loader>
+          Join the platform &mdash; Create an account
+        </button>
+        <a class="button secondary" href="/signin"
+          >Already have an existing account</a
+        >
+      </div>
+
+      <div class="separator" title="Use Social Login"></div>
+
+      <div class="social-buttons">
+        <button class="apple">
+          <ion-icon name="logo-apple"></ion-icon>
+          Continue with an Apple account
+        </button>
+        <button class="secondary">
+          <ion-icon name="logo-google"></ion-icon>
+          Continue with a Google account
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

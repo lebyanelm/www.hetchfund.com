@@ -1,0 +1,47 @@
+<div class="video-element-container">
+  <video
+    [src]="this.src"
+    width="100%"
+    #VideoElement
+    [controls]="false"
+    style="pointer-events: none"
+  ></video>
+
+  <div class="controls-layer">
+    <div
+      class="fullscreen-pause-play-container"
+      (click)="this.toggle()"
+      [style.opacity]="this.isButtonsVisible ? '1' : '0'"
+      #PausePlayButton
+    >
+      <div class="pause-play-button">
+        <div class="icon-container">
+          <ion-icon name="play"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom controllers -->
+    <div class="bottom-controllers-container" #ProgressContainer>
+      <!-- <div class="contol-buttons">
+        <div class="space"></div>
+
+        <div class="fullscreen-button" (click)="this.toFullscreen()">
+          <ion-icon name="expand-sharp"></ion-icon>
+        </div>
+      </div> -->
+
+      <div class="progressbar-container">
+        <div
+          class="hover-point"
+          [style.width]="[this.currentHoverPoint, '%'].join('')"
+          #HoverPointElement
+        ></div>
+        <div
+          class="current-progress"
+          [style.width]="[this.currentProgress, '%'].join('')"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>

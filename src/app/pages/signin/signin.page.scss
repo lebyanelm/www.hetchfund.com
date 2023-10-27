@@ -1,0 +1,40 @@
+@import "../../../variables.scss";
+
+.hcaptcha {
+  width: 100%;
+}
+
+// RESET OF PARAGRAPH TEXT STYLE
+.paragraph-text-style {
+  max-width: 100%;
+}
+
+// FACEBOOK SIGNIN BUTTON
+.facebook-signin-button {
+  padding: 10px;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  width: 100%;
+  border: $BORDER;
+  border-radius: 100px;
+  margin-top: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: opacity 300ms ease;
+}
+
+.facebook-signin-button:hover {
+  opacity: 0.8;
+}
+
+.facebook-signin-button span {
+  font-weight: bold;
+}
+
+.facebook-signin-button img {
+  position: absolute;
+  right: 2px;
+  height: calc(100% - 4px);
+  top: 2px;
+}

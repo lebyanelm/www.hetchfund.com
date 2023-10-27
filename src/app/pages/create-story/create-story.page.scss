@@ -1,0 +1,18 @@
+@import "../../../variables.scss";
+
+app-rich-text-editor {
+  display: block;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+.story-requirements {
+  padding: 20px;
+  border: $BORDER;
+  border-top: none;
+  border-radius: 0 0 $BORDER_RADIUS $BORDER_RADIUS;
+}
+
+.story-requirements ul {
+  list-style: decimal;
+}

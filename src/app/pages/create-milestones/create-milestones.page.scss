@@ -1,0 +1,82 @@
+@import "../../../variables.scss";
+
+.includes-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+// Milestone markup
+.milestones {
+  margin: 20px 0;
+}
+
+.milestone {
+  display: flex;
+  gap: 10px;
+  border-bottom: $BORDER;
+  padding: 20px;
+  position: relative;
+}
+
+.milestone[is-current-edit="true"],
+.milestone[is-current-edit="true"]:hover {
+  background: $THEME_COLOR;
+  position: relative;
+
+  * {
+    color: $WHITE_COLOR !important;
+  }
+}
+
+.milestone[is-current-edit="true"]::after {
+  content: "Editing";
+  display: block;
+  padding: 5px 10px;
+  background: $THEME_COLOR;
+  color: $WHITE_COLOR;
+  border-radius: $BORDER_RADIUS;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-50%) translateX(-10px);
+}
+
+.milestone:last-child {
+  border-bottom: none;
+}
+
+.milestone:hover {
+  background: $GRAY_COLOR;
+  cursor: pointer;
+}
+
+.milestone .milestone-count {
+  font-weight: 900;
+}
+
+.milestone .milestone-description {
+  opacity: 0.6;
+}
+
+.milestone .milestone-target {
+  margin-top: $_5_SPACING_SIZE;
+}
+
+// Edit and delete button
+.milestone ion-icon {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  font-size: 25px;
+}
+
+.milestone:hover ion-icon {
+  opacity: 0.8;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.milestone:hover ion-icon:hover {
+  opacity: 1;
+}

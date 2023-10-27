@@ -1,0 +1,46 @@
+// Handle the preconditions recieved from the processor.
+              if (paymentResponse.redirect.preconditions.length !== 0) {
+                for (let precondition of paymentResponse.redirect
+                  .preconditions) {
+                  let preconditionURL = precondition.url,
+                    preconditionParameterValues = Object.values(
+                      precondition.parameters
+                    );
+
+                  const preconditionForm = document.createElement('form');
+                  preconditionForm.id = formId;
+                  preconditionForm.method = precondition.method;
+                  preconditionForm.action = preconditionURL;
+
+                  // Format the parameters of the preconditions
+                  for (let preconditionParameter of preconditionParameterValues) {
+                    const input = document.createElement('input');
+
+                    input.name = preconditionParameter.name;
+                    input.type = 'hidden';
+                    input.setAttribute(
+                      'value',
+                      preconditionParameter.value + 'aB'
+                    );
+
+                    preconditionForm.appendChild(input);
+                  }
+
+                  // Send the precondition request
+                  const preconditionIframe = document.createElement('iframe');
+                  preconditionIframe.appendChild(preconditionForm);
+
+                  const scriptElement = document.createElement('script');
+                  scriptElement.innerText = `
+                    let ${formId} = document.getElementById("${formId}");
+                    window.onloadended = () => {
+                      ${formId}.submit();
+                      console.log('Form ${formId} submitted.')
+                    };
+                    console.log(${formId}.parentElement.onload, 'form reference');
+                  `;
+                  preconditionIframe.append(scriptElement);
+
+                  document.body.appendChild(preconditionIframe);
+                }
+              }

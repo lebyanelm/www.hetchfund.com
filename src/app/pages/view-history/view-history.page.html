@@ -1,0 +1,53 @@
+<ion-content>
+  <app-header></app-header>
+
+  <div class="page-content">
+    <!-- Section seperator -->
+    <section class="content-wrapper">
+      <div class="header-text-style">View history</div>
+
+      <div
+        class="paragraph-text-style danger-color"
+        *ngIf="this.isLoading === false && this.isUnableToLoad"
+      >
+        Failed to load categories from server. Please refresh this page, if
+        error persists contact us.
+      </div>
+
+      <div
+        class="paragraph-text-style danger-color text-loader"
+        *ngIf="this.isLoading === true"
+      >
+        Loading
+      </div>
+
+      <div
+        class="paragraph-text-style danger-color"
+        *ngIf="this.isLoading === false && this.isUnableToLoad === false"
+      >
+        Pitchs you viewed and seen
+      </div>
+
+      <div class="viewed-pitches">
+        <br />
+        <app-recently-viewed-egg></app-recently-viewed-egg>
+
+        <div class="page-eggs-layout" *ngIf="this.all_viewed.length != 0">
+          <app-egg
+            *ngFor="let viewed of this.all_viewed"
+            [data]="viewed"
+          ></app-egg>
+        </div>
+
+        <div class="page-eggs-layout" *ngIf="this.all_viewed.length === 0">
+          <div
+            class="paragraph-text-style text-loader"
+            *ngIf="this.isLoading === true"
+          >
+            Sorting your view history
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>

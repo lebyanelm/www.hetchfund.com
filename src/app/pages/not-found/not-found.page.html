@@ -1,0 +1,69 @@
+<div class="page-content">
+  <div class="content-wrapper">
+    <div class="error-page-container">
+      <div class="section">
+        <!-- PLAFTORM LOGO -->
+        <a href="/"
+          ><img
+            class="platform-logo"
+            src="/assets/favicon+black.svg"
+            alt="Platform Logo (with Text)"
+        /></a>
+
+        <div class="header-text-style error-page-header circled">
+          {{error_title}}
+        </div>
+
+        <br />
+        <br />
+
+        <p class="error-page-description paragraph-text-style">
+          {{error_message}}
+        </p>
+
+        <div class="error-page-buttons">
+          <a class="button" (click)="this.goBack()">Please take me back</a>
+          <a
+            href="https://www.hetchfund.capital/random-egg"
+            class="button secondary"
+            >Play a Game &mdash; Guess the pitch</a
+          >
+        </div>
+
+        <br />
+        <a href="">Visit our system status page</a>
+
+        <div class="error-page-footer paragraph-text-style">
+          <p>
+            Hetchfund. At the courtesy of
+            <a href="https://towardscommonfoundry.com/"
+              >Towards Common Foundry</a
+            >. All rights have been reserved.
+          </p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="header-text-style">Recommended for you</div>
+        <span class="paragraph-text-style" *ngIf="!this.isLoadingRecommended"
+          >Since you're lost &mdash; maybe you might want to checkout some of
+          these pitches.</span
+        >
+        <span
+          class="paragraph-text-style text-loader"
+          *ngIf="this.isLoadingRecommended"
+          >Finding you the best results</span
+        >
+
+        <div class="recommended-items-list">
+          <a
+            href=""
+            class="recommended-item"
+            [href]="['/pitches', recommended.key + '?ref=error-page'].join('/')"
+            *ngFor="let recommended of this.reconmmended"
+            [style.background-image]="'url(' + recommended.thumbnail_url + ')'"
+          ></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

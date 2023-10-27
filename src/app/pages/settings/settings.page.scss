@@ -1,0 +1,95 @@
+@import "../../../variables.scss";
+
+.settings-tab-items {
+  display: flex;
+  align-items: center;
+  border-bottom: $BORDER_THIN;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+}
+
+.settings-tab-items .settings-tab-item {
+  display: block;
+  padding: 20px 0;
+  border-bottom: 10px solid transparent;
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 40px;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    border-color: $THEME_COLOR;
+    color: $THEME_COLOR;
+  }
+
+  &[data-is-active="true"] {
+    border-color: $SECONDARY_THEME_COLOR;
+    color: $SECONDARY_THEME_COLOR;
+  }
+}
+
+// TAB CONTENT
+.settings-tabs-content {
+    display: flex;
+    padding: 0 $_20_SPACING_SIZE;
+    width: 100%;
+    gap: 60px;
+    align-content: space-between;
+}
+
+.settings-tabs-content .tab-content {
+    flex: 0.8;
+}
+
+.settings-tabs-content .side-content {
+    flex: 0.2;
+}
+
+.settings-tabs-content section {
+  margin-top: $_10_SPACING_SIZE;
+  margin-bottom: $_10_SPACING_SIZE;
+  padding: $_10_SPACING_SIZE 0;
+  border-bottom: $BORDER_THIN;
+  border-color: $LIGHT_COLOR;
+}
+
+.settings-tabs-content section:last-child {
+  border-bottom: none;
+}
+
+.settings-tabs-content section label {
+  font-size: 16px;
+}
+
+.tab-content .section-content .header-text-style {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+// ACCOUNT ACTIVITY TAB
+.account-activity-items {
+  margin-top: $_10_SPACING_SIZE;
+}
+
+.account-activity-items .account-activity-item {
+  padding: $_10_SPACING_SIZE 40px;
+  border-bottom: $BORDER_THIN;
+  border-color: transparentize($THEME_COLOR, .2);
+  padding-bottom: 20px;
+}
+
+.account-activity-items .account-activity-item .header-text-style {
+  font-weight: bold;
+}
+
+.account-activity-items .account-activity-item .control_indicator {
+  transform: translateY(14px);
+}

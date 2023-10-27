@@ -1,0 +1,84 @@
+@import "../../../variables.scss";
+
+.reward-options {
+  margin-top: 10px;
+}
+
+.reward-options .contribution-option {
+  position: relative;
+}
+
+.reward-options
+  .contribution-option[data-is-edit-mode="true"][data-is-selected-edit="false"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.reward-options .contribution-delete-button,
+.reward-options .contribution-edit-button {
+  content: "Click to edit reward";
+  font-weight: bold;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 80%;
+  padding: 0 20px;
+  background-color: transparentize($THEME_COLOR, 1);
+  color: white;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 5;
+}
+
+.reward-options .contribution-edit-button {
+  left: 0;
+  border-radius: $BORDER_RADIUS 0 0 $BORDER_RADIUS;
+}
+
+.reward-options .contribution-delete-button {
+  width: 20%;
+  background-color: transparentize(red, 0.3);
+  right: 0 !important;
+  border-radius: 0 $BORDER_RADIUS $BORDER_RADIUS 0;
+  z-index: 10;
+}
+
+.reward-options .contribution-option:hover .contribution-edit-button,
+.reward-options .contribution-option:hover .contribution-delete-button {
+  opacity: 1;
+}
+
+.reward-options .contribution-option:hover .contribution-edit-button {
+  background-color: transparentize($THEME_COLOR, 0.1);
+  pointer-events: all;
+  cursor: pointer;
+}
+
+// REWARD THUMBNAIL UPLOAD
+.thumbnail-status {
+  display: inline-flex;
+  align-items: center;
+  transform: translateY(5px);
+}
+
+.thumbnail-status[data-is-uploaded="uploaded"] ion-icon,
+.thumbnail-status[data-is-uploaded="uploaded"] span {
+  color: $SUCCESS_COLOR !important;
+}
+
+.thumbnail-status[data-is-uploaded="uploading"] ion-icon,
+.thumbnail-status[data-is-uploaded="uploading"] span {
+  color: $WARNING_COLOR !important;
+}
+
+.thumbnail-status[data-is-uploaded="error"] ion-icon,
+.thumbnail-status[data-is-uploaded="error"] span {
+  color: $DANGER_COLOR !important;
+}
+
+// UPLOAD PROGRESS BAR
+.upload-progress {
+  height: 10px;
+  background: $SECONDARY_THEME_COLOR;
+}

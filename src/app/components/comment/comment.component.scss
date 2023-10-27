@@ -1,0 +1,129 @@
+@import "../../../variables.scss";
+
+.comment {
+  display: flex;
+  gap: $_10_SPACING_SIZE;
+  position: relative;
+  margin-top: $_20_SPACING_SIZE;
+  background: $BACKGROUND_COLOR;
+}
+
+.comment-container {
+  border-top: $BORDER;
+}
+
+.comment-container .commentor-avatar-container .commentor-avatar {
+  height: 70px;
+  width: 70px;
+  border-radius: 100px;
+  border: $BORDER;
+  background-image: url(https://g0.iggcdn.com/assets/individuals/missing/thumbnail-deaf450c2d4183b9309b493f6a7b20d62f8d31617ec828d060df465abe92ef2a.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// WHEN A COMMENT IS A REPLY
+.comment-container[data-isreply="true"] {
+  border: none !important;
+  padding: 0 !important;
+}
+
+.comment-container[data-isreply="true"] .commentor-avatar {
+  height: 40px !important;
+  width: 40px !important;
+  border: 1px solid $GRAY_COLOR !important;
+  z-index: 2;
+}
+
+.comment-container .comment::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 4px;
+  background: transparentize($DARK_COLOR, 0.7);
+  left: 20px;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+// COMMENT DETAILS CONTAINER.
+.comment-container .comment-details-container {
+  flex: 1;
+}
+
+// COMMENTOR DETAILS.
+.comment-container .comment-details-container .commentor-details {
+  display: flex;
+  align-items: center;
+  gap: $_10_SPACING_SIZE;
+}
+
+.comment-container .comment-details-container .commentor-name {
+  font-weight: bolder;
+  font-size: large;
+}
+
+.comment-container .comment-details-container .commentor-role {
+  visibility: hidden;
+  display: inline-block;
+  padding: 5px;
+  border-radius: $BORDER_RADIUS;
+  color: $WHITE_COLOR;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: small;
+  letter-spacing: 1px;
+}
+
+.comment-container
+  .comment-details-container
+  .commentor-role[data-role="Pitch_owner"] {
+  visibility: visible;
+  background: transparentize(gold, 0.5);
+  color: $DARK_COLOR;
+}
+
+.comment-container .comment-details-container .comment-body {
+  margin-top: $_5_SPACING_SIZE;
+}
+
+.comment-container .comment-details-container .comment-body .comment-body-text {
+  font-family: $FONT_FAMILY;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+// COMMENT REPLIES.
+.comment-container .comment-replies {
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.comment-container .comment-replies .comment-container {
+  margin-top: $_10_SPACING_SIZE;
+}
+
+.comment-container a.expand-replies-button {
+  margin: $_20_SPACING_SIZE 0 $_10_SPACING_SIZE 0;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+}
+
+// DELETE COMMENT BUTTON
+.delete-comment-button {
+  align-self: flex-end;
+}
+
+.delete-comment-button ion-icon {
+  font-size: 25px;
+}
+
+// REPLY INPUT BOX
+.reply-inputbox-container {
+  padding: 10px 0 0 0;
+}
+
+.reply-inputbox-container .reply-button {
+  background: $SECONDARY_THEME_COLOR;
+}

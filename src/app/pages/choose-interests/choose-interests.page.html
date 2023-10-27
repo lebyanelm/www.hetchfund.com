@@ -1,0 +1,56 @@
+<ion-content>
+  <app-header></app-header>
+
+  <div class="page-content">
+    <!-- Section seperator -->
+    <section class="content-wrapper">
+      <div class="header-text-style">Please select your interests</div>
+
+      <div
+        class="paragraph-text-style danger-color"
+        *ngIf="this.isLoading === false && this.isUnableToLoad"
+      >
+        Failed to load interests from server. Please refresh this page, if error
+        persists contact us.
+      </div>
+
+      <div
+        class="paragraph-text-style danger-color text-loader"
+        *ngIf="this.isLoading === true"
+      >
+        Loading
+      </div>
+
+      <div
+        class="paragraph-text-style danger-color"
+        *ngIf="this.isLoading === false && this.isUnableToLoad === false"
+      >
+        This helps us offer campaigns specific to fields you're interested in.
+        In future more will be added as you browse projects. Select as many as
+        you can.
+        <br />
+        <br />
+      </div>
+
+      <div *ngFor="let interestLetter of this.interestKeys">
+        <div class="letter-separation">{{interestLetter}}</div>
+        <div class="interests-container">
+          <a
+            class="interest"
+            *ngFor="let interest of this.interests?.[interestLetter]"
+            [attr.data-is-selected]="this.selectedInterests.includes(interest)"
+            (click)="this.toggleSelection(interest)"
+          >
+            {{interest}}</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <button (click)="this.saveInterestSelection()">
+      {{this.selectedInterests.length == 0 ? "Skip & Complete this next time" :
+      "Confirm selected interets"}}
+    </button>
+  </div>
+  <app-footer></app-footer>
+</ion-content>

@@ -1,0 +1,30 @@
+@import "../../../variables.scss";
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: $BORDER_THIN;
+  border-color: $GRAY_COLOR;
+}
+
+.verification-title {
+  margin: 20px 0;
+}
+
+.verification-title,
+.verification-message {
+  max-width: 50%;
+  text-align: center;
+}
+
+img.verification-illustration {
+  width: 20%;
+}
+
+.bottom-attributions {
+  margin-top: 100px;
+  font-weight: medium;
+  text-align: center;
+  opacity: 0.6;
+}

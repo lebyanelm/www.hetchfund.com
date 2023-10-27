@@ -1,0 +1,9 @@
+@import "../../../variables.scss";
+
+ion-icon {
+  color: $DARK_COLOR;
+}
+
+button:hover ion-icon {
+  color: $SECONDARY_THEME_COLOR !important;
+}

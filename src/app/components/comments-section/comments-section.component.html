@@ -1,0 +1,66 @@
+<div class="comments-section-container">
+  <div class="header-text-style small">Community & comments</div>
+  <span class="paragraph-text-style"
+    >Only funders and contributors can post their comments to a pitch
+    page.</span
+  >
+
+  <!-- POSTING A NEW COMMENT AND RESPONDING TO ONE. -->
+  <div class="new-comment-section">
+    <div class="formfields">
+      <div class="formfield" data-reply="Replying to David">
+        <div class="input-container">
+          <textarea
+            name="comment"
+            id="comment"
+            cols="30"
+            rows="3"
+            [(ngModel)]="this.commentBody"
+            placeholder="Use comments to ask for more information or suggest improvements to the pitch owners. Please avoid unnecessary commentations..."
+            #CommentBodyInput
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <button
+      class="icon-button"
+      [disabled]="this.isReply || this.isDisabled === true"
+      [attr.data-title]="
+        this.isDisabled ? 'You\'re not a contributor' : 'Post comment'
+      "
+      (click)="this.postComment(CommentBodyInput.value)"
+      *ngIf="!this.isReply"
+    >
+      <span>Post comment</span>
+      <ion-icon name="send"></ion-icon>
+    </button>
+    <button
+      class="icon-button secondary"
+      [attr.data-title]="
+        this.isReply ? 'Reply focused comment' : 'No comment to reply'
+      "
+      *ngIf="this.isReply"
+    >
+      <ion-icon name="arrow-redo"></ion-icon>
+      <span>Reply to {{ this.replyComment.commentor.display_name }}</span>
+    </button>
+  </div>
+
+  <!-- ACTUAL POSTED COMMENTS. -->
+  <div class="discussions">
+    <app-comment
+      *ngFor="let comment of this.comments"
+      [postCommentMethod]="this.postComment"
+      [deleteMethod]="this.deleteComment"
+      [id]="comment.key"
+      [binder]="this"
+      [data]="comment"
+      [isDisabled]="this.isDisabled"
+    ></app-comment>
+
+    <br />
+    <span class="paragraph-text-style" *ngIf="this.comments.length === 0"
+      >No comments yet.</span
+    >
+  </div>
+</div>

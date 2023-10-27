@@ -1,0 +1,48 @@
+@import "../../variables.scss";
+
+.page-content {
+  padding: 0;
+  margin: 0;
+}
+
+.pitch-funding-purpose {
+  font-weight: normal !important;
+}
+
+.pitches-subsection-label {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+section > *:first-child {
+  margin-top: 30px;
+}
+
+section > *:last-child {
+  margin-bottom: 30px;
+}
+
+section.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $_20_SPACING_SIZE;
+}
+
+section.section-header a.section-more {
+  transform: translateY(26px);
+  text-decoration-style: wavy;
+  margin-right: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px !important;
+}
+
+section.section-header a.section-more .mobile-text {
+  display: none;
+}
+
+section.section-header a.section-more:hover {
+  text-decoration-style: solid;
+}

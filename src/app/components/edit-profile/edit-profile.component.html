@@ -1,0 +1,173 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <div class="header-text-style modal-name">Edit your profile</div>
+  </div>
+
+  <div class="modal-content">
+    <div class="formfields modal-formfields">
+      <div class="formfield">
+        <label class="section-title-style" for="">Display name</label>
+        <div class="input-container">
+          <input
+            type="text"
+            class="input-field"
+            name="display_name"
+            [placeholder]="this.passedData?.display_name"
+            [(ngModel)]="this.passedData.display_name"
+            autocomplete="name"
+            #DisplayNameField
+          />
+        </div>
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style" for="">Biography</label>
+        <div class="input-container">
+          <textarea
+            type="text"
+            class="input-field biography-input"
+            name="biography"
+            [placeholder]="this.passedData?.biography"
+            [placeholder]="
+              'Your profile summary, let us know about yourself, professions, skills and interests.'
+            "
+            #BiographyField
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style" for="">Age</label>
+        <div class="input-container">
+          <input
+            type="tel"
+            class="input-field age-input"
+            name="age"
+            [placeholder]="this.passedData?.age"
+            [value]="this.passedData?.age"
+            [placeholder]="'eg. 15'"
+            autocomplete="name"
+            #AgeField
+          />
+        </div>
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style">Gender</label>
+        <div class="select">
+          <div class="input-container">
+            <select
+              type="text"
+              class="input-field gender-select"
+              name="nationality"
+              [value]="this.passedData?.gender"
+              (change)="this.selectGender(GenderSelect.value)"
+              #GenderSelect
+            >
+              <option value="0">Prefer not to say</option>
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+              <option value="3">Non-gender based</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style" for="">Occupation</label>
+        <div class="select">
+          <div class="input-container">
+            <select
+              type="text"
+              class="input-field biography-input"
+              name="nationality"
+              (change)="this.selectOccupation(NationalitySelect.value)"
+              [value]="this.selectedOccupation"
+              #OccupationSelect
+              [disabled]="this.occupations.length == 0"
+            >
+              <option
+                *ngFor="let occupation of this.occupations"
+                [value]="occupation"
+                default
+              >
+                {{ occupation }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="checkbox">
+          <div>
+            <input
+              type="checkbox"
+              id="collective"
+              [checked]="this.passedData?.is_collective"
+              #IsCollectiveProfile
+            />
+          </div>
+          <label for="collective"
+            >Hetcher profile is collective?
+            <b>(Contains more-than one member in the group)</b></label
+          >
+        </div>
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style" for="">Nationality</label>
+        <div class="select">
+          <select
+            type="text"
+            class="input-field biography-input"
+            name="nationality"
+            (change)="this.selectNationality(NationalitySelect.value)"
+            [value]="this.selectedNationality"
+            #NationalitySelect
+          >
+            <option
+              *ngFor="let nationality of this.nationalities"
+              [value]="nationality"
+            >
+              {{ nationality }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="formfield">
+        <label class="section-title-style" for="">Home City</label>
+        <div class="select">
+          <select
+            type="text"
+            class="input-field biography-input"
+            name="home_city"
+            (change)="this.selectCity(HomeCitySelect.value)"
+            [value]="this.selectedCity"
+            #HomeCitySelect
+          >
+            <option *ngFor="let city of this.cities" [value]="city">
+              {{ city }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <i class="paragraph-text-style"
+      >Note: Usernames can not be changed, once defined at account creation it's
+      permanant.</i
+    >
+  </div>
+
+  <div class="modal-footer">
+    <button
+      (click)="this.saveChangesAndClose()"
+      [disabled]="this.isSavingChanges"
+    >
+      Save changes and close
+    </button>
+    <button class="secondary" (click)="this.resetToDefault()">
+      Reset back to default
+    </button>
+  </div>
+</div>

@@ -1,0 +1,129 @@
+<ion-content>
+  <app-header [hasBackground]="true"></app-header>
+
+  <!-- Header that shows the steps of the pitch creation process -->
+  <app-pitch-create-steps
+    [step]="5"
+    [binder]="this"
+    [saveMethod]="this.saveChanges"
+    [draftProgress]="this.draft?.draft_progress"
+  ></app-pitch-create-steps>
+
+  <div class="page-content content-wrapper">
+    <div class="header-text-style">Add curators</div>
+    <div class="field-status optional">(OPTIONAL FOR ONE MEMBER)</div>
+
+    <div class="paragraph-text-style">
+      <ion-icon name="information-circle"></ion-icon> Add members of interest to
+      the pitch.
+    </div>
+
+    <!-- Pitch name and brief description -->
+    <div class="field-section">
+      <div class="field-section-description">
+        <div class="field-name">Curators, and collaborators</div>
+        <div class="paragraph-text-style field-description">
+          Add other team members and collaborators, assigning tasks to them to
+          make your work easier. You can also adjust their level of access to
+          the pitch.
+        </div>
+      </div>
+
+      <!--  -->
+      <div class="field-section-input">
+        <div class="formfield">
+          <label for="">Enter a profile email address here</label>
+          <div class="field-status optional">(OPTIONAL FOR ONE MEMBER)</div>
+
+          <div class="input-container has-suggestions">
+            <textarea
+              class="larger"
+              type="text"
+              rows="2"
+              placeholder="e.g. email@address.com"
+              (keyup)="this.performSuggestionsSearch(PitchorCuratorField.value)"
+              #PitchorCuratorField
+            ></textarea>
+          </div>
+
+          <div class="formfield-suggestions">
+            <div class="padding-wrapper" *ngIf="this.isLoadingSuggestions">
+              <span class="paragraph-text-style text-loader"
+                >Loading suggestions</span
+              >
+            </div>
+
+            <div
+              href=""
+              class="formfield-suggestion"
+              (click)="this.toggleSuggestionSelection(suggestion, true)"
+              *ngFor="let suggestion of this.curatorSuggestions"
+            >
+              <div class="suggestion-details">
+                <div class="suggestion-primary-name">
+                  {{suggestion?.display_name}}
+                </div>
+              </div>
+
+              <div class="suggestion-status" [attr.data-status]="false">
+                @{{suggestion?.username}}
+              </div>
+            </div>
+          </div>
+
+          <div class="paragraph-text-style">
+            <ion-icon name="information-circle"></ion-icon> The members you add
+            will recieve a collaboration email for this pitch when saving this
+            step.
+            <b
+              >All pitch members will be required to be to be verified with an
+              ID Document/Passport before pitch is fully approved.
+            </b>
+            <a href="">Learn more.</a>
+          </div>
+        </div>
+
+        <div class="formfield-lists">
+          <label for="">Pitch selected members</label>
+
+          <div
+            class="padding-wrapper"
+            *ngIf="this.selectedCurators.length == 0"
+          >
+            <span class="paragraph-text-style">No curators selected yet.</span>
+          </div>
+
+          <div
+            href=""
+            class="formfield-list"
+            (click)="this.toggleSuggestionSelection(selected)"
+            *ngFor="let selected of this.selectedCurators"
+          >
+            <div class="list-details">
+              <div class="list-primary-name">{{selected.display_name}}</div>
+              <div class="list-secondary-name paragraph-text-style">
+                @{{selected.username}} {{this.sessionService.data?.username ==
+                selected.username ? " (Primary curator)" : " (Secondary\
+                curator)"}}
+              </div>
+            </div>
+
+            <div class="list-status" [attr.data-status]="selected.is_verified">
+              {{selected.is_verified ? "" : ""}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-create-bottom-footer
+      [key]="this.draft_key"
+      [progress]="this.draft?.draft_progress"
+      [save]="this.saveChanges"
+      [binder]="this"
+    ></app-create-bottom-footer>
+    <br />
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

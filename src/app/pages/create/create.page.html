@@ -1,0 +1,414 @@
+<ion-content>
+  <app-header [hasBackground]="true"></app-header>
+
+  <!-- Header that shows the steps of the pitch creation process -->
+  <app-pitch-create-steps
+    [step]="1"
+    [saveMethod]="this.saveDraftEdits"
+    [binder]="this"
+    [draftProgress]="this.basicPitch?.draft_progress"
+  ></app-pitch-create-steps>
+
+  <div class="page-content content-wrapper">
+    <div class="header-text-style">Basics</div>
+    <div class="paragraph-text-style">
+      <ion-icon name="information-circle"></ion-icon> Brief your potential
+      funders.
+    </div>
+
+    <!-- Pitch name and brief description -->
+    <div class="field-section">
+      <div class="field-section-description">
+        <div class="field-name">Pitch title, and brief description</div>
+        <div class="paragraph-text-style field-description">
+          A clear name of your company, the business issuing out a funding
+          pitch. Should be as it appears on the Company Registration Certificate
+          (COR14.1) document.
+
+          <br />
+          <br />
+          Potential funders will see this name as they offer contribution to the
+          pitch. Also provide a brief description of what your company is about.
+        </div>
+      </div>
+      <div class="field-section-input">
+        <div class="formfield">
+          <label for="">Pitch title, or company name</label>
+          <div class="field-status">(REQUIRED)</div>
+          <div class="input-container">
+            <textarea
+              class="larger"
+              type="text"
+              rows="1"
+              placeholder="e.g. AdvaTech Solar Powers, Ltd or Building for a stable Agricultural system for our community foods."
+              [disabled]="PitchorTitle.value.length === 50"
+              #PitchorTitle
+              [(ngModel)]="this.basicPitch.name"
+            ></textarea>
+          </div>
+          <div class="flexbox">
+            <div class="flexbox-space"></div>
+            <span class="paragraph-space max-character-count"
+              >{{PitchorTitle.value.length}}/50</span
+            >
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Funding purpose:</label>
+          <div class="field-status">(REQUIRED)</div>
+          <div class="input-container">
+            <textarea
+              class="larger"
+              type="text"
+              rows="3"
+              placeholder="e.g. To provide more solar powered systems to Agricultural farms for more efficiency."
+              [disabled]="FundingPurpose.value.length === 80"
+              [(ngModel)]="this.basicPitch.funding_purpose"
+              #FundingPurpose
+            ></textarea>
+          </div>
+          <div class="flexbox">
+            <div class="flexbox-space"></div>
+            <span class="paragraph-space max-character-count"
+              >{{FundingPurpose.value.length}}/80</span
+            >
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Company brief description</label>
+          <div class="field-status">(REQUIRED)</div>
+          <div class="input-container">
+            <textarea
+              class="larger"
+              type="text"
+              rows="3"
+              placeholder="e.g. At AdvaTech Solar Powers, Ltd we supply businesses with solar panels during this tough time of loaddshedding."
+              [disabled]="BriefDescription.value.length === 125"
+              #BriefDescription
+              [(ngModel)]="this.basicPitch.brief_description"
+            ></textarea>
+          </div>
+          <div class="flexbox">
+            <div class="flexbox-space"></div>
+            <span class="paragraph-space max-character-count"
+              >{{BriefDescription.value.length}}/125</span
+            >
+          </div>
+
+          <div class="paragraph-text-style italic">
+            <ion-icon name="information-circle"></ion-icon>
+            <b
+              >Remember: The brief description should be a short text telling a
+              short-story of what your business / project does in a basic
+              format.</b
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- https://storage.googleapis.com/hetchfund_files_bucket/support%40towardscommonfoundry.com/12cb17a5-4009-43c1-8719-7ea7dfbfa5f6.mp4 -->
+
+    <div class="field-section">
+      <div class="field-section-description">
+        <div class="field-name">Primary and secondary category</div>
+        <div class="paragraph-text-style field-description">
+          Categories your pitches fit-into, this is for search purposes so
+          funders can find your pitch.
+
+          <br />
+          <br />
+          Secondary category assists in providing relevence to your category, in
+          full for example they could be: Arts & Craft / Music. These can be
+          changed at anytime when you see fit.
+        </div>
+      </div>
+      <div class="field-section-input">
+        <div class="formfield">
+          <label for="">Primary category</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+            <select
+              (change)="this.setSelectValue('primary_category', PrimaryCategory.value)"
+              #PrimaryCategory
+            >
+              <option value="">Choose</option>
+              <option
+                [value]="category"
+                *ngFor="let category of this.primaryCategories"
+              >
+                {{category}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Secondary category</label>
+          <div class="field-status optional">(OPTIONAL)</div>
+
+          <div class="input-container">
+            <select
+              (change)="this.setSelectValue('secondary_category', SecondaryCategory.value)"
+              #SecondaryCategory
+            >
+              <option value="">Choose</option>
+              <option
+                [value]="category"
+                *ngFor="let category of this.categories?.[this.basicPitch?.primary_category]"
+                [id]="category"
+              >
+                {{category}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="paragraph-text-style italic">
+          <ion-icon name="information-circle"></ion-icon>
+          <b
+            >Remember: Secondary category should give an idea what is your
+            primary category about, meaning they should be related to each other
+            according to your business's industry. Otherwise select Other if no
+            option is available for you.</b
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="field-section">
+      <div class="field-section-description">
+        <div class="field-name">Country and province of company</div>
+        <div class="paragraph-text-style field-description">
+          Province which your business registration is informed and registered
+          in, this is for statistics purposes but is a requirement for the
+          review process.
+        </div>
+      </div>
+      <div class="field-section-input">
+        <div class="formfield">
+          <label for="">Country company is situated / registered</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+            <select
+              (change)="this.setSelectValue('country_published', CountrySelector.value)"
+              #CountrySelector
+            >
+              <option value="">Select a country</option>
+              <option
+                [value]="country"
+                *ngFor="let country of this.countries"
+                [id]="this.basicPitch?.country_published== country ? country : ''"
+              >
+                {{country}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="formfield">
+          <label for="">Province of company</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+            <select
+              (change)="this.setSelectValue('province_published', ProvinceSelector.value); this.log(ProvinceSelector.value)"
+              #ProvinceSelector
+            >
+              <option value="">Select a province</option>
+              <option
+                [value]="province?.name"
+                *ngFor="let province of this.provinces?.[this?.selectedCountry]"
+                [id]="province?.name.replace(' ', '_')"
+              >
+                {{province?.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="paragraph-text-style italic">
+          <ion-icon name="information-circle"></ion-icon>
+          <b
+            >Remember: We do not support other countries other than South Africa
+            at the moment. We are working towards expanding our reach to other
+            countries and make sure we fit the necessary regulations in those
+            Jurisdiction.</b
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="field-section">
+      <div class="field-section-description">
+        <div class="field-name">Pitchor logo, or placeholder image</div>
+        <div class="paragraph-text-style field-description">
+          <p>
+            Add an image that clearly represents the logo of your registered
+            business, the image can include a product you produce but the
+            product must have the company logo visibly shown. Choose an image
+            that is clear in different sizes,
+            <b>blurry images will be rejected during the review process</b>.
+            This image will represent the pitch placeholder image, will appear
+            in pitch page, search, suggestions and social media platforms.
+          </p>
+
+          <p>
+            A proper size should be selected for the <b>pitchor logo</b>,
+            recomended size is: <b>1024 and 720 pixels</b>.
+          </p>
+        </div>
+      </div>
+      <div class="field-section-input">
+        <div class="formfield">
+          <label for="">Add a pitchor / company logo</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div
+            class="media-selector image"
+            (click)="PlaceholderFileInput.click()"
+            [attr.isProcessed]="this.selectedPlaceholder?.url !== null"
+            [style.backgroundImage]="'url('+ this.selectedPlaceholder?.url +')'"
+          >
+            <input
+              type="file"
+              hidden
+              (change)="this.uploadFile(PlaceholderFileInput.files[0])"
+              #PlaceholderFileInput
+            />
+
+            <ion-icon name="image-sharp"></ion-icon>
+            <span class="header-text-style smaller light"
+              >{{"Selected file: " + (this.selectedPlaceholder?.name ||
+              this.selectedPlaceholder?.filename || "Drop images here, or click\
+              to select a file")}}</span
+            >
+            <span class="paragraph-text-style">
+              {{this.selectedPlaceholder ? (this.isPlaceholderUploaded ?
+              "Uploaded" : "Uploading") : "Images must be\ supported formats:\
+              PNG, JPG, GIF, BMP, or WEBP. Max file size:\ 200MB"}}
+            </span>
+
+            <div *ngIf="this.isPlaceholderUploading">
+              <div class="flexbox flexbox-center">
+                <div class="spinner"></div>
+              </div>
+            </div>
+
+            <div
+              class="upload-progress"
+              [style.width]="this.placeholderUploadProgress + '%'"
+            ></div>
+          </div>
+
+          <br />
+          <span class="paragraph-text-style flexbox flexbox-center"
+            >For examples on how your placeholder image should look like, Read
+            more here:<a href="" target="_blank"
+              >New pitch: How placeholder images should look like?</a
+            ></span
+          >
+          <br />
+        </div>
+      </div>
+    </div>
+
+    <div class="field-section">
+      <div class="field-section-description">
+        <div class="field-name">Presentation video</div>
+
+        <div class="paragraph-text-style field-description">
+          <p>
+            Add a that clearly explains your pitch and the purpose for
+            requesting funding, and what are your plans for the funds that will
+            be acquired.
+          </p>
+
+          <p>
+            Your video is required to be <i>clearly audible</i> and of a
+            <i>visible quality</i>.
+          </p>
+        </div>
+      </div>
+      <div class="field-section-input">
+        <div class="formfield">
+          <label for="">Add an introduction video (recommended)</label>
+          <div class="field-status optional">(OPTIONAL | RECOMMENDED)</div>
+
+          <div
+            class="media-selector"
+            (click)="this.selectedPresentationVideo || VideoPresentationSelector.click()"
+            [attr.isProcessed]="this.selectedPresentationVideo?.url !== null"
+          >
+            <input
+              type="file"
+              hidden
+              (change)="this.uploadFile(VideoPresentationSelector.files[0], false)"
+              #VideoPresentationSelector
+            />
+
+            <ion-icon name="videocam-sharp"></ion-icon>
+            <span class="header-text-style smaller light"
+              >{{"Selected file: " + (this.selectedPresentationVideo?.name ||
+              this.selectedPresentationVideo?.filename || "Drop a video here,\
+              or click to select a file")}}</span
+            >
+            <span class="paragraph-text-style">
+              {{this.selectedPresentationVideo ?
+              (this.isPresentationVideoUploaded ? "Uploaded" : "Uploading") :
+              "Videos must be supported formats:\ MP4, WEBM, OGG, 3GPP, or\
+              MPEG.\ Max file size: 200MB"}}
+            </span>
+
+            <app-video
+              [src]="this.selectedPresentationVideo?.url"
+              *ngIf="this.selectedPresentationVideo?.url"
+            ></app-video>
+
+            <div
+              class="upload-progress"
+              [style.width]="this.presentationVideoUploadProgress + '%'"
+            ></div>
+
+            <div *ngIf="this.isPresentationVideoUploading">
+              <div class="flexbox flexbox-center">
+                <div class="spinner"></div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+
+          <button
+            *ngIf="this.selectedPresentationVideo?.url"
+            (click)="VideoPresentationSelector.click()"
+          >
+            Change to a different video
+          </button>
+
+          <span class="paragraph-text-style flexbox flexbox-center"
+            >For examples on how your presentation videos should look like, Read
+            more here:
+            <a href="" target="_blank"
+              >New pitch: How presentation videos should look like?</a
+            ></span
+          >
+        </div>
+      </div>
+    </div>
+
+    <app-create-bottom-footer
+      [key]="this.draft_key"
+      [progress]="this.basicPitch"
+      [isNewPitch]="this.draft_key === null"
+      [create]="this.createDraftPitch"
+      [save]="this.saveDraftEdits"
+      [binder]="this"
+    ></app-create-bottom-footer>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

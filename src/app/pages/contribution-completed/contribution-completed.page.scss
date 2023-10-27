@@ -1,0 +1,54 @@
+@import "../../../variables.scss";
+
+.content-wrapper.split {
+  justify-content: space-between;
+  // align-items: center;
+}
+
+.content-wrapper.split .header-text-style {
+  font-weight: bolder;
+}
+
+.content-wrapper .buttons {
+  margin-top: $_20_SPACING_SIZE;
+}
+
+.content-wrapper .right-side {
+  display: flex;
+}
+
+.content-wrapper .right-side img {
+  align-self: flex-end;
+  width: 100%;
+}
+
+.content-wrapper .left-side {
+  margin-top: 40px;
+}
+
+.copy-text {
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.no-session-buttons {
+  margin-top: 20px;
+}
+
+.contribution-id {
+  display: inline-block;
+  padding: 5px 8px;
+  border: 1.5px dashed gray;
+  background: $GRAY_COLOR;
+}
+
+.thank-you-note {
+  font-size: 42px;
+  font-weight: bold;
+  color: $SECONDARY_THEME_COLOR;
+
+  * {
+    font-family: "Archivo";
+  }
+}

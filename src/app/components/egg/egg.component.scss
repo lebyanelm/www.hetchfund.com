@@ -1,0 +1,220 @@
+@import "../../../variables.scss";
+
+.egg-campaign-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: $BORDER_RADIUS;
+  border: $BORDER;
+  padding: 10px;
+  background: transparent;
+  transition: box-shadow 100ms linear;
+  height: 100%;
+  position: relative;
+}
+
+.egg-campaign-container[data-color-style="light"] {
+  border-color: $LIGHT_COLOR;
+  * {
+    color: $LIGHT_COLOR;
+  }
+}
+
+// EGG CAMPAIGN THUMBNAIL
+.egg-campaign-container .thumbnail-container {
+  display: block;
+  background: $GRAY_COLOR;
+  height: 120px;
+  background-size: cover;
+  background-position: center center;
+  border: $BORDER;
+  border-width: 1px;
+  border-radius: $BORDER_RADIUS $BORDER_RADIUS 0 0;
+}
+
+.egg-campaign-container[status]::after {
+  content: "";
+  display: none;
+  width: 100%;
+  height: 5px;
+  padding: 10px 0;
+  position: absolute;
+  text-transform: uppercase;
+  font-size: small;
+  letter-spacing: 1px;
+  text-align: center;
+  top: 0;
+  left: 0;
+  background: $THEME_COLOR;
+  color: $WHITE_COLOR;
+  font-weight: bold;
+  border-radius: $BORDER_RADIUS $BORDER_RADIUS 0 0;
+}
+
+// EGG CAMPAIGN INFORMATION
+.egg-campaign-container .egg-campaign-details {
+  padding: $_10_SPACING_SIZE 0;
+}
+
+.egg-campaign-container .category {
+  display: none;
+  font-weight: bold;
+  margin-bottom: $_10_SPACING_SIZE;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.egg-campaign-container .egg-campaign-details .name-bookmark-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $_10_SPACING_SIZE;
+}
+
+.egg-campaign-container .egg-campaign-details .name-bookmark-section .name {
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: underline;
+  height: 80px;
+
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+.egg-campaign-container
+  .egg-campaign-details
+  .name-bookmark-section
+  .name:hover {
+  text-decoration: underline;
+}
+
+.egg-campaign-container
+  .egg-campaign-details
+  .name-bookmark-section
+  .bookmark-button {
+  display: none;
+  transform: translateX(20px);
+  color: transparentize($DARK_COLOR, 0.6);
+  border: none !important;
+}
+
+.egg-campaign-container
+  .egg-campaign-details
+  .name-bookmark-section
+  .bookmark-button
+  ion-icon {
+  font-size: 28px;
+}
+
+.egg-campaign-container
+  .egg-campaign-details
+  .name-bookmark-section
+  .bookmark-button:hover {
+  color: transparentize(red, 0.4);
+}
+
+.egg-campaign-container
+  .egg-campaign-details
+  .name-bookmark-section
+  .bookmark-button[isBookmarked="true"] {
+  color: transparentize(red, 0.4);
+  opacity: 1;
+}
+
+// DESCRIPTION TEXT
+.egg-campaign-container .description {
+  margin: $_20_SPACING_SIZE 0 $_10_SPACING_SIZE 0;
+}
+
+// FUNDING STATTSTICS AND PERFOMANCE
+.funding-perfomance {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.funding-perfomance .amount-funded-percentage {
+  justify-content: space-between;
+  align-items: center;
+  padding: $_10_SPACING_SIZE 0;
+}
+
+.funding-perfomance .amount-funded-percentage span {
+  display: inline-block;
+
+  span {
+    color: $DARK_COLOR;
+  }
+}
+
+ins {
+  display: inline-block !important;
+  --space: 5px;
+
+  &.first {
+    margin-right: var(--space);
+  }
+
+  &.last {
+    margin-left: var(--space);
+    margin-right: var(--space);
+  }
+}
+
+.funding-perfomance .amount-funded-percentage .amount-funded {
+  cursor: pointer;
+  padding-bottom: 3px;
+  padding-right: 0 !important;
+}
+
+.funding-perfomance .amount-funded-percentage .amount-funded:hover {
+  border-color: $THEME_COLOR;
+}
+
+.funding-perfomance .amount-funded > *:not(span) {
+  color: transparentize($DARK_COLOR, 0.2);
+}
+
+.funding-perfomance .amount-funded-percentage .currency {
+  color: $THEME_COLOR;
+  margin-right: 2.5px;
+}
+
+.funding-perfomance .amount-funded-percentage .amount {
+  padding: 1px 5px;
+}
+
+.funding-perfomance .funding-progress {
+  height: 15px;
+  width: 100%;
+  background: $GRAY_COLOR;
+  border-radius: 0 0 $BORDER_RADIUS $BORDER_RADIUS;
+  margin-top: $_10_SPACING_SIZE;
+}
+
+.funding-perfomance .funding-progress .funding-progress-current {
+  height: 100%;
+  background: $SECONDARY_THEME_COLOR;
+  border-radius: 0 0 $BORDER_RADIUS $BORDER_RADIUS;
+}
+
+.funding-perfomance .amount-funded {
+  display: block !important;
+  font-size: small;
+  margin-top: 5px;
+}
+
+.pitch-funding-purpose {
+  display: none;
+  margin: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: small;
+  background-color: transparentize($SECONDARY_THEME_COLOR, 0.8);
+  color: $SECONDARY_THEME_COLOR;
+  border: transparentize($SECONDARY_THEME_COLOR, 0.4);
+}
+
+.pitch-funding-purpose b {
+  font-size: small;
+}

@@ -1,0 +1,112 @@
+@import "../../../variables.scss";
+
+.video-element-container {
+  position: relative;
+}
+
+// LAYER THAT CONTAINS THE CONTROLS
+.controls-layer,
+.controls-layer .fullscreen-pause-play-container {
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.controls-layer .fullscreen-pause-play-container {
+  display: grid;
+  place-content: center;
+  height: calc(100% - 5px);
+}
+
+// ICONS WITHIN THE CONTROLS LAYER
+.controls-layer {
+  height: 100%;
+}
+
+.controls-layer ion-icon {
+  font-size: 30px;
+}
+
+.controls-layer .fullscreen-pause-play-container ion-icon {
+  font-size: 40px;
+  color: $DARK_COLOR;
+}
+
+.pause-play-button .icon-container {
+  padding: $_10_SPACING_SIZE;
+  background: $WHITE_COLOR;
+  border: $BORDER;
+  border-radius: $BORDER_RADIUS;
+  cursor: pointer;
+}
+
+.pause-play-button .icon-container:hover {
+  background: $SECONDARY_THEME_COLOR;
+}
+
+.pause-play-button .icon-container:hover ion-icon {
+  color: $WHITE_COLOR;
+}
+
+// BOTTOM CONTROLS
+.bottom-controllers-container {
+  width: 100%;
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+}
+
+.contol-buttons {
+  display: flex;
+}
+
+.contol-buttons .space {
+  flex: 1;
+}
+
+.contol-buttons .fullscreen-button {
+  padding: 8px 10px 6px 10px;
+  margin: $_20_SPACING_SIZE;
+  background: #eee;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.contol-buttons .fullscreen-button:hover {
+  opacity: 1;
+}
+
+// PROGRESS BAR
+.progressbar-container {
+  position: relative;
+  height: 15px;
+  cursor: pointer;
+  background: $GRAY_COLOR;
+  width: calc(100%);
+  transform: translateY(15px) translateX(0px);
+  border-top: $BORDER;
+}
+
+.progressbar-container .hover-point,
+.progressbar-container .current-progress {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.progressbar-container .hover-point {
+  background: transparentize($DARK_COLOR, 0.7);
+}
+
+.progressbar-container .current-progress {
+  background-color: $SECONDARY_THEME_COLOR;
+}
+
+.video-element-container video {
+  border-top-left-radius: $BORDER_RADIUS;
+  border-top-right-radius: $BORDER_RADIUS;
+}

@@ -1,0 +1,108 @@
+@import "../../../variables.scss";
+
+.milestones-container {
+  display: flex;
+  margin-top: 20px;
+  transform: translateX(-2px);
+}
+
+.milestones-container .milestone {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 10px 20px;
+  border: 5px solid $BACKGROUND_COLOR;
+  color: $WHITE_COLOR;
+  background: $GRAY_COLOR;
+  position: relative;
+  border-radius: $BORDER_RADIUS;
+  position: relative;
+  cursor: pointer;
+
+  &:not(:first-child) {
+    padding-left: 35px;
+  }
+
+  & > * {
+    flex: 1;
+  }
+}
+
+// THE NAME AND THE ICON.
+.milestones-container .milestone ion-icon {
+  font-size: 24px;
+  transform: translateX(30px);
+}
+
+.milestones-container .milestone span.name {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: small;
+}
+
+.milestones-container .milestone ion-icon,
+.milestones-container .milestone span.name {
+  z-index: 15;
+}
+
+// PROGRESS SHAPAED ARROWS.
+.background-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  left: 22px;
+}
+
+.background-container > * {
+  flex: 1;
+  z-index: 10;
+  width: 100%;
+  background: $GRAY_COLOR;
+  border-right: 10px solid $BACKGROUND_COLOR;
+  transform: translateX(20px);
+}
+
+.background-container .background-top {
+  transform: skew(34deg);
+}
+
+.background-container .background-bottom {
+  transform: skew(-34deg) translateY(-0.95px);
+}
+
+.milestones-container .milestone:last-child .background-container > * {
+  transform: skew(0);
+  border-right: none;
+
+  &.background-top {
+    border-top-right-radius: 3px;
+  }
+
+  &.background-bottom {
+    border-bottom-right-radius: 3px;
+  }
+}
+
+// CHANGE IT'S COLOR WHEN COMPLETED.
+.milestones-container .milestone[data-isreached="true"],
+.milestones-container
+  .milestone[data-isreached="true"]
+  .background-container
+  > * {
+  background: #555 !important;
+}
+
+.milestones-container .milestone[data-iscompleted="true"] {
+  background: $THEME_COLOR !important;
+}
+
+.milestones-container
+  .milestone[data-iscompleted="true"]
+  .background-container
+  > * {
+  background: $THEME_COLOR !important;
+}

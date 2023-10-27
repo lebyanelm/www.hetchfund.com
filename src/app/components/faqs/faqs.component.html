@@ -1,0 +1,84 @@
+<div class="add-new-faqs-container faqs-container" *ngIf="false">
+  <div class="formfields">
+    <div class="header-text-style small">Add more questions</div>
+    <div class="paragraph-text-style">
+      These are questions and answers your potential funders can read and easily
+      go through more quicker for clarity without asking through comments.
+    </div>
+
+    <div class="formfield">
+      <div class="input-container">
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="1"
+          placeholder="Enter the frequently asked question, eg. How will we receive the rewards after a contribution?"
+        ></textarea>
+      </div>
+    </div>
+    <div class="formfield">
+      <div class="input-container">
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="3"
+          placeholder="Enter the most appropriate answer to the question you entered above, eg. You will recieve an email to notify you with shipping details."
+        ></textarea>
+      </div>
+    </div>
+  </div>
+
+  <i class="paragraph-text-style"
+    ><b>Remember:</b> These questions are supposed to help your potential
+    funders, usually these are questions you get most often from the
+    comments.</i
+  >
+
+  <button class="icon-button">
+    <ion-icon name="add-sharp"></ion-icon>
+    Add new
+  </button>
+</div>
+
+<!-- ACTUAL FAQs. -->
+<div class="faqs-container">
+  <div class="header-text-style">Frequenly Asked Questions</div>
+
+  <div class="faq" *ngFor="let i of [1, 2]">
+    <div
+      class="faq-question-name"
+      (click)="this.openFAQAnswerConent(QuestionButton, AnswerContent)"
+      #QuestionButton
+    >
+      <span
+        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius,
+        animi.?</span
+      >
+      <div class="flexbox-space"></div>
+      <ion-icon class="collapse" name="add-sharp"></ion-icon>
+      <ion-icon class="close" name="remove-sharp"></ion-icon>
+    </div>
+    <div class="paragraph-text-style faq-answer-content" #AnswerContent>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, ullam
+      fuga? Nisi, assumenda quam? Sunt aspernatur quibusdam assumenda dolorum
+      corporis incidunt iure distinctio, ducimus libero reprehenderit saepe
+      dignissimos consequatur voluptatum. Illum iusto quas maiores modi eius
+      ipsa cupiditate non. Dignissimos ipsa facere molestias totam quam, vero at
+      tempora quod eligendi.
+
+      <!-- <div class="buttons">
+        <button class="icon-button reaction-button">
+          <ion-icon name="thumbs-up-sharp"></ion-icon>
+          This is helpful (0)
+        </button>
+
+        <button class="icon-button transparent delete-button">
+          <ion-icon class="trash" name="trash-sharp"></ion-icon>
+          Delete this question
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

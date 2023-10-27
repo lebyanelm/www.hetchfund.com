@@ -1,0 +1,39 @@
+@import "../../../variables.scss";
+
+.project-name {
+  font-weight: normal;
+}
+
+// Disclaimers
+.disclaimers {
+  display: flex;
+  flex-direction: column;
+  margin-top: $_20_SPACING_SIZE;
+  padding: $_20_SPACING_SIZE;
+  gap: $_5_SPACING_SIZE;
+  align-items: center;
+  width: 100%;
+}
+
+.disclaimers .policies-anchors {
+  display: flex;
+  gap: $_10_SPACING_SIZE;
+}
+
+.currency-name {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: $DARK_COLOR;
+  z-index: 2;
+  border-right: $BORDER;
+  padding: 0 $_10_SPACING_SIZE 0 $_20_SPACING_SIZE;
+  margin-right: $_10_SPACING_SIZE;
+}
+
+input {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

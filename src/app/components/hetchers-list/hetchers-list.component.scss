@@ -1,0 +1,48 @@
+@import "../../../variables.scss";
+
+// LIST OF HETCHER / CONTRIBUTORS
+.hetchers-list {
+  // margin-top: 40px;
+}
+
+.hetchers-list .hetchers-placeholder-loader,
+.hetchers-list .hetchers {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  place-items: center;
+  gap: 10px;
+  padding: $_10_SPACING_SIZE 0;
+
+  &[data-four-grid-format="true"] {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+.hetchers-list .hetchers-placeholder-loader .hetcher,
+.hetchers-list .hetchers .hetcher {
+  border-radius: 100px;
+}
+
+.hetchers-list .hetchers-placeholder-loader .hetcher {
+  animation: PlaceholderBlink 400ms ease infinite alternate-reverse;
+}
+
+.hetchers-list .hetchers-placeholder-loader .hetcher:hover,
+.hetchers-list .hetchers .hetcher:hover {
+  opacity: 1;
+}
+
+.hetchers-list .hetchers-placeholder-loader .hetcher .hetcher-profile-image,
+.hetchers-list .hetchers .hetcher .hetcher-profile-image {
+  height: 80px;
+  width: 80px;
+  border-radius: 100px;
+  background: $LIGHT_COLOR;
+  background-size: cover;
+  background-position: center center;
+  border: $BORDER;
+}
+
+.hetchers-list .hetchers-placeholder-loader .hetcher .hetcher-profile-image {
+  border: $BORDER;
+}

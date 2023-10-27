@@ -1,0 +1,71 @@
+@import "../../../variables.scss";
+
+.steps-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: $BORDER;
+  padding: 0 $_20_SPACING_SIZE;
+  top: 60px;
+  width: 100%;
+  background: $BACKGROUND_COLOR;
+  z-index: 1000;
+}
+
+.steps-header .step {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: $_20_SPACING_SIZE;
+  margin: 0 $_10_SPACING_SIZE;
+  position: relative;
+}
+
+// Shows the status of the draft progress steps.
+.step .status {
+  font-size: smaller;
+  color: $SUCCESS_COLOR;
+}
+
+.step .status[data-required="false"] {
+  color: $WARNING_COLOR !important;
+}
+
+.step .status[data-required="true"][data-status="true"] {
+  color: $SUCCESS_COLOR;
+}
+
+.step .status[data-required="true"][data-status="false"] {
+  color: $DANGER_COLOR;
+}
+
+.steps-header .step:hover {
+  background: $GRAY_COLOR;
+  cursor: pointer;
+}
+
+.steps-header .step[is-current="true"]::after {
+  content: "";
+  display: block;
+  height: 8px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: $SECONDARY_THEME_COLOR;
+  // border-bottom: 8px solid $SECONDARY_THEME_COLOR;
+}
+
+button {
+  border: $BORDER;
+  border-width: 1px;
+  border-radius: 50px;
+  background: transparent;
+  color: $DARK_COLOR;
+  padding: $_10_SPACING_SIZE;
+}
+
+.step span {
+  display: flex;
+  align-items: center !important;
+}

@@ -1,0 +1,94 @@
+@import "../../../variables.scss";
+
+.faqs-container {
+  border: $BORDER;
+  padding: $_20_SPACING_SIZE;
+  border-radius: $BORDER_RADIUS;
+  margin-bottom: $_20_SPACING_SIZE 0;
+}
+
+.add-new-faqs-container .icon-button {
+  background: $SECONDARY_THEME_COLOR;
+}
+
+// ACTUAL FAQS
+.faq {
+  padding: $_10_SPACING_SIZE 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.faq .faq-question-name {
+  display: flex;
+  align-items: center;
+  padding: $_10_SPACING_SIZE;
+  border-bottom: $BORDER;
+  cursor: pointer;
+  transition: background 300ms ease-out;
+
+  &:hover,
+  &.active {
+    background: transparentize($GRAY_COLOR, 0.5);
+  }
+}
+
+.faq .faq-question-name span {
+  font-size: large;
+  font-weight: bold;
+}
+
+.faq .faq-question-name ion-icon {
+  display: none;
+  font-size: 24px;
+
+  &.trash {
+    display: block;
+    color: $DANGER_COLOR;
+    margin-left: $_10_SPACING_SIZE;
+  }
+}
+
+.faq .faq-question-name ion-icon.collapse {
+  display: block;
+}
+
+.faq .faq-question-name.active {
+  padding: $_10_SPACING_SIZE;
+
+  & ion-icon.close {
+    display: block;
+  }
+
+  & ion-icon.collapse {
+    display: none;
+  }
+}
+
+.faq .faq-answer-content {
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  max-height: 0;
+  max-width: 100%;
+  border: $BORDER;
+  border-top: none;
+
+  &.active {
+    padding: $_10_SPACING_SIZE;
+    border-bottom-width: 2px;
+  }
+}
+
+.buttons {
+  font-style: normal;
+}
+
+.reaction-button {
+  background: $SECONDARY_THEME_COLOR;
+}
+
+.delete-button {
+  border: $BORDER;
+  color: $DANGER_COLOR;
+}

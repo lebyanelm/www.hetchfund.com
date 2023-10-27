@@ -1,0 +1,36 @@
+<!-- LISTED HETCHERS -->
+<div class="hetchers-list">
+  <div class="header-text-style small">
+    {{ this.title }} ({{ this.hetchers?.data.length }})
+  </div>
+  <div
+    class="hetchers-placeholder-loader"
+    [attr.data-four-grid-format]="this.fourGridFormat"
+    *ngIf="this.hetchers?.isLoading"
+  >
+    <a
+      class="hetcher"
+      *ngFor="let placeholderIndex of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+    >
+      <div class="hetcher-profile-image"></div>
+    </a>
+  </div>
+
+  <div
+    class="hetchers"
+    [attr.data-four-grid-format]="this.fourGridFormat"
+    *ngIf="!this.hetchers?.isLoading"
+  >
+    <a
+      class="hetcher"
+      *ngFor="let hetcher of this.hetchers.data"
+      [href]="['hetchers', hetcher?.username].join('/')"
+      [attr.data-title]="hetcher?.display_name"
+    >
+      <div
+        class="hetcher-profile-image"
+        [style.background-image]="'url(' + hetcher?.profile_image + ')'"
+      ></div>
+    </a>
+  </div>
+</div>

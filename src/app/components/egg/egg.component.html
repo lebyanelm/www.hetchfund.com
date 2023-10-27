@@ -1,0 +1,98 @@
+<div
+  class="egg-campaign-container"
+  [attr.data-color-style]="this.colorStyle || 'dark'"
+  [attr.status]="
+    !this.data?.is_draft
+      ? 'Featured Under: ' + this.data?.status
+      : 'Under drafts'
+  "
+>
+  <div class="egg-details-content">
+    <div
+      class="thumbnail-container"
+      [style.background-image]="'url(' + this.data?.thumbnail_url + ')'"
+    ></div>
+    <div class="egg-campaign-details">
+      <div class="name-bookmark-section">
+        <a
+          class="name undecorated smaller"
+          [href]="
+            this.data?.is_draft
+              ? '/pitches/create/basics?draft_key=' + this.data?.key
+              : '/pitches/' + this.data?.key
+          "
+          [target]="this.embedded === true ? '_blank' : '_parent'"
+          >{{ this.data?.funding_purpose }}</a
+        >
+        <button
+          class="bookmark-button icon-button"
+          [attr.isBookmarked]="this.isbookmarked"
+          data-title="Follow updates"
+          (click)="this.bookmark()"
+          *ngIf="!this.data?.is_draft"
+        >
+          <ion-icon name="heart-outline" *ngIf="!this.isbookmarked"></ion-icon>
+          <ion-icon name="heart" *ngIf="this.isbookmarked"></ion-icon>
+        </button>
+      </div>
+
+      <!-- The name of the egg campaign -->
+    </div>
+  </div>
+
+  <div class="pitch-funding-purpose">
+    <b>Funding statement:</b> {{ this.data?.funding_purpose }}
+  </div>
+
+  <div class="egg-funding-details">
+    <div class="funding-perfomance">
+      <div class="amount-funded-percentage">
+        <a
+          class="category"
+          [target]="this.embedded === true ? '_blank' : '_parent'"
+          >{{ this.data?.primary_category }}</a
+        >
+        <div>
+          <ins class="percentage-funded currency-selectable first"
+            >{{ this.data?.hetched_funds_perc }}%</ins
+          >
+          <span class="gray-text-style"> OUT OF </span>
+          <ins
+            class="currency-selectable last"
+            (click)="this.currencyResolver.openCurrencySelectorModal()"
+            >{{
+              this.currencyResolver.translate(this.data?.hetching_goal)
+            }}</ins
+          >
+          <span class="gray-text-style"> FUNDED</span>
+        </div>
+      </div>
+
+      <div class="funding-progress">
+        <div
+          class="funding-progress-current"
+          [style]="
+            'width:' +
+            (this.data?.hetched_funds_perc >= 100
+              ? 100
+              : this.data?.hetched_funds_perc) +
+            '%'
+          "
+        ></div>
+      </div>
+
+      <div class="description paragraph-text-style">
+        {{
+          this.data?.brief_description || this.truncate(this.data?.story || "")
+        }}
+      </div>
+    </div>
+  </div>
+
+  <a
+    class="button"
+    [href]="'/pitches/' + this.data?.key + '/contribution'"
+    [target]="this.embedded === true ? '_blank' : '_parent'"
+    >Contribute to this Pitch</a
+  >
+</div>

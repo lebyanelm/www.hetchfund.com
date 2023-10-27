@@ -1,0 +1,141 @@
+<ion-content>
+  <app-header></app-header>
+
+  <div class="page-content content-wrapper">
+    <div class="back-buttons-container">
+      <a class="back-buttons" href="/history/contributions">
+        <ion-icon name="chevron-back-sharp"></ion-icon>
+        <span>View all contributions</span>
+      </a>
+    </div>
+
+    <div class="paper-document-wrapper">
+      <div class="paper-document-immitation">
+        <div class="document-header">
+          <div class="document-logo-address">
+            <div class="logo-container">
+              <img
+                src="https://ci3.googleusercontent.com/proxy/sK_MCe2PU-p5n3zH9zuKRJTw5Sv1QvBADYtR-woyIZf5ZV4fTzy3FJKan3vVgSj1onHenbQdxzh5kSQ19qJuMGeN6Mc2HCJ8T90vvtqTr13MV3PgBFUroTq79v_lQJYxCS_JCFxIirV7XC03_2I5dCEFdwryv5f124P_u3FkmE1XjDASEg=s0-d-e1-ft#http://cdn.mcauto-images-production.sendgrid.net/556f4642b50fe9f8/627c7149-c0f9-4397-b901-fb8723ddfd76/802x121.png"
+                alt="Hetchfund Paper Logo"
+              />
+            </div>
+
+            <div class="company-address">
+              <span class="company-name">HETCHFUND.COM (PTY) LTD</span>
+              <span>4006 PENCIL FISH CR</span>
+              <span>KAALFONTEIN EXT. 10</span>
+              <span>MIDRAND</span>
+              <span>1685</span>
+              <span>SOUTH AFRICA</span>
+            </div>
+          </div>
+
+          <div class="header-text-style small">Commitment Receipt</div>
+          <div class="paragraph-text-style">Helping entreprenuers grow</div>
+
+          <div class="header-text-style xs">Hope has been received</div>
+          <div class="paragraph-text-style">
+            You just got your future a little more funded
+          </div>
+        </div>
+
+        <span class="separator"></span>
+
+        <div class="document-body">
+          <table>
+            <tr>
+              <td>Contribution Amount</td>
+              <td>+ R 300</td>
+            </tr>
+            <tr>
+              <td>Service Fees</td>
+              <td>- R 20</td>
+            </tr>
+            <tr class="key-attribute">
+              <td>Pledged Amount</td>
+              <td>+ R 280</td>
+            </tr>
+
+            <!-- EXTRA DETAILS -->
+            <tr>
+              <td>Transaction Identifier</td>
+              <td>6534dd4bd8a0d95a1fd206b9</td>
+            </tr>
+
+            <tr>
+              <td>Payer Email</td>
+              <td><a href="mailto:">lebyane.lm@gmail.com</a></td>
+            </tr>
+
+            <tr>
+              <td>Status</td>
+              <td>Captured</td>
+            </tr>
+
+            <tr>
+              <td>Date</td>
+              <td>22 Oct, 2023</td>
+            </tr>
+
+            <tr>
+              <td>Time</td>
+              <td>10:28:59</td>
+            </tr>
+
+            <tr>
+              <td>Transaction Method</td>
+              <td>Yoco</td>
+            </tr>
+
+            <tr>
+              <td>Contract Purpose</td>
+              <td class="long-text">
+                To: simplify and improve the lives of our customers through the
+                creation of innovative, eco-friendly, and practical solutions.
+              </td>
+            </tr>
+
+            <tr>
+              <td>Reward Selected</td>
+              <td class="long-text">
+                Receive two AirePure air purifiers with customization options
+                and premium features.
+              </td>
+            </tr>
+          </table>
+
+          <span class="separator"></span>
+
+          <div class="progress-contributed">
+            <div class="header-text-style small">
+              Progress contributed (4.9%):
+              <span class="progress-indicator"></span>
+            </div>
+            <div class="progress-contributed-bar-total">
+              <div class="progress-contributed-bar-before"></div>
+              <div class="progress-contributed-bar-current"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="document-footer">
+          <div class="paragraph-text-style">
+            Please keep this slip document in case you may need further
+            contact/assistance.
+            <a class="hide-printout" (click)="this.requestReceiptPrintOut()"
+              >Print and download document.</a
+            >
+          </div>
+
+          <div class="paragraph-text-style">
+            <b>Remember:</b> Hetchfund does not guarantee any rewards, it's the
+            responsibility of the contract curators to ensure they update
+            backers at all times.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

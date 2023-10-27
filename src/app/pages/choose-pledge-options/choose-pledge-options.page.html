@@ -1,0 +1,179 @@
+<ion-content>
+  <app-header [hasBackground]="true"></app-header>
+
+  <div class="page-content with-pattern">
+    <div class="content-wrapper split bordered">
+      <div class="left-side">
+        <div class="contribution-wrapper">
+          <span class="header-text-style page-name light"
+            >Funding purpose:<br />
+            <a
+              class="project-name"
+              [href]="'/pitches/' + this.data?.key"
+              target="_blank"
+            >
+              {{this?.data?.funding_purpose}}
+            </a>
+          </span>
+
+          <br />
+          <i class="paragraph-text-style">
+            <b>Remember:</b> Rewards are and may not be gauranteed by Hetchfund
+            because it's the responsibility of the pitch managers to fullfil
+            rewards with hetchers, and keep them updated.
+            <a href="">Learn more.</a>
+            <!-- "Please note that rewards offered through Hetchfund may not be guaranteed, as it is the responsibility of the pitch managers to fulfill rewards and keep backers updated on the progress of the project. Hetchfund provides creators with the necessary tools and resources to manage their projects, but ultimately, the fulfillment of rewards lies with the project creators. We advise backers to carefully review the project details and the track record of the creators before pledging their support." -->
+          </i>
+        </div>
+      </div>
+
+      <div class="right-side">
+        <div class="contribution-wrapper">
+          <div class="header-text-style contribution-options-header">
+            Choose your suitable contribution
+            <!-- You're a star!
+            <span
+              class="currency-selectable"
+              (click)="this.currencyService.currencyMenuState.next(true)"
+              >{{this.currencyService.format(this.data?.funds_left -
+              this.contributionOptions[this.selectedContribution]?.contribution_amount)}}</span
+            >
+            left to hetch. -->
+          </div>
+
+          <div class="contribution-options">
+            <div
+              class="contribution-option"
+              (click)="this.selectReward(rewardOption.id)"
+              *ngFor="let rewardOption of this.rewardOptions?.reward_options"
+              [attr.data-selected]="rewardOption.id == selectedReward"
+            >
+              <!-- Levels which the hetcher will receive for funding this egg -->
+              <div class="option-level">
+                <div class="level">
+                  +{{ (this.rewardOptions?.reward_options.indexOf(rewardOption)
+                  + 1) * 4 }}
+                </div>
+                <div class="name">Reputation</div>
+              </div>
+
+              <!-- Option content. -->
+              <div class="option-content">
+                <!-- Title of the reward, contribution amount included. -->
+                <div class="contribution-amount">
+                  {{ rewardOption.name + " - " }}
+                  <b
+                    >{{
+                    this.currencyService.translate(rewardOption.contribution_amount)
+                    }} or above</b
+                  >
+                </div>
+
+                <!-- Description of the reward. -->
+                <div class="paragraph-text-style option-rewards">
+                  {{ rewardOption.description }}
+                </div>
+
+                <!-- Attributes that assist the funders to know what to expect from the rewards. -->
+                <div class="reward-attribute-pills">
+                  <!-- Availability of the reward. -->
+                  <div
+                    class="reward-attribute-pill"
+                    [title]='rewardOption.availability == "limited" ? "Rewards with this attribute means they are limited in stock and are not gauranteed to everyone funding the pitch." :
+                  "Reward available in unlimited stocks to funders of the pitch."'
+                  >
+                    {{ rewardOption.availability == "limited" ? "Reward stock\
+                    limited" : "Reward unlimited" }}
+                  </div>
+
+                  <!-- Availability of shipping of the reward. -->
+                  <div
+                    class="reward-attribute-pill"
+                    [title]='rewardOption.ships_to == "anywhere" ? "Reward shipping can be commited to anywhere internationally without any restrictions. Remember: Hetchfund does not gaurantee rewards, its the pitch owners responsibility to keep you updated." :
+                  (rewardOption.ships_to == "limited" ? "Reward shipping is limited to certain areas, pitch curators should update you if you will qualify for the reward. Remember: Regardless of of recieving a reward funding a pitch goes a long way to assist startups." :
+                  "Reward shipping limited to the country pitch is published from, eg. Country of pitch may be South Africa.")'
+                  >
+                    {{ rewardOption.ships_to == "anywhere" ? "Ships to\
+                    anywhere" : (rewardOption.ships_to == "limited" ? "Ships to\
+                    limited areas" : "Reward limited to pitch country.") }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Option image. -->
+              <div
+                class="option-image"
+                [style.background-image]="'url(' + rewardOption.thumbnail+ ')'"
+              ></div>
+            </div>
+
+            <div
+              class="contribution-option custom"
+              [attr.data-selected]="this.selectedReward === null"
+              (click)="this.selectReward(null)"
+            >
+              <div class="option-content">
+                <div class="contribution-amount">
+                  <label class="section-title-style" for=""
+                    >Custom contribution amount
+                  </label>
+                  <div class="input-container" #InputContainer>
+                    <span class="currency-name" #CurrencyNameElement
+                      >{{this.currencyService.currency.name}}</span
+                    >
+                    <input
+                      type="text"
+                      placeholder="Enter your amount"
+                      [style.text-indent]="CurrencyNameElement.getBoundingClientRect().width  + 10 + 'px'"
+                      (keyup)="this.customContribution = CustomContribution.value"
+                      autofocus
+                      #CustomContribution
+                    />
+                  </div>
+                </div>
+
+                <br
+                  *ngIf="CustomContribution.value.length && this.isInvalidInput(CustomContribution.value)"
+                />
+                <div
+                  class="paragraph-text-style danger-text-style invalid-custom-contribution"
+                  *ngIf="CustomContribution.value.length && this.isInvalidInput(CustomContribution.value)"
+                >
+                  That's an invalid input.
+                </div>
+
+                <div class="paragraph-text-style option-rewards">
+                  Custom contribution will be rewarded with +100 points of
+                  hetcher reputation. Rewards received will be the last highest
+                  reward and custom addons at the courtesy of the pitch curator.
+                  Hetchfund, as a platform, does not gaurantee rewards, only the
+                  curators do.
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="button theme-color"
+              (click)="this.choosePaymentMethod()"
+            >
+              Continue to payment methods
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimers">
+      <div class="paragraph-text-style">
+        All transactions are secured and safe processed with, Yoco, PayPal and
+        Coinbase.
+      </div>
+      <div class="policies-anchors">
+        <a href="">Our payment policy</a>
+        <a href="">Our third-party disclosures</a>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

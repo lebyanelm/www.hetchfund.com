@@ -1,0 +1,152 @@
+<ion-content>
+  <app-header></app-header>
+  <div class="page-content content-wrapper">
+    <div class="page-header header-text-style">Contribution History</div>
+
+    <div class="split-pane-content">
+      <div class="contributions-balance-container">
+        <div class="available-balance">
+          <span class="paragraph-text-style balance-text"
+            >Available Balance</span
+          >
+          <div class="header-text-style balance-amount">
+            {{this.currencyService.format("6130.72")}}
+          </div>
+
+          <button class="payout-button">Request payout</button>
+
+          <span class="t-and-c-note"
+            ><ion-icon name="information-circle"></ion-icon> <b>Remember: </b>
+            <span
+              >By requesting a payout you need to aware of our terms and
+              conditions as per payout and usage of funds.
+              <a href="/legal/payout-conditions" target="_blank"
+                >Read more.</a
+              ></span
+            ></span
+          >
+        </div>
+      </div>
+
+      <div class="all-transactions-history">
+        <div class="header-text-style smaller">All Transactions</div>
+
+        <div class="transactions-filter-container">
+          <div class="formfields">
+            <div class="formfield search">
+              <div class="input-container">
+                <ion-icon name="search-sharp"></ion-icon>
+                <input type="text" placeholder="Filter transactions" />
+              </div>
+            </div>
+            <div class="fromfield" (click)="setHueristicFilter('all')">
+              <span
+                class="filter-hueristic"
+                [attr.data-state]="this.activeHueristicFilter == 'all' ? 'active' : 'inactive'"
+                >All</span
+              >
+            </div>
+            <div class="fromfield" (click)="setHueristicFilter('contribution')">
+              <span
+                class="filter-hueristic"
+                [attr.data-state]="this.activeHueristicFilter == 'contribution' ? 'active' : 'inactive'"
+                >Contribution</span
+              >
+            </div>
+            <div class="fromfield" (click)="setHueristicFilter('refunded')">
+              <span
+                class="filter-hueristic"
+                [attr.data-state]="this.activeHueristicFilter == 'refunded' ? 'active' : 'inactive'"
+                >Refunded</span
+              >
+            </div>
+            <div class="fromfield" (click)="setHueristicFilter('payout')">
+              <span
+                class="filter-hueristic"
+                [attr.data-state]="this.activeHueristicFilter == 'payout' ? 'active' : 'inactive'"
+                >Payout</span
+              >
+            </div>
+
+            <div class="fromfield">
+              <button data-title="Export transactions with current filter.">
+                Export
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="listed-transactions">
+          <table>
+            <!-- HEAD OF THE TABLE -->
+            <thead>
+              <tr>
+                <td>Pitch Identifier</td>
+                <td>Amount</td>
+                <td>Type</td>
+                <td>Date</td>
+                <td>Status</td>
+                <td>Receipt</td>
+              </tr>
+            </thead>
+
+            <!-- BODY OF THE TABLE -->
+            <tbody>
+              <tr
+                (click)="this.openTransaction(transaction?.key)"
+                *ngFor="let transaction of results"
+              >
+                <td class="name">
+                  <a [href]="'/pitches/' + transaction?.pitch_key"
+                    >{{transaction?.pitch_key}}</a
+                  >
+                </td>
+                <td>{{this.currencyService.format(transaction?.amount)}}</td>
+                <td>{{transaction?.type ?? "Contribution"}}</td>
+                <td>
+                  {{transaction?.time_created?.formatted_date}},
+                  {{transaction?.time_created?.time}}
+                </td>
+                <td [attr.data-status]="transaction?.status || 'error'">
+                  {{transaction?.status ?? "Error"}}
+                </td>
+                <td>
+                  <a [href]="'/history/contributions/' + transaction?.key"
+                    >View Receipt</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination-section">
+          <div class="previous-page">
+            <span (click)="this.previousPage()">Previous</span>
+          </div>
+          <div class="pages-counters">
+            <a
+              href="history/contributions?page=1"
+              [attr.data-is-current]="this.current_page === 1"
+              >1</a
+            >
+            <a
+              href="history/contributions?page=2"
+              [attr.data-is-current]="this.current_page === 2"
+              >2</a
+            >
+            <a
+              href="history/contributions?page=3"
+              [attr.data-is-current]="this.current_page === 3"
+              >3</a
+            >
+          </div>
+          <div class="next-page">
+            <span (click)="this.nextPage()">Next</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</ion-content>

@@ -1,0 +1,35 @@
+@import "../../../variables.scss";
+
+// RESET OF PARAGRAPH TEXT STYLE
+.paragraph-text-style {
+  max-width: 100%;
+}
+
+// UNIQUE AVATAR
+.unique-avatar-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.unique-avatar-preview .avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 80px;
+  background: #eee;
+  border: 2px solid $DARK_COLOR;
+  background-size: cover;
+  border-radius: 100px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.unique-avatar-preview .avatar::before {
+  content: "Preview";
+  display: block;
+  opacity: 0.5;
+  z-index: -1;
+}

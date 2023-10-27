@@ -1,0 +1,54 @@
+<ion-content>
+  <div class="content-wrapper">
+    <div class="flexbox">
+      <div class="header-text-style">Choose currency</div>
+
+      <div class="flexbox-space"></div>
+
+      <div
+        class="modal-close-button"
+        (click)="this.closeCurrencySelectorModal()"
+      >
+        <ion-icon name="close-sharp"></ion-icon>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="currencies">
+      <div
+        class="currency"
+        [attr.data-selected]="
+          this.currencyResolverService.currency.code === currencyCode
+        "
+        (click)="this.selectCurrency(currencyCode)"
+        *ngFor="let currencyCode of this.currencyCodes"
+      >
+        <div class="symbol">
+          {{ this.currencies[currencyCode].symbol }}
+        </div>
+        <div class="name paragraph-text-style">
+          {{ this.currencies[currencyCode].name }}
+        </div>
+        <div class="code paragraph-text-style">
+          ({{ currencyCode }})
+          <div class="flexbox-space"></div>
+          <ion-icon name="checkmark-sharp"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <!-- <div class="paragraph-text-style">
+      <i><b>Remember:</b></i> Funds displayed on the pitches will be converted
+      from the original currency (which is <i><b>ZAR</b></i
+      >) to your chosen currency. Currency conversion will be done through
+      <i><b>FastForex.io</b></i> in the backend, read their respective
+      <a
+        href="https://www.fastforex.io/fastforex-terms-and-conditions-i"
+        target="_blank"
+        >Terms and Conditions.</a
+      >
+    </div> -->
+  </div>
+</ion-content>
