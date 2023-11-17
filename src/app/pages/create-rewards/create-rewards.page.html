@@ -11,11 +11,12 @@
     <div class="header-text-style">Rewards</div>
     <div class="field-status">(REQUIRED)</div>
 
-    <div class="paragraph-text-style flexbox flexbox-center">
+    <div class="paragraph-text-style flexbox flexbox-center rewards-description">
       <ion-icon name="information-circle"></ion-icon>
 
       Setup rewards, perks and benefits that your funders will recieve for
-      funding a contribution on your pitch.
+      funding a contribution on your pitch. Rewards can be shares of your business, based on amount provided and total authorized shares or non-financial rewards such as early access to the product or
+      service being developed, and discounted prices.
 
       <div class="readmore" hidden>
         As a business owner seeking funding for a contribution on a pitch, it is
@@ -24,7 +25,7 @@
 
         <br />
         You could offer exclusive perks such as early access to the product or
-        service being developed, discounted prices, or free upgrades. This would
+        service being developed, discounted prices, or even non-par value shares of your company to get  funding. This would
         add value to the investment and encourage funders to commit to your
         project. Thirdly, you could offer non-financial benefits such as
         recognition, brand exposure, or networking opportunities. For example,
@@ -45,8 +46,68 @@
       </div>
     </div>
 
-    <!-- Pitch name and brief description -->
     <div class="field-section">
+      <div class="field-section-description">
+        <div class="field-name">
+          Rewards offer type
+        </div>
+        <div class="paragraph-text-style field-description">
+          Decide whether you look forward to offering shares of your business or non-financial rewards such as early access to the product or
+          service being developed, and discounted prices. 
+        </div>
+
+        <div class="paragraph-text-style">
+          <ion-icon name="information-circle"></ion-icon>
+
+          <b><i>Remember:</i> For share rewards, you have to set defined amount of authorized 
+            shares as consulted on CIPC platform to be administered to funders. Depending on contribution amount shares will be divided acording to total funds required as a percentage representing shares per contributor. <a href="">Learn more.</a></b>
+        </div>
+      </div>
+
+      <div class="field-section-input">
+        <div class="formfield">
+          <label for="">Rewards type</label>
+          <div class="field-status">(REQUIRED)</div>
+
+          <div class="input-container">
+           <select name="rewards-type" id="rewards-type" [(ngModel)]="this.rewardsType" #RewardsTypeInput>
+              <option value="shares" id="shares">Share rewards</option>
+              <option value="non-shares" id="non-shares">Non-share rewards</option>
+           </select>
+          </div>
+          
+          <!-- <div class="paragraph-text-style">
+            <ion-icon name="information-circle"></ion-icon>
+
+            <b><i>Remember:</i> For share rewards, you have to set defined amount of authorized 
+              shares as consulted on CIPC platform to be administered to funders.</b>
+          </div> -->
+        </div>
+
+        <br>
+        <!-- If shares rewards are selected: Total authorized shares need to be defined. -->
+        <div class="formfield" #TotalAuthorizedSharesInput>
+          <label for="">Total authorized shares</label>
+          <div class="field-status optional">(OPTIONAL | IF SHARES REWARDS SELECTED)</div>
+
+          <div class="input-container">
+           <input type="number" [(ngModel)]="this.totalAuthorizedShares" placeholder="Default: 1000" [disabled]="RewardsTypeInput.value === 'non-financial'">
+          </div>
+
+          <div class="paragraph-text-style">Fair value: 1 share = {{ this.currencyService.format(1/this.toInteger(this.totalAuthorizedShares)*this.draft?.hetching_goal) }}</div>
+
+          <br>
+          <div class="paragraph-text-style">
+            <ion-icon name="information-circle"></ion-icon>
+
+            <b><i>Remember:</i> Fair value is determined using your hetching goal amount in "Finances" section.</b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pitch name and brief description -->
+    <div class="field-section" hidden #NonfinancialRewardsSection>
       <div class="field-section-description">
         <div class="field-name">
           Reward title, brief description, and contribution amount
@@ -141,6 +202,7 @@
           </div>
         </div>
 
+        <br>
         <div class="formfield">
           <label for="">Available quantity</label>
           <div class="field-status">(REQUIRED)</div>
@@ -189,7 +251,7 @@
               ></ion-icon>
               <span
                 >{{this.isUploadedRewardThumbnail === true ||
-                this.rewardThumbnail ? this.rewardThumbnail.filename :
+                this.rewardThumbnail ? this.rewardThumbnail.cdnUrl :
                 (this.isUploadingRewardThumbnail ? 'Uploading thumbnail...' :
                 'Something went wrong.')}}</span
               ></span
@@ -210,9 +272,9 @@
           <div class="paragraph-text-style">
             This refers to the thumbnail image that represents the reward you're
             promising to fulful to your potential funders.
-            <b>Recommended: </b> Potential funders may be motivated to fund your
+            <b>Recommended: Potential funders may be motivated to fund your
             pitch if they can visually see what they benefit from the
-            contribution.
+            contribution.</b>
           </div>
 
           <br />
@@ -234,11 +296,11 @@
       </div>
     </div>
 
-    <div class="field-section">
+    <div class="field-section" hidden #RewardOptions>
       <div class="field-section-description"></div>
       <div class="field-section-input">
         <div class="header-text-style small">
-          Added rewards (ones you added so far).
+          Added rewards
         </div>
 
         <div class="contribution-preview">
@@ -250,8 +312,7 @@
           <div class="reward-options contribution-options">
             <i class="paragraph-text-style" *ngIf="this.rewards.length == 0">
               <br />
-              No rewards added yet. Enter reward details and click (Add reward
-              to record)</i
+              No rewards added yet. Enter reward details and click [Add reward]</i
             >
 
             <br />

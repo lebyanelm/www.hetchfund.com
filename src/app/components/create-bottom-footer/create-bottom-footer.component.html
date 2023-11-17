@@ -3,26 +3,27 @@
     Use the button to save and go to the next step:
   </div>
   <div class="flexbox-space"></div>
-  <!-- Saves the current stage. -->
-  <button
-    *ngIf="!this.isNewPitch"
-    class="secondary"
-    (click)="this.saveMethod()"
-  >
-    Save current changes
-  </button>
+  
 
   <button
     *ngIf="this.isNewPitch"
     class="secondary"
     (click)="this.createMethod()"
   >
-    Create and save draft
+    Create Pitch
   </button>
 
   <!-- Sending out for review. -->
-  <button (click)="this.sendForReview()">Send for review</button>
+  <button (click)="this.sendForReview()" class="secondary" *ngIf="this.isReadyForReview">Send for Review</button>
 
+  <!-- Saves the current stage. -->
+  <button
+    *ngIf="!this.isNewPitch"
+    (click)="this.saveMethod()"
+  >
+    Save Changes
+  </button>
+  
   <!-- To go to the next drafting stage. -->
   <button
     class="icon-button"

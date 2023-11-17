@@ -27,7 +27,7 @@ export class CreateStoryPage implements OnInit {
     private toastService: ToastManagerService,
     private titleService: TitleService
   ) {
-    this.titleService.onTitleChange.next('Pitch story | Create: Hetchfund');
+    this.titleService.onTitleChange.next('Pitch story | Create: Basics - Hetchfund.com');
 
     this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {
       this.draft_key = queryParamMap.get('draft_key');

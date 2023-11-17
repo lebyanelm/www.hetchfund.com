@@ -63,7 +63,7 @@
               type="text"
               rows="3"
               placeholder="e.g. To provide more solar powered systems to Agricultural farms for more efficiency."
-              [disabled]="FundingPurpose.value.length === 80"
+              [disabled]="FundingPurpose.value.length >= 150"
               [(ngModel)]="this.basicPitch.funding_purpose"
               #FundingPurpose
             ></textarea>
@@ -71,7 +71,7 @@
           <div class="flexbox">
             <div class="flexbox-space"></div>
             <span class="paragraph-space max-character-count"
-              >{{FundingPurpose.value.length}}/80</span
+              >{{FundingPurpose.value.length}}/150</span
             >
           </div>
         </div>
@@ -270,8 +270,8 @@
           <div
             class="media-selector image"
             (click)="PlaceholderFileInput.click()"
-            [attr.isProcessed]="this.selectedPlaceholder?.url !== null"
-            [style.backgroundImage]="'url('+ this.selectedPlaceholder?.url +')'"
+            [attr.isProcessed]="this.selectedPlaceholder?.cdnUrl !== null"
+            [style.backgroundImage]="'url('+ this.selectedPlaceholder?.cdnUrl || this.basicPitch.thumbnail_url +')'"
           >
             <input
               type="file"
@@ -283,7 +283,7 @@
             <ion-icon name="image-sharp"></ion-icon>
             <span class="header-text-style smaller light"
               >{{"Selected file: " + (this.selectedPlaceholder?.name ||
-              this.selectedPlaceholder?.filename || "Drop images here, or click\
+              this.selectedPlaceholder?.cdnUrl || "Drop images here, or click\
               to select a file")}}</span
             >
             <span class="paragraph-text-style">
@@ -341,7 +341,7 @@
           <div
             class="media-selector"
             (click)="this.selectedPresentationVideo || VideoPresentationSelector.click()"
-            [attr.isProcessed]="this.selectedPresentationVideo?.url !== null"
+            [attr.isProcessed]="this.selectedPresentationVideo?.cdnUrl !== null"
           >
             <input
               type="file"
@@ -353,7 +353,7 @@
             <ion-icon name="videocam-sharp"></ion-icon>
             <span class="header-text-style smaller light"
               >{{"Selected file: " + (this.selectedPresentationVideo?.name ||
-              this.selectedPresentationVideo?.filename || "Drop a video here,\
+              this.selectedPresentationVideo?.cdnUrl || "Drop a video here,\
               or click to select a file")}}</span
             >
             <span class="paragraph-text-style">
@@ -364,8 +364,8 @@
             </span>
 
             <app-video
-              [src]="this.selectedPresentationVideo?.url"
-              *ngIf="this.selectedPresentationVideo?.url"
+              [src]="this.selectedPresentationVideo?.cdnUrl"
+              *ngIf="this.selectedPresentationVideo?.cdnUrl"
             ></app-video>
 
             <div
@@ -383,7 +383,7 @@
           <br />
 
           <button
-            *ngIf="this.selectedPresentationVideo?.url"
+            *ngIf="this.selectedPresentationVideo?.cdnUrl"
             (click)="VideoPresentationSelector.click()"
           >
             Change to a different video

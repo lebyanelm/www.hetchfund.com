@@ -132,10 +132,10 @@
         <div class="campaign-statistics">
           <div class="statistic" data-title="Progress contributed.">
             <span class="value smaller"
-              >{{( (this.data?.hetched_funds / this.data?.hetching_goal) * 100
-              )?.toFixed(2) || 0 }}%</span
+              >{{ this.data?.rewards_type === "share" ? this.data?.total_authorized_shares - (this.data?.total_authorized_shares * (this.data?.hetched_funds_perc / 100)) : (( (this.data?.hetched_funds / this.data?.hetching_goal) * 100
+              )?.toFixed(2) || 0) + '%' }}</span
             >
-            <div class="name">Progress</div>
+            <div class="name">{{ this.data?.rewards_type === "share" ? "Shares Left" : "Progress Funded" }}</div>
           </div>
 
           <div class="statistic" data-title="Funds raised.">

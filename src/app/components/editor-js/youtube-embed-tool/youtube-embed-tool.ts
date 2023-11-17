@@ -21,19 +21,20 @@ export class CustomImageTool {
 
   static get toolbox() {
     return {
-      title: 'Image',
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><rect width="14" height="14" x="5" y="5" stroke="currentColor" stroke-width="2" rx="4"></rect><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.13968 15.32L8.69058 11.5661C9.02934 11.2036 9.48873 11 9.96774 11C10.4467 11 10.9061 11.2036 11.2449 11.5661L15.3871 16M13.5806 14.0664L15.0132 12.533C15.3519 12.1705 15.8113 11.9668 16.2903 11.9668C16.7693 11.9668 17.2287 12.1705 17.5675 12.533L18.841 13.9634"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.7778 9.33331H13.7867"></path></svg>',
+      title: 'YouTube Video Embed',
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M508.64 148.79c0-45-33.1-81.2-74-81.2C379.24 65 322.74 64 265 64h-18c-57.6 0-114.2 1-169.6 3.6C36.6 67.6 3.5 104 3.5 149 1 184.59-.06 220.19 0 255.79q-.15 53.4 3.4 106.9c0 45 33.1 81.5 73.9 81.5 58.2 2.7 117.9 3.9 178.6 3.8q91.2.3 178.6-3.8c40.9 0 74-36.5 74-81.5 2.4-35.7 3.5-71.3 3.4-107q.34-53.4-3.26-106.9zM207 353.89v-196.5l145 98.2z"/></svg>'
     };
   }
 
   render(data: OutputData): HTMLDivElement {
+    console.log(this.data, data)
     // Elements responsible for selecting the image file.
     const imageSelectorButton: any = document.createElement('div');
     const imageSelectorInput = document.createElement('input');
 
     // Add elements to the selector button.
     imageSelectorButton.className = 'formfield';
-    imageSelectorButton.id = 'image-selector';
+    imageSelectorButton.id = 'youtube-video-selector';
 
     imageSelectorButton.innerHTML = `<div class="media-selector" style="display: ${
       this.data?.cdnUrl === undefined ? 'block' : 'none'
@@ -46,7 +47,7 @@ export class CustomImageTool {
                                           ${
                                             this.data?.cdnUrl
                                               ? imageSelectorInput?.files?.[0]
-                                                  .name || this.data?.cdnUrl
+                                                  .name
                                               : 'File upload limit: 200MB'
                                           }
                                         </span>
@@ -107,6 +108,46 @@ export class CustomImageTool {
         console.log("File upload failed: ", error);
         this.toastService.show("Something went wrong while uploading.");
       })
+
+      superagent
+        .post([environment.media_resources, 'upload'].join('/'))
+        .set(
+          'Authorization',
+          ['Bearer', window.localStorage.getItem('session-token')].join(' ')
+        )
+        .attach('file', imageSelectorInput.files[0])
+        .on('progress', (event) => {
+          imageSelectorButton.getElementsByClassName(
+            'upload-progress'
+          )[0].style.width = [event.percent, '%'].join('');
+        })
+        .end((_, response) => {
+          if (response) {
+            if (response.statusCode === 200) {
+              this.data = response.body.data;
+
+              // Show and add the source of the uploaded image to the preview element.
+              const previewImage =
+                imageSelectorButton.getElementsByClassName('image-preview')[0];
+
+              previewImage.style.display = 'block';
+              previewImage.src = this.data.url;
+
+              // Hide the selection element.
+              const innerSelectionElement =
+                imageSelectorButton.getElementsByClassName('media-selector')[0];
+              innerSelectionElement.style.display = 'none';
+            } else {
+              if (response.statusCode === 500) {
+                console.log('Something went wrong.');
+              } else {
+                console.log(response.body.reason);
+              }
+            }
+          } else {
+            console.log('Server connection closed for some reason.');
+          }
+        });
     };
 
     // Create the wrapper tool.

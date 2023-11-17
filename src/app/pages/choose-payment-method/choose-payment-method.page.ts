@@ -266,6 +266,7 @@ export class ChoosePaymentMethodPage implements OnInit {
 
       pitch_key: this.pitchKey,
       pitch_name: this.pitchName,
+      reward_name: this.reward?.name,
       status: data.status,
     };
 

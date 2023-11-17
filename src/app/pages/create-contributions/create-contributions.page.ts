@@ -19,15 +19,7 @@ export class CreateContributionsPage implements OnInit {
   draft_key: string;
   draft: IEgg;
 
-  finances: any = {
-    design_and_prototype: { amount: '', date_fulfilled: undefined },
-    regulatory_compliance: { amount: '', date_fulfilled: undefined },
-    development: { amount: '', date_fulfilled: undefined },
-    testing: { amount: '', date_fulfilled: undefined },
-    professional_fees: { amount: '', date_fulfilled: undefined },
-    final_development: { amount: '', date_fulfilled: undefined },
-    reward_fulfillment: { amount: '', date_fulfilled: undefined },
-  };
+  finances: any;
 
   constructor(
     public currencyService: CurrencyResolverService,
@@ -37,16 +29,24 @@ export class CreateContributionsPage implements OnInit {
     private routerService: RouterService,
     private titleService: TitleService
   ) {
-    this.titleService.onTitleChange.next('Pitch finances | Create: Hetchfund');
+    this.titleService.onTitleChange.next('New pitch | Create: Finances - Hetchfund.com');
+
+    this.finances = {
+      design_and_prototype: { amount: '', date_fulfilled: undefined },
+      regulatory_compliance: { amount: '', date_fulfilled: undefined },
+      development: { amount: '', date_fulfilled: undefined },
+      testing: { amount: '', date_fulfilled: undefined },
+      professional_fees: { amount: '', date_fulfilled: undefined },
+      final_development: { amount: '', date_fulfilled: undefined },
+      reward_fulfillment: { amount: '', date_fulfilled: undefined },
+    };
 
     this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {
       this.draft_key = queryParamMap.get('draft_key');
       if (this.draft_key) {
         this.eggService.getSavedDraft(this.draft_key).then((draft: IEgg) => {
           this.draft = draft;
-
           this.finances = this.draft.finances;
-          console.log(this.finances);
 
           // Set the saved and recovered values.
           this.hetchingGoal = this.draft?.hetching_goal || 0;
@@ -103,13 +103,13 @@ export class CreateContributionsPage implements OnInit {
 
   getTotalCosts() {
     return (
-      parseFloat(this.finances.design_and_prototype.amount || '0') +
-      parseFloat(this.finances.regulatory_compliance.amount || '0') +
-      parseFloat(this.finances.development.amount || '0') +
-      parseFloat(this.finances.testing.amount || '0') +
-      parseFloat(this.finances.professional_fees.amount || '0') +
-      parseFloat(this.finances.final_development.amount || '0') +
-      parseFloat(this.finances.reward_fulfullment.amount || '0')
+      parseFloat(this.finances?.design_and_prototype?.amount || '0') +
+      parseFloat(this.finances?.regulatory_compliance?.amount || '0') +
+      parseFloat(this.finances?.development?.amount || '0') +
+      parseFloat(this.finances?.testing?.amount || '0') +
+      parseFloat(this.finances?.professional_fees?.amount || '0') +
+      parseFloat(this.finances?.final_development?.amount || '0') +
+      parseFloat(this.finances?.reward_fulfillment?.amount || '0')
     );
   }
 }

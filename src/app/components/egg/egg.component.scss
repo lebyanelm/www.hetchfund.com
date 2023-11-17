@@ -6,6 +6,7 @@
   justify-content: space-between;
   border-radius: $BORDER_RADIUS;
   border: $BORDER;
+  border-width: 2px;
   padding: 10px;
   background: transparent;
   transition: box-shadow 100ms linear;
@@ -54,6 +55,16 @@
 // EGG CAMPAIGN INFORMATION
 .egg-campaign-container .egg-campaign-details {
   padding: $_10_SPACING_SIZE 0;
+}
+
+.egg-campaign-container .egg-campaign-details .rewards-type {
+  padding: 5px 15px;
+  background: $SECONDARY_THEME_COLOR;
+  text-transform: uppercase;
+  font-size: small;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid $WHITE_COLOR;
 }
 
 .egg-campaign-container .category {

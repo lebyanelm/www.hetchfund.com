@@ -21,6 +21,7 @@ export const environment = {
     '625037972362-ue7a36df2d6b76iq086sbrudjkdnnjtb.apps.googleusercontent.com',
   FACEBOOK_CLIENT_ID: '281428964436653',
   H_CAPTCHA_SITEKEY: '7ab97265-f59a-403d-8526-b71b4ec454b6',
+  UPLOADCARE_PUBLIC_KEY: '2313d2a4f4ed2887fc7c'
 };
 
 /*

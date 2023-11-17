@@ -16,6 +16,10 @@ import { ToastManagerService } from 'src/app/services/toast-manager.service';
 import { environment } from 'src/environments/environment';
 import * as superagent from 'superagent';
 
+// UPLOADCARE API INTERGRATION.
+import { UploadClient } from '@uploadcare/upload-client'
+const uploadcareClient = new UploadClient({ publicKey: environment.UPLOADCARE_PUBLIC_KEY })
+
 @Component({
   selector: 'app-create',
   templateUrl: './create.page.html',
@@ -66,8 +70,7 @@ export class CreatePage implements OnInit, AfterViewInit {
   basicPitch: any = {};
 
   ngOnInit() {
-    this.titleService.onTitleChange.next('Pitch basics | Create: Hetchfund');
-
+    this.titleService.onTitleChange.next('Pitch basics | Create: Hetchfund.com');
     // Loading categories
     superagent
       .get([environment.farmhouse, 'categories'].join('/'))
@@ -78,7 +81,6 @@ export class CreatePage implements OnInit, AfterViewInit {
             this.primaryCategories = Object.keys(response.body.data);
             this.categories = response.body.data;
           }
-
           this.isisUnableToLoadCategories = false;
         } else {
           this.isisUnableToLoadCategories = true;
@@ -125,7 +127,6 @@ export class CreatePage implements OnInit, AfterViewInit {
             if (response) {
               if (response.statusCode === 200) {
                 this.basicPitch = response.body.data;
-                console.log(this.basicPitch);
 
                 setTimeout(() => {
                   if (this.basicPitch.primary_category)
@@ -141,11 +142,11 @@ export class CreatePage implements OnInit, AfterViewInit {
                   // Load the thumbnail and placeholder images.
                   if (this.basicPitch.thumbnail_url)
                     this.selectedPlaceholder = {
-                      url: this.basicPitch.thumbnail_url,
+                      cdnUrl: this.basicPitch.thumbnail_url,
                     };
                   if (this.basicPitch.presentation_video)
                     this.selectedPresentationVideo = {
-                      url: this.basicPitch.presentation_video,
+                      cdnUrl: this.basicPitch.presentation_video,
                     };
                 }, 100);
               } else {
@@ -170,37 +171,39 @@ export class CreatePage implements OnInit, AfterViewInit {
       this.isPresentationVideoUploading = true;
     }
 
-    superagent
-      .post([environment.media_resources, 'upload'].join('/'))
-      .set(
-        'Authorization',
-        ['Bearer', this.sessionService.sessionToken].join(' ')
-      )
-      .attach('file', file)
-      .on('progress', (progress) => {
-        if (isPlaceholderImage) {
-          this.placeholderUploadProgress = progress.percent;
-          this.isPlaceholderUploading = false;
-        } else {
-          this.presentationVideoUploadProgress = progress.percent;
-        }
-      })
-      .end((_, response) => {
-        if (response) {
-          if (response.statusCode === 200) {
-            if (isPlaceholderImage) {
-              this.selectedPlaceholder = response.body.data;
-              this.basicPitch['thumbnail_url'] = this.selectedPlaceholder.url;
-            } else {
-              this.selectedPresentationVideo = response.body.data;
-              this.basicPitch['presentation_video'] =
-                this.selectedPresentationVideo.url;
-              this.isPresentationVideoUploading = false;
-              this.isPresentationVideoUploaded = true;
-            }
+    console.log("Uploading file...")
+
+    uploadcareClient.uploadFile(file, { onProgress: (event: any) => {
+      if (isPlaceholderImage) {
+        this.placeholderUploadProgress = event.value * 100;
+        this.isPlaceholderUploading = false;
+      } else {
+        this.presentationVideoUploadProgress = event.value * 100;
+      }
+
+      console.log("File upload update: ", event);
+    }}).then((uploadResult) => {
+      console.log("File uploaded: ", uploadResult)
+      if (uploadResult) {
+        if (uploadResult?.cdnUrl) {
+          if (isPlaceholderImage) {
+            this.selectedPlaceholder = uploadResult;
+            this.basicPitch['thumbnail_url'] = uploadResult.cdnUrl+ "sharp/format/auto/quality/smart";
+          } else {
+            this.selectedPresentationVideo = uploadResult;
+            this.basicPitch['presentation_video'] =
+              uploadResult.cdnUrl;
+            this.isPresentationVideoUploading = false;
+            this.isPresentationVideoUploaded = true;
           }
         }
-      });
+
+        console.log("Updated pitch:", this.basicPitch)
+      }
+    }).catch((error) => {
+      console.log("File upload failed: ", error);
+      this.toastService.show("Something went wrong while uploading.");
+    })
   }
 
   setSelectValue(field, value): void {
@@ -276,7 +279,7 @@ export class CreatePage implements OnInit, AfterViewInit {
         key: this.draft_key,
         name: this.basicPitch?.name,
         brief_description: this.basicPitch?.brief_description,
-        thumbnail_url: this.basicPitch?.thumbnail_url,
+        thumbnail_url: this.selectedPlaceholder?.cdnUrl,
         country_published: this.basicPitch?.country_published,
         province_published: this.basicPitch?.province_published,
         funding_purpose: this.basicPitch?.funding_purpose,
@@ -285,9 +288,9 @@ export class CreatePage implements OnInit, AfterViewInit {
         presentation_video: this.basicPitch?.presentation_video,
       })
       .then(() => {
-        this.routerService.route(['pitches', 'create', 'story'], {
-          draft_key: this.basicPitch.key,
-        });
+        // this.routerService.route(['pitches', 'create', 'story'], {
+        //   draft_key: this.basicPitch.key,
+        // });
       });
   }
 

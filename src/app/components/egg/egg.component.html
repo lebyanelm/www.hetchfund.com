@@ -13,6 +13,8 @@
       [style.background-image]="'url(' + this.data?.thumbnail_url + ')'"
     ></div>
     <div class="egg-campaign-details">
+      <div class="rewards-type">{{this.data?.rewards_type === "share" ? "Share rewards" : "Non-share rewards"}}</div>
+      
       <div class="name-bookmark-section">
         <a
           class="name undecorated smaller"

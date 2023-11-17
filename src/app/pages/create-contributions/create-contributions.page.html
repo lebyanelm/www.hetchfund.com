@@ -54,8 +54,9 @@
           >
         </div>
       </div>
+
       <div class="field-section-input">
-        <div class="formfield">
+        <div class="formfield"  *ngIf="true">
           <label for="">Prototype costs</label>
           <div class="field-status">(REQUIRED)</div>
 
@@ -76,7 +77,7 @@
           </div>
         </div>
 
-        <div class="formfield">
+        <div class="formfield" *ngIf="true">
           <label for="">Regulatory compliance costs</label>
           <div class="field-status">(REQUIRED)</div>
 
@@ -97,7 +98,7 @@
           </div>
         </div>
 
-        <div class="formfield">
+        <div class="formfield" *ngIf="true">
           <label for="">Development costs</label>
           <div class="field-status">(REQUIRED)</div>
 
@@ -118,7 +119,7 @@
           </div>
         </div>
 
-        <div class="formfield">
+        <div class="formfield" *ngIf="true">
           <label for="">Testing costs</label>
           <div class="field-status">(REQUIRED)</div>
 
@@ -139,7 +140,7 @@
           </div>
         </div>
 
-        <div class="formfield">
+        <div class="formfield" *ngIf="true">
           <label for="">Professional fees and Consulting costs</label>
           <div class="field-status">(REQUIRED)</div>
 
@@ -160,7 +161,7 @@
           </div>
         </div>
 
-        <div class="formfield">
+        <div class="formfield" *ngIf="true">
           <label for="">Final development costs</label>
           <div class="field-status">(REQUIRED)</div>
 
@@ -180,7 +181,7 @@
           </div>
         </div>
 
-        <div class="formfield">
+        <div class="formfield" *ngIf="true">
           <label for="">Reward Fulfillment and Shipping costs</label>
           <div class="field-status">(REQUIRED)</div>
 
@@ -194,28 +195,28 @@
               type="number"
               rows="1"
               placeholder="e.g. 1000."
-              [(ngModel)]="this.finances.reward_fulfullment.amount"
+              [(ngModel)]="this.finances.reward_fulfillment.amount"
               #MilestoneTarget
             />
           </div>
         </div>
 
-        <div class="formfield">
+        <div class="formfield" *ngIf="true">
           <label for="">Funding goal (Total of all above defined costs.)</label>
           <div class="field-status optional">(CALCULATED VALUE)</div>
 
           <div class="input-container">
             <input
               class="funding-goal"
-              [value]="this.currencyService.format(this.getTotalCosts()) + ' | (Change costs above to change this value.)'"
               [disabled]="true"
+              [value]="this.currencyService.format(this.getTotalCosts() || 0)"
               #PitchFundingGoal
             />
           </div>
         </div>
 
         <br />
-        <div class="formfield">
+        <div class="formfield" *ngIf="true">
           <label for="">Pitch period, end after (can be set once)</label>
           <div class="field-status">(REQUIRED)</div>
 

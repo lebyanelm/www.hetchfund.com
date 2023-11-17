@@ -36,6 +36,7 @@
     "@ionic/angular-toolkit": "^8.0.0",
     "@ionic/cli": "^6.20.8",
     "@sotaproject/strikethrough": "^1.0.1",
+    "@uploadcare/upload-client": "^6.8.0",
     "angular-custom-modal": "^1.2.0",
     "bootstrap": "^4.6.2",
     "currency-formatter": "^1.5.9",

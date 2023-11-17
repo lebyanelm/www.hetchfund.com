@@ -16,6 +16,7 @@ export class CreateBottomFooterComponent implements OnInit {
   @Input() binder;
   @Input() isLastStage = null;
   @Input() isNewPitch = null;
+  @Input() isReadyForReview = false;
   @Input() create;
 
   constructor(

@@ -711,6 +711,11 @@ input[type="file"]::file-selector-button {
   font-family: "IBM Plex Sans Medm", $FONT_FAMILY !important;
 }
 
+input:disabled,
+textarea:disabled {
+  opacity: 0.2;
+}
+
 // STYLING FOR THE CHECKBOXES
 .control-checkbox {
   display: block;
