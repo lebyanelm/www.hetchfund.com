@@ -30,7 +30,7 @@ export class TwoFaVerificationCodePage implements OnInit {
         .get(
           [
             environment.accounts,
-            'verifications/2fa/',
+            'verifications/2fa/token',
             this.accepted_token,
           ].join('/')
         )
