@@ -20,7 +20,7 @@ export const environment = {
   GOOGLE_CLIENT_ID:
     '625037972362-ue7a36df2d6b76iq086sbrudjkdnnjtb.apps.googleusercontent.com',
   FACEBOOK_CLIENT_ID: '281428964436653',
-  H_CAPTCHA_SITEKEY: '7ab97265-f59a-403d-8526-b71b4ec454b6',
+  H_CAPTCHA_SITEKEY: 'cc1f333d-b759-43b0-84d7-b46ec576cd2e',
   UPLOADCARE_PUBLIC_KEY: '2313d2a4f4ed2887fc7c'
 };
 
