@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: $BORDER_THIN;
+  // border-bottom: $BORDER_THIN;
   border-color: $GRAY_COLOR;
 }
 
@@ -27,4 +27,24 @@ img.verification-illustration {
   font-weight: medium;
   text-align: center;
   opacity: 0.6;
+}
+
+// INPUT CONTAINER FOR THE VERIFICATION
+.verification-code-input {
+  display: grid;
+  place-items: center;
+  width: 50%;
+  margin: 20px auto;
+}
+
+.verification-code-input input {
+  text-align: center;
+}
+
+.buttons {
+  width: 200px;
+}
+
+.buttons button {
+  display: inline;
 }

@@ -6,23 +6,28 @@
       class="verification-illustration"
     />
     <span class="verification-title header-text-style"
-      >Email verification code has been sent</span
+      >Identity Verification Stop</span
     >
     <span class="verification-message paragraph-text-style"
-      >Your verification email has been sent to verify your authenticity.
+      >Your verification email has been sent to verify your identity.
 
       <br />
       <br />
-      <div class="bold-text-style">
-        Remember: If this is your first login, you won't be able to use your
-        account until your verify your email address.
-      </div></span
-    >
 
-    <button>Request another verification code</button>
-
-    <div class="bottom-attributions">
-      Courtesy of Towards Common Foundry, Limited. All rights reserved.
-    </div>
+      <div class="verification-code-input">
+        <div class="formfields">
+          <div class="formfield">
+            <label for="login-code">Login verification code</label>
+            <div class="input-container">
+              <input type="text" placeholder="eg. ######" #OTPCodeInput>
+            </div>
+          </div>
+        </div>
+        <div class="buttons">
+          <button (click)="this.verifyCode(OTPCodeInput.value)">Submit code</button>
+          <button class="bordered">Request a new code</button>
+        </div>
+      </div>
+    </span>
   </div>
 </ion-content>
