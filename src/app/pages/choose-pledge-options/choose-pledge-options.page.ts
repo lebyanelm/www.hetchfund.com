@@ -54,8 +54,7 @@ export class ChoosePledgeOptionsPage implements OnInit {
         .getRewards(this.pitch_key)
         .then((rewards: any) => {
           this.rewardOptions = rewards;
-          this.selectedReward = this.rewardOptions.reward_options[0].id;
-          console.log(this.rewardOptions);
+          this.selectedReward = this.rewardOptions.reward_options[0]?.id || null;
         })
         .catch((error) => this.toastService.show(error));
     });
@@ -77,12 +76,10 @@ export class ChoosePledgeOptionsPage implements OnInit {
   }
 
   isInvalidInput(input: string | any): boolean {
-    console.log(input, isNaN(parseFloat(input)));
     return isNaN(parseFloat(input));
   }
 
   toInteger(input: string): number {
-    console.log(input, parseFloat(input));
     return parseFloat(input);
   }
 }
