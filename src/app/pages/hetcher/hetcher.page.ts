@@ -52,7 +52,7 @@ export class HetcherPage implements OnInit, AfterViewChecked {
 
       // Get the data from the "backend"
       superagennt
-        .get(environment.accounts + '/' + this.username)
+        .get(['https://development-server.hetchfund.com/accounts', this.username].join('/'))
         .end((_, response) => {
           this.isLoading = false;
           if (response.statusCode == 200) {
