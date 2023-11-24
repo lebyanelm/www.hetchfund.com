@@ -53,6 +53,7 @@ app-rich-text-editor {
 
 .tab-selector-section {
   background: $BACKGROUND_COLOR;
+  grid-template-columns: 1fr 1fr;
 }
 
 .egg-campaign-thumbnail-stages {
@@ -271,7 +272,7 @@ ion-icon[name="heart-circle-outline"] {
 
 // EGG CAMPAIGN STATISTICS INFORMATION
 .campaign-statistics {
-  display: flex;
+  // display: flex;
   align-items: center;
 }
 
@@ -393,13 +394,13 @@ ion-icon[name="heart-circle-outline"] {
 // FUNDING PURPOSE
 .egg-campaign-name {
   display: block;
-  padding: 10px 20px;
+  padding: 10px 0;
   background: $DARK_COLOR;
   border-radius: $BORDER_RADIUS;
 }
 
 .egg-campaign-name:first-child {
-  padding: 20px 20px 10px 20px;
+  padding: 20px 0 10px 0;
 }
 
 .egg-campaign-name:last-child {
