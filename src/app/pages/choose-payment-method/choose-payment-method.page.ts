@@ -172,10 +172,11 @@ export class ChoosePaymentMethodPage implements OnInit {
       // optional styling for buttons
       // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
       style: {
-        color: 'white',
-        layout: 'horizontal',
-        label: 'paypal',
-        tagline: false,
+        color:    'blue',
+        shape:    'rect',
+        layout:   'horizontal',
+        label:    'paypal',
+        tagline:   false,
       },
 
       // set up the transaction
