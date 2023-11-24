@@ -21,6 +21,7 @@ import * as superagent from 'superagent';
 import { ToastManagerService } from 'src/app/services/toast-manager.service';
 import { RouterService } from 'src/app/services/router.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { Buffer } from "buffer";
 
 @Component({
   selector: 'app-signin',
@@ -74,6 +75,9 @@ export class SigninPage implements OnInit, AfterViewInit {
             token: response.body.data.jwt,
           });
           this.routerService.route(['pitches']);
+        } else if (response.statusCode === 201) {
+          const hiddenId = btoa(this.emailAddressField.nativeElement.value);
+          this.routerService.route(['2fa-auth', 'verifications', 'sent?hid=' + hiddenId])
         } else {
           this.errorMessage = [
             response.body.reason || response.body.status_message,
