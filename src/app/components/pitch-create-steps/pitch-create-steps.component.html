@@ -14,7 +14,7 @@
         name="ellipse"
       ></ion-icon
     ></span>
-    <div
+    <span
       class="status"
       [attr.data-required]="this.draftProgress?.basic?.required"
       [attr.data-status]="this.draftProgress?.basic?.value"
@@ -26,7 +26,7 @@
             : "Incomplete"
           : "Optional"
       }}
-    </div>
+    </span>
   </a>
 
   <a

@@ -1,10 +1,18 @@
 <ion-content>
-  <app-header></app-header>
+  
   <div class="page-content centered-content with-pattern">
+    
     <div class="formfields account-formfields">
-      <div class="header-text-style decorated small underlined">
-        Signin to your account with your username.
+      
+      <div class="formfields-header">
+        <div class="header-text-style">Sign in to Hetchfund</div>
+        <span class="paragraph-text-style"
+          >Enter your details below to continue to your account.</span
+        >
       </div>
+
+      <br>
+      <div class="separator" title="Welcome Back"></div>
 
       <div class="formfield">
         <label class="section-title-style" for="">Email address</label>
@@ -37,30 +45,15 @@
         </div>
       </div>
 
-      <!-- Error message when something goes wrong. -->
-      <p class="danger-text-style bold-text-style" *ngIf="this.errorMessage">
-        {{this.errorMessage}}
-      </p>
-
       <p class="paragraph-text-style clause-notice">
-        By signing in to your account or using social media login on our
-        platform you agree to our terms and conditions that are stated in our
-        <a href="">Terms & Conditions Page.</a>
+        <b>Remember: </b> Please consult our <a href="/legal/terms-and-conditions">Terms and conditions</a> before continuing.
       </p>
-
-      <ng-hcaptcha
-        [class]="'hcaptcha'"
-        (verify)="this.hCaptchaVerify($event)"
-        (expired)="this.hCaptchaExpired($event)"
-        (error)="this.hCaptchaError($event)"
-      >
-      </ng-hcaptcha>
 
       <div class="formfield-buttons">
         <button
           (click)="this.signin()"
-          [attr.data-title]="(this.hCaptchaToken === undefined || (EmailAddressField.value.length === 0 && PasswordField.value.length === 0)) ? 'Complete fields above and hCaptcha.' : 'Continue to sign in'"
-          [disabled]="this.isLoading || (this.hCaptchaToken === undefined || (EmailAddressField.value.length === 0 && PasswordField.value.length === 0))"
+          [attr.data-title]="((EmailAddressField.value.length === 0 && PasswordField.value.length === 0)) ? 'Complete fields above' : 'Continue to sign in'"
+          [disabled]="this.isLoading || ((EmailAddressField.value.length === 0 && PasswordField.value.length === 0))"
         >
           <app-loader [attr.state]="isLoading"></app-loader>
           Signin to my account
@@ -69,14 +62,10 @@
           >Create a new account</a
         >
       </div>
-    </div>
 
-    <div class="formfields account-formfields social-buttons">
-      <div class="header-text-style decorated small underlined">
-        Signin to your account using social media.
-      </div>
-      <br />
-      <br />
+      <br>
+      <div class="separator" title="Use Social Login"></div>
+      <br>
 
       <div class="social-buttons">
         <!-- GOOGLE SIGNON -->
@@ -91,7 +80,7 @@
         </asl-google-signin-button>
 
         <!-- FACEBOOK SIGNON -->
-        <div class="facebook-signin-button" (click)="this.loginWithFacebook()">
+        <div class="facebook-signin-button" (click)="this.socialLoginService.loginWithFacebook()">
           <span>Continue with Facebook</span>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
@@ -101,6 +90,4 @@
       </div>
     </div>
   </div>
-
-  <app-footer></app-footer>
 </ion-content>

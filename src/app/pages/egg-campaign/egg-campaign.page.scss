@@ -1,7 +1,6 @@
 @import "../../../variables.scss";
 
 .story-tab {
-  padding: $_20_SPACING_SIZE;
   background: $THEME_COLOR;
   color: $WHITE_COLOR;
   border-radius: $BORDER_RADIUS;
@@ -506,7 +505,7 @@ app-hetchers-list {
   justify-content: space-between;
   align-items: center;
   position: sticky;
-  padding: $_10_SPACING_SIZE $_20_SPACING_SIZE;
+  padding: $_10_SPACING_SIZE;
   background: $BACKGROUND_COLOR;
   border-radius: $BORDER_RADIUS;
   border-bottom-left-radius: 0;
@@ -531,10 +530,116 @@ app-hetchers-list {
   }
 }
 
-.sticky-funding-button button.pledge {
+.sticky-funding-button button.pledge-button {
   background: $SECONDARY_THEME_COLOR;
 }
 
-.sticky-funding-button button.pledge ion-icon {
+.sticky-funding-button button.pledge-button ion-icon {
   color: $LIGHT_COLOR;
+}
+
+.short-mobile-description {
+  font-size: large;
+  margin-top: $_20_SPACING_SIZE;
+  opacity: 0.8;
+}
+
+.short-mobile-description,
+.mobile-follow-button,
+.mobile-social-buttons {
+  display: none;
+}
+
+.mobile-social-buttons {
+  padding: 10px 0 $_20_SPACING_SIZE 0;
+}
+
+.mobile-social-buttons app-social-buttons {
+  display: block;
+  margin-top: 10px;
+}
+
+// MOBILE DEVICES
+@media screen and (max-width: 650px) {
+  .egg-campaign-funding-purpose {
+    font-size: 36px !important;
+  }
+
+  .bottom-attribute-items,
+  .pitch-media-files {
+    display: none !important;
+  }
+
+  .egg-campaign-thumbnail-stages {
+    display: block !important;
+  }
+
+  .categories * {
+    line-height: 1.5rem !important;
+  }
+
+  .egg-campaign-thumbnail-stages .egg-campaign-thumbnail {
+    height: 200px;
+  }
+
+  app-hetchers-list.top {
+    display: none !important;
+  }
+
+  .desktop-tabs {
+    display: none;
+  }
+
+  .tab-selector-section {
+    display: block;
+    padding: 20px 0 40px 0 !important;
+    border: none;
+    border-bottom: $BORDER;
+  }
+
+  .campaign-statistics .value {
+    font-size: 18px !important;
+  }
+
+  .campaign-statistics .statistic.hetching-goal {
+    display: none;
+  }
+  
+  .campaign-statistics .hetching-progress {
+    bottom: -24px;
+  }
+
+  .bottom-body-section {
+    display: block;
+  }
+
+  .bottom-body-section .campaign-information-stats {
+    display: none;
+  }
+
+  // Short description.
+  .short-mobile-description {
+    display: block;
+  }
+
+  // Minimize to only one button to simplify the view.
+  .sticky-funding-button,
+  .mobile-social-buttons,
+  .mobile-follow-button {
+    display: block;
+  }
+
+  .sticky-funding-button app-social-buttons,
+  .sticky-funding-button .pitch-buttons button.follow-button {
+    display: none;
+  }
+
+  .sticky-funding-button .pitch-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .sticky-funding-button .pitch-buttons button.pledge-button {
+    width: 100%;
+  }
 }

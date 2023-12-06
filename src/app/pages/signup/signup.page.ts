@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { IBackendResponse } from 'src/app/interfaces/IBackendResponse';
 import { RouterService } from 'src/app/services/router.service';
 import { SessionService } from 'src/app/services/session.service';
+import { SocialLoginService } from 'src/app/services/social-login.service';
 import { TitleService } from 'src/app/services/title.service';
 import { environment } from 'src/environments/environment';
 import * as superagent from 'superagent';
@@ -28,7 +29,8 @@ export class SignupPage implements OnInit {
     private titleService: TitleService,
     private http: HttpClient,
     private sessionService: SessionService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    public socialLoginService: SocialLoginService
   ) {}
 
   createAccount() {

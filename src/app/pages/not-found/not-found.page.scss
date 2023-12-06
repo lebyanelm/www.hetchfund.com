@@ -81,3 +81,10 @@
 .recommended-items-list .recommended-item:hover {
   opacity: 1;
 }
+
+// MOBILE DEVICES
+@media screen and (max-width: 650px) {
+  .error-page-container > div.section:first-child {
+    border: none;
+  }
+}

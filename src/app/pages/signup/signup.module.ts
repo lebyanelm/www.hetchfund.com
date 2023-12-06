@@ -8,6 +8,9 @@ import { SignupPageRoutingModule } from './signup-routing.module';
 
 import { SignupPage } from './signup.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { NgHcaptchaModule } from 'ng-hcaptcha';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   imports: [
@@ -15,7 +18,11 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     SignupPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    GoogleSigninButtonModule,
+    NgHcaptchaModule.forRoot({
+      siteKey: environment.H_CAPTCHA_SITEKEY,
+    }),
   ],
   declarations: [SignupPage]
 })

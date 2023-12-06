@@ -3,12 +3,13 @@
   <div class="toast-messages-container">
     <div
       class="toast-message"
+      [attr.data-is-error]="message.isError"
       *ngFor="let message of this.toastManager.currentMessages"
     >
       <ion-icon name="information-circle"></ion-icon>
 
       <span class="message">{{ message.message }}</span>
-      <div class="close-button">
+      <div class="close-button" (click)="this.removeToastMessage(message.id)">
         <span class="currency-selectable">Close</span>
       </div>
     </div>
@@ -57,6 +58,7 @@
               >View profile</a
             >
             <a href="/pitches/create/basics">New pitch</a>
+            <a href="/bookmarks">Bookmarks</a>
             <a href="/history/contributions/">Contribution history</a>
             <a href="/history/view">Browsing history</a>
             <a href="/settings">Settings</a>
@@ -91,10 +93,10 @@
         <section>
           <div class="section-title">Hetchfund</div>
           <div class="section-content smaller">
-            <a href="">About Hetchfund</a>
-            <a href="">Become a sponsor</a>
-            <a href="">Careers</a>
-            <a href="">Privacy Policy</a>
+            <a href="/categories">Categories</a>
+            <a href="/about">About Hetchfund</a>
+            <a href="/become-a-sponsor">Become a sponsor</a>
+            <a href="/legal/privacy-policy">Privacy Policy</a>
           </div>
         </section>
 

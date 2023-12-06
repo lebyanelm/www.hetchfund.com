@@ -1,7 +1,7 @@
 @import "../../../variables.scss";
 
 .page-content {
-  background: $LIGHT_COLOR;
+  background: $BACKGROUND_COLOR
 }
 
 .back-buttons-container .back-buttons {
@@ -29,6 +29,10 @@
   border: $BORDER;
   border-color: $GRAY_COLOR;
   background: $WHITE_COLOR;
+  
+  * {
+    color: $DARK_COLOR !important;
+  }
 }
 
 // DOCUMENT HEADER

@@ -10,6 +10,8 @@
 }
 
 .pitches-subsection-label {
+  display: block;
+  margin-bottom: $_20_SPACING_SIZE;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;

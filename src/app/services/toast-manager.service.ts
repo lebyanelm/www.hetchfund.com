@@ -1,5 +1,6 @@
 import { Component, ComponentRef, Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { nanoid } from 'nanoid';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,13 @@ export class ToastManagerService {
 
   constructor(private modalCtrl: ModalController) {}
 
-  show(message, isPersist: boolean = false) {
+  show(message, isPersist: boolean = false, isError: boolean = false) {
     if (isPersist === false) {
       const pushIndex = this.currentMessages.push({
+        id: nanoid(),
         isPersist,
         message,
+        isError
       });
 
       setTimeout(() => {

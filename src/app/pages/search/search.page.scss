@@ -5,15 +5,11 @@ textarea {
   width: 100%;
   font-size: 4rem;
   font-weight: 900;
-  color: $THEME_COLOR;
-  padding: 0;
-  text-indent: 0;
+  color: $WHITE_COLOR;
+  padding: $_20_SPACING_SIZE 0;
+  text-indent: $_10_SPACING_SIZE;
   outline: none !important;
-  border-bottom: 4px solid #444;
-}
-
-textarea:focus {
-  border-color: $THEME_COLOR;
+  border-bottom: $BORDER;
 }
 
 // PAGINATION LINKS
@@ -57,4 +53,10 @@ textarea:focus {
 
 .popular-searches .search:last-child {
   margin-right: 0;
+}
+
+@media screen and (max-width: 650px) {
+  textarea {
+    font-size: 1.5rem;
+  }
 }

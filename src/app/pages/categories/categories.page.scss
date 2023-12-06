@@ -19,15 +19,16 @@
   padding: $_20_SPACING_SIZE;
   font-size: 1.5rem;
   font-weight: bolder;
-  background: $GRAY_COLOR;
-  color: $DARK_COLOR;
+  background: $DARK_COLOR;
+  border: $BORDER;
+  color: $WHITE_COLOR;
   border-radius: 0;
   text-decoration: none;
 }
 
 .categories-container .category:hover {
   color: $LIGHT_COLOR;
-  background: $DARK_COLOR;
+  background: $DARK_GRAY_COLOR;
   text-decoration: underline;
   cursor: pointer;
 }

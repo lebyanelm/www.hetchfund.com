@@ -8,7 +8,7 @@ export class CustomDelimeterTool {
 
   render() {
     const dotsElement = document.createElement('span');
-    dotsElement.innerHTML = '<h1>***</h1>';
+    dotsElement.innerHTML = '<h1>&mdash;</h1>';
     dotsElement.className = 'delimeter-tool';
     return dotsElement;
   }

@@ -2,6 +2,11 @@
 
 .video-element-container {
   position: relative;
+  width: 100%;
+}
+
+video {
+  width: 100%;
 }
 
 // LAYER THAT CONTAINS THE CONTROLS
@@ -36,10 +41,11 @@
 
 .pause-play-button .icon-container {
   padding: $_10_SPACING_SIZE;
-  background: $WHITE_COLOR;
+  background: $SECONDARY_THEME_COLOR;
   border: $BORDER;
   border-radius: $BORDER_RADIUS;
   cursor: pointer;
+  opacity: 0.7;
 }
 
 .pause-play-button .icon-container:hover {
@@ -47,7 +53,7 @@
 }
 
 .pause-play-button .icon-container:hover ion-icon {
-  color: $WHITE_COLOR;
+  opacity: 1;
 }
 
 // BOTTOM CONTROLS

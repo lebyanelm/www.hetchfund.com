@@ -14,6 +14,10 @@
 }
 
 // FOOTER SITE LOGO
+.footer-container .desktop-footer-container {
+  padding: 0 $_10_SPACING_SIZE;
+}
+
 .footer-container .desktop-footer-container .site-footer-logo img {
   width: 120px;
   margin-bottom: $_10_SPACING_SIZE;
@@ -67,7 +71,7 @@
 
 // FOOTER BOTTOM LINKS: LEGAL AND SOCIAL LINKS
 .footer-container .footer-bottom-links {
-  border-top: 4px solid $THEME_COLOR;
+  border-top: 1px solid $THEME_COLOR;
 }
 
 .footer-container .footer-bottom-links,

@@ -17,7 +17,7 @@ import { EggService } from 'src/app/services/egg.service';
   templateUrl: './hetcher.page.html',
   styleUrls: ['./hetcher.page.scss'],
 })
-export class HetcherPage implements OnInit, AfterViewChecked {
+export class HetcherPage implements OnInit {
   username: string;
   hetcher: IHetcher;
 
@@ -27,7 +27,7 @@ export class HetcherPage implements OnInit, AfterViewChecked {
   isCuratedCampaigns = false;
 
   // Tab management.
-  currentTab = 'issued-pitches';
+  currentTab = 'issued';
   pitches_issued = [];
   pitches_bookmarked = [];
   pitches_supported = [];
@@ -50,16 +50,20 @@ export class HetcherPage implements OnInit, AfterViewChecked {
       this.username = params.get('username');
       this.isLoading = true;
 
+      this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {
+        this.currentTab = queryParamMap.get('tab') || 'issued';
+      });
+      
       // Get the data from the "backend"
       superagennt
-        .get(['https://development-server.hetchfund.com/accounts', this.username].join('/'))
+        .get([environment.accounts, this.username].join('/'))
         .end((_, response) => {
           this.isLoading = false;
           if (response.statusCode == 200) {
             this.hetcher = response.body.data;
             this.isFound = true;
             this.titleService.onTitleChange.next(
-              this.hetcher.display_name + ' Profile — Hetchfund'
+              this.hetcher.display_name + ' | Hetchfund.com'
             );
 
             // Issued pitches.
@@ -67,16 +71,7 @@ export class HetcherPage implements OnInit, AfterViewChecked {
               .get(this.hetcher.pitches)
               .then((issued_pitches: any) => {
                 this.pitches_issued = issued_pitches;
-              });
-
-            // Bookmarked pitches.
-            this.pitchService
-              .get(this.hetcher.pitches_bookmarked)
-              .then((bookmarked_pitches: any) => {
-                if (!Array.isArray(bookmarked_pitches)) {
-                  bookmarked_pitches = [bookmarked_pitches];
-                }
-                this.pitches_bookmarked = bookmarked_pitches;
+                this.focusTab(this.currentTab);
               });
 
             // Supported pitches
@@ -84,11 +79,14 @@ export class HetcherPage implements OnInit, AfterViewChecked {
               .get(this.hetcher.pitches_funded)
               .then((supported_pitches: any) => {
                 this.pitches_supported = supported_pitches;
+                this.focusTab(this.currentTab);
               });
 
             // Drafted pitches
             this.pitchService.getSavedDrafts().then((drafted_pitches: any) => {
               this.pitches_drafted = drafted_pitches;
+              console.log(this.pitches_drafted)
+              this.focusTab(this.currentTab);
             });
           } else {
             if (response.statusCode == 404) {
@@ -102,11 +100,6 @@ export class HetcherPage implements OnInit, AfterViewChecked {
           }
         });
     });
-  }
-
-  ngAfterViewChecked(): void {
-    // const currentTab = document.getElementById();
-    this.focusTab(this.currentTab);
   }
 
   determineLevelEnding(value) {
@@ -237,5 +230,7 @@ export class HetcherPage implements OnInit, AfterViewChecked {
     }
 
     this.currentTab = tabName;
+    document.getElementById(this.currentTab)
+          ?.removeAttribute('hidden');
   }
 }

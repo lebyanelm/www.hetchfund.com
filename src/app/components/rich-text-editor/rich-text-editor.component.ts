@@ -25,15 +25,18 @@ export class CustomRichTextEditorComponent implements OnInit {
   @Input() isAwaitData: boolean = false;
 
   _data: Subject<any> = new Subject();
+  data = null;
   editor: EditorJS;
 
   ngOnInit() {
     this._data.subscribe((data) => {
-      if (!this.editor) this.editor = this.initEditor(data);
+      if (!this.editor && this.isReadOnly === false) this.editor = this.initEditor(data);
+      this.data = data?.blocks;
+      console.log(this.data)
     });
   }
   ngAfterViewInit(): void {
-    if (!this.isAwaitData) {
+    if (!this.isAwaitData && this.isReadOnly === false) {
       this.editor = this.initEditor();
     }
   }
@@ -61,21 +64,31 @@ export class CustomRichTextEditorComponent implements OnInit {
       onReady: () => {
         // If read only mode is toggled on, disable edits on the editor.
         if (this.isReadOnly) {
-          let editable_elements = document.querySelectorAll(
-            '*[contenteditable=true]'
-          );
-          editable_elements.forEach((el) =>
-            el.removeAttribute('contenteditable')
-          );
+          console.log("Ready to work.")
+          // let editable_elements = document.querySelectorAll(
+          //   '*[contenteditable]'
+          // );
+          // console.log("Editable elements:", editable_elements);
 
-          let icon_settings = document.querySelectorAll(
-            '.ce-toolbar__plus, .ce-toolbar__settings-btn'
-          );
-          icon_settings.forEach((el) => el.remove());
+          // editable_elements.forEach((el) =>
+          //   el.removeAttribute('contenteditable')
+          // );
+
+          // let icon_settings = document.querySelectorAll(
+          //   '.ce-toolbar__plus, .ce-toolbar__settings-btn, .ce-toolbar__actions *'
+          // );
+          // icon_settings.forEach((el) => el.remove());
+
+          // // Disable file selector on images.
+          // let imageBlocks = document.querySelectorAll(
+          //   'input[file]'
+          // );
+          // console.log("Image block inputs:", imageBlocks);
+          // imageBlocks.forEach((imageBlockInput) => imageBlockInput.remove());
 
           // Turn off events for the image selector
-          let imageSelectors = document.querySelectorAll('#image-selector');
-          imageSelectors.forEach((el: HTMLDivElement) => (el.onclick = null));
+          // let imageSelectors = document.querySelectorAll('#image-selector');
+          // imageSelectors.forEach((el: HTMLDivElement) => (el.onclick = null));
         }
       },
     });
@@ -101,5 +114,14 @@ export class CustomRichTextEditorComponent implements OnInit {
 
   setData(data) {
     this._data.next(data);
+  }
+
+  isImage(url: string): boolean {
+    const extension = url.split('.').pop();
+    if (extension !== "mp4") {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

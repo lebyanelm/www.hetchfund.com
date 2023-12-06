@@ -5,6 +5,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import {
   SocialLoginModule,
   SocialAuthServiceConfig,
+  SocialAuthService,
 } from '@abacritt/angularx-social-login';
 import {
   GoogleLoginProvider,
@@ -27,6 +28,7 @@ import { SidebarMenuService } from './services/sidebar-menu.service';
 import { SettingsService } from './services/settings.service';
 import { ToastManagerService } from './services/toast-manager.service';
 import { CurrencyResolverService } from './services/currency-resolver.service';
+import { SafePipeModule } from 'safe-pipe';
 
 @NgModule({
   declarations: [AppComponent, CurrencyPipe],
@@ -38,7 +40,7 @@ import { CurrencyResolverService } from './services/currency-resolver.service';
     HttpClientModule,
     MatTooltipModule,
     SocialLoginModule,
-    ComponentsModule,
+    ComponentsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -67,6 +69,7 @@ import { CurrencyResolverService } from './services/currency-resolver.service';
     ToastManagerService,
     SettingsService,
     CurrencyResolverService,
+    SocialAuthService
   ],
   bootstrap: [AppComponent],
 })

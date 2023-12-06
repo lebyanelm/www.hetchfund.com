@@ -21,6 +21,7 @@ import { FaqsComponent } from './faqs/faqs.component';
 import { CurrenciesSelectorComponent } from './currencies-selector/currencies-selector.component';
 import { SettingsHelpContentComponent } from './settings-help-content/settings-help-content.component';
 import { PitchCreateStepsComponent } from './pitch-create-steps/pitch-create-steps.component';
+import { SafePipeModule } from 'safe-pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { PitchCreateStepsComponent } from './pitch-create-steps/pitch-create-ste
     SettingsHelpContentComponent,
     PitchCreateStepsComponent,
   ],
-  imports: [CommonModule, FormsModule, GoogleSigninButtonModule],
+  imports: [CommonModule, FormsModule, GoogleSigninButtonModule, SafePipeModule],
   exports: [
     HeaderComponent,
     EggComponent,

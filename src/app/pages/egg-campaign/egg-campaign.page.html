@@ -13,8 +13,7 @@
           [href]="'/categories/'+ this.URLEncode(this.data?.secondary_category)"
           class="header-text-style smaller light secondary-category"
         >
-          {{ !!this.data?.secondary_category ? " / " : "" }}{{
-          this.data?.secondary_category.trim() }}</a
+          / {{this.data?.name}} </a
         >
       </div>
 
@@ -25,7 +24,7 @@
       >
         <!-- The thumbnail / video. -->
         <div class="egg-campaign-thumbnail-container">
-          <div class="egg-campaign-funding-purpose header-text-style circled">
+          <div class="egg-campaign-funding-purpose header-text-style">
             <span class="to-prefix">To: </span> {{ this.data?.funding_purpose }}
           </div>
 
@@ -100,15 +99,17 @@
       ></app-milestones-band>
 
       <app-hetchers-list
-        class="ten-column-hetcher-grid"
+        class="top ten-column-hetcher-grid"
         title="Pitch contributors"
         [hetchers]="this.hetchers"
         [fourGridFormat]="false"
       >
       </app-hetchers-list>
 
+      <div class="short-mobile-description paragraph-text-style">{{ this.data?.brief_description }}</div>
+
       <div class="tab-selector-section">
-        <div class="tabs">
+        <div class="tabs desktop-tabs">
           <a
             class="tab no-decoration header-text-style smaller"
             [attr.isActiveTab]="this.activeTab === 'about'"
@@ -125,7 +126,7 @@
             class="tab no-decoration header-text-style smaller"
             [attr.isActiveTab]="this.activeTab === 'resources'"
             (click)="this.setActiveTab('resources')"
-            >Frequently Asked Questions ({{this.data?.faqs.length}})</a
+            >FAQs ({{this.data?.faqs.length}})</a
           >
         </div>
 
@@ -135,7 +136,7 @@
               >{{ this.data?.rewards_type === "share" ? this.data?.total_authorized_shares - (this.data?.total_authorized_shares * (this.data?.hetched_funds_perc / 100)) : (( (this.data?.hetched_funds / this.data?.hetching_goal) * 100
               )?.toFixed(2) || 0) + '%' }}</span
             >
-            <div class="name">{{ this.data?.rewards_type === "share" ? "Shares Left" : "Progress Funded" }}</div>
+            <div class="name">{{ this.data?.rewards_type === "share" ? "Shares" : "Progress" }}</div>
           </div>
 
           <div class="statistic" data-title="Funds raised.">
@@ -145,7 +146,7 @@
             <div class="name">Funded</div>
           </div>
 
-          <div class="statistic" data-title="Target funding.">
+          <div class="statistic hetching-goal" data-title="Target funding.">
             <span class="value smaller currency-selectable"
               >{{this.currencyResolver.translate(this.data?.hetching_goal)}}</span
             >
@@ -230,15 +231,24 @@
         </div>
       </div>
 
+      <!-- BOTTOM MOBILE SOCIAL BUTTONS -->
+      <div class="mobile-social-buttons">
+        <div class="header-text-style small">Share</div>
+        <app-social-buttons
+          [pitch_name]="this.data?.funding_purpose || this.data?.name"
+          [pitch_key]="this.data?.key"
+          [is_mobile]="true"></app-social-buttons>
+      </div>
+
       <div class="sticky-funding-button">
         <div class="pitch-buttons">
-          <button class="pledge icon-button" (click)="this.commitPledge()">
+          <button class="pledge-button icon-button" (click)="this.commitPledge()">
             <ion-icon name="hand-right-sharp"></ion-icon>
-            Contribute to this Pitch
+            Contribute
           </button>
 
           <button
-            [class]="(this.isbookmarked ? 'danger-text-style' : 'theme-text-style') + ' icon-button'"
+            [class]="(this.isbookmarked ? 'danger-text-style' : 'theme-text-style') + ' icon-button follow-button'"
             [attr.data-is-bookmarked]="this.isbookmarked"
             (click)="this.bookmark()"
           >
@@ -248,6 +258,16 @@
 
             {{ this.isbookmarked ? "Remove follow" : "Add follow"}}
             <div class="spinner small" *ngIf="this.isLoadingBookmark"></div>
+          </button>
+
+          <button
+            class="bordered mobile-follow-button"
+            [attr.data-is-bookmarked]="this.isbookmarked"
+            (click)="this.bookmark()"
+          >
+            <ion-icon
+              [name]="this.isbookmarked ? 'heart' : 'heart-outline'"
+            ></ion-icon>
           </button>
         </div>
 

@@ -6,8 +6,6 @@
   justify-content: space-between;
   border-radius: $BORDER_RADIUS;
   border: $BORDER;
-  border-width: 2px;
-  padding: 10px;
   background: transparent;
   transition: box-shadow 100ms linear;
   height: 100%;
@@ -25,12 +23,23 @@
 .egg-campaign-container .thumbnail-container {
   display: block;
   background: $GRAY_COLOR;
-  height: 120px;
+  height: 180px;
   background-size: cover;
   background-position: center center;
-  border: $BORDER;
+  // border: $BORDER;
   border-width: 1px;
   border-radius: $BORDER_RADIUS $BORDER_RADIUS 0 0;
+  position: relative;
+
+  &::before {
+    content: "";
+    height: 60px;
+    width: 100%;
+    background: linear-gradient(0deg, $BACKGROUND_COLOR, transparent);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
 }
 
 .egg-campaign-container[status]::after {
@@ -53,8 +62,13 @@
 }
 
 // EGG CAMPAIGN INFORMATION
+.egg-campaign-container .egg-campaign-details,
+.egg-campaign-container .egg-funding-details {
+  padding: $_10_SPACING_SIZE;
+}
+
 .egg-campaign-container .egg-campaign-details {
-  padding: $_10_SPACING_SIZE 0;
+  padding-top: none;
 }
 
 .egg-campaign-container .egg-campaign-details .rewards-type {
@@ -213,19 +227,4 @@ ins {
   display: block !important;
   font-size: small;
   margin-top: 5px;
-}
-
-.pitch-funding-purpose {
-  display: none;
-  margin: 10px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: small;
-  background-color: transparentize($SECONDARY_THEME_COLOR, 0.8);
-  color: $SECONDARY_THEME_COLOR;
-  border: transparentize($SECONDARY_THEME_COLOR, 0.4);
-}
-
-.pitch-funding-purpose b {
-  font-size: small;
 }

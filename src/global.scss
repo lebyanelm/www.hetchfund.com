@@ -61,6 +61,52 @@
   opacity: 0.4;
 }
 
+// EDITOR.JS POPOVER.
+.ce-toolbar__plus {
+  svg {
+    transform: translateY(0);
+  }
+}
+
+.ce-toolbar__plus:hover,
+.ce-toolbar__plus:active {
+  background: black;
+  border: $BORDER;
+  border-radius: $BORDER_RADIUS;
+}
+
+.ce-popover  {
+  --border-radius: 0;
+  --color-border: white;
+  --color-background: black;
+}
+
+.ce-popover-item__icon,
+.cdx-search-field__icon {
+  svg {
+    transform: translateY(0px);
+  }
+}
+
+.cdx-search-field__icon {
+  transform: translateX(5px)
+}
+
+.ce-popover-item__icon,
+.cdx-search-field {
+  border-radius: $BORDER_RADIUS;
+  background: black;
+}
+
+.cdx-search-field {
+  border: 0.1px solid gray;
+  border-width: 0.2px;
+}
+
+.ce-popover-item:hover .ce-popover-item__title {
+  color: black !important;
+}
+
 // YOCO INLINE PAYMENT METHOD CUSTOMIZATION
 .yc-card-form-container {
   margin-top: 20px;
@@ -107,20 +153,6 @@ textarea {
 * {
   color: #FFFFFF !important;
 }
-
-// *::-webkit-scrollbar {
-//   width: 4px !important;
-// }
-
-// *::-webkit-scrollbar-track {
-//   background: $LIGHT_COLOR !important;
-// }
-
-// *::-webkit-scrollbar-thumb {
-//   width: 4px;
-//   border-radius: 50px;
-//   background-color: $THEME_COLOR;
-// }
 
 /* width */
 ::-webkit-scrollbar {
@@ -192,11 +224,11 @@ body .page-content::before {
 }
 
 .content-wrapper {
-  padding: 20px !important;
+  padding: 0;
 }
 
 .content-wrapper.no-padding {
-  padding: 20px 0 !important;
+  padding: 0 0;
 }
 
 .content-wrapper.split {
@@ -218,7 +250,7 @@ body .page-content::before {
   justify-content: space-between;
   align-items: center;
   position: sticky;
-  padding: $_10_SPACING_SIZE $_20_SPACING_SIZE;
+  padding: $_10_SPACING_SIZE;
   background: $BACKGROUND_COLOR;
   border-radius: $BORDER_RADIUS $BORDER_RADIUS 0 0;
   border: $BORDER;
@@ -607,7 +639,7 @@ input[type="file"]::file-selector-button {
   margin: 10px 0;
   transition: transform 300ms ease-in-out;
   text-transform: uppercase;
-  // letter-spacing: 1px;
+  letter-spacing: 2px;
   text-align: center;
   margin-right: 10px;
   position: relative;
@@ -657,6 +689,7 @@ button.secondary,
 .button.secondary {
   border: $BORDER;
   color: $WHITE_COLOR;
+  background: $BACKGROUND_COLOR;
 }
 
 button.bordered,
@@ -719,7 +752,6 @@ textarea {
   background: $BACKGROUND_COLOR !important;
   color: $WHITE_COLOR !important;
   border: $BORDER;
-  // border-color: transparentize($THEME_COLOR, .5);
   cursor: pointer;
   text-decoration: none !important;
   margin: 0 10px 0 0;
@@ -1064,7 +1096,7 @@ select::-ms-expand {
   margin-bottom: 20px;
   height: 25px;
   color: darkgrey;
-  border-bottom: 2px solid gray;
+  border-bottom: $BORDER;
 }
 
 .placeholder-pitch .pitch-story {
@@ -1088,7 +1120,7 @@ svg {
   height: fit-content;
   padding: $_20_SPACING_SIZE;
   border: $BORDER;
-  background: $WHITE_COLOR;
+  background: $BACKGROUND_COLOR;
   margin: calc($_20_SPACING_SIZE * 2) 0;
 }
 
@@ -1242,13 +1274,21 @@ svg {
   gap: $_10_SPACING_SIZE;
 }
 
+.middle-ref-text {
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.middle-formfield-logo img {
+  height: 80px;
+}
+
 // SIGN IN AND SIGN UP FORMFIELDS
 .account-formfields {
   width: 400px;
   height: fit-content;
   padding: $_20_SPACING_SIZE;
-  border: $BORDER !important;
-  background: $WHITE_COLOR;
+  border: $BORDER;
   border-radius: $BORDER_RADIUS;
   margin: $_20_SPACING_SIZE 0;
 }
@@ -1268,6 +1308,46 @@ svg {
   color: $DANGER_COLOR;
   font-weight: bold;
   font-size: small;
+}
+
+.formfields .formfields-header {
+  margin-bottom: 20px;
+}
+
+// FACEBOOK LOGIN BUTTON
+// RESET OF PARAGRAPH TEXT STYLE
+.paragraph-text-style {
+  max-width: 100%;
+}
+
+// FACEBOOK SIGNIN BUTTON
+.facebook-signin-button {
+  padding: 10px;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  width: 100%;
+  border: $BORDER;
+  border-radius: 100px;
+  margin-top: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: opacity 300ms ease;
+}
+
+.facebook-signin-button:hover {
+  opacity: 0.8;
+}
+
+.facebook-signin-button span {
+  font-weight: bold;
+}
+
+.facebook-signin-button img {
+  position: absolute;
+  right: 2px;
+  height: calc(100% - 4px);
+  top: 2px;
 }
 
 // FORMFIELD SOCIAL BUTTONS
@@ -1719,7 +1799,9 @@ svg {
   align-items: center;
   justify-content: center;
   gap: $_20_SPACING_SIZE;
-  width: 100vw;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
 }
 
 .illustration-message img {
@@ -1728,7 +1810,6 @@ svg {
 }
 
 .illustration-message .header-text-style {
-  font-weight: normal !important;
   font-style: italic;
 }
 
@@ -1900,11 +1981,6 @@ section.pitches-tiles.dark-style {
 
 // MOBILE DEVICES
 @media screen and (max-width: 650px) {
-  body,
-  ion-content {
-    background: #fff;
-  }
-
   .page-eggs-layout {
     grid-template-columns: 1fr;
   }
@@ -1918,10 +1994,6 @@ section.pitches-tiles.dark-style {
 
   .page-eggs-layout app-egg:last-child .egg-campaign-container {
     border-bottom: none;
-  }
-
-  .page-eggs-layout app-egg .egg-campaign-container .egg-campaign-details {
-    padding: $_10_SPACING_SIZE 0 !important;
   }
 
   .page-eggs-layout app-egg .funding-perfomance .amount-funded-percentage {

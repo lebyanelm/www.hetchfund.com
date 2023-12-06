@@ -13,7 +13,7 @@
       [style.background-image]="'url(' + this.data?.thumbnail_url + ')'"
     ></div>
     <div class="egg-campaign-details">
-      <div class="rewards-type">{{this.data?.rewards_type === "share" ? "Share rewards" : "Non-share rewards"}}</div>
+      <div class="rewards-type" *ngIf="this.data?.rewards_type === 'share'">Share Rewards</div>
       
       <div class="name-bookmark-section">
         <a
@@ -24,7 +24,7 @@
               : '/pitches/' + this.data?.key
           "
           [target]="this.embedded === true ? '_blank' : '_parent'"
-          >{{ this.data?.funding_purpose }}</a
+          >{{ this.data?.name }}</a
         >
         <button
           class="bookmark-button icon-button"
@@ -42,18 +42,9 @@
     </div>
   </div>
 
-  <div class="pitch-funding-purpose">
-    <b>Funding statement:</b> {{ this.data?.funding_purpose }}
-  </div>
-
   <div class="egg-funding-details">
     <div class="funding-perfomance">
       <div class="amount-funded-percentage">
-        <a
-          class="category"
-          [target]="this.embedded === true ? '_blank' : '_parent'"
-          >{{ this.data?.primary_category }}</a
-        >
         <div>
           <ins class="percentage-funded currency-selectable first"
             >{{ this.data?.hetched_funds_perc }}%</ins
@@ -90,11 +81,4 @@
       </div>
     </div>
   </div>
-
-  <a
-    class="button"
-    [href]="'/pitches/' + this.data?.key + '/contribution'"
-    [target]="this.embedded === true ? '_blank' : '_parent'"
-    >Contribute to this Pitch</a
-  >
 </div>

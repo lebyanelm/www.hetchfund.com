@@ -10,7 +10,7 @@ import { ToastManagerService } from 'src/app/services/toast-manager.service';
 export class SocialButtonsComponent implements OnInit {
   @Input() pitch_name: string;
   @Input() pitch_key: string;
-  @Input() endpoint: string;
+  @Input() is_mobile: boolean;
   @Input() isUser: boolean = false;
   @Input() isShowText: boolean = true;
   href: string;
@@ -20,7 +20,11 @@ export class SocialButtonsComponent implements OnInit {
     private toastService: ToastManagerService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.is_mobile) {
+      this.isShowText = false;
+    }
+  }
 
   getPitchLink(): string {
     return window.location.href;

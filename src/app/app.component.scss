@@ -142,8 +142,13 @@ ion-app {
   width: 100%;
   background: $DARK_COLOR;
   color: $WHITE_COLOR;
+  border: $BORDER;
   border-radius: $BORDER_RADIUS;
   font-weight: 600;
+
+  &[data-is-error="true"] {
+    background: $DANGER_COLOR;
+  } 
 }
 
 .toast-messages-container .toast-message .message,
@@ -199,4 +204,10 @@ ion-app {
   color: transparentize($DARK_COLOR, $amount: 0.6);
   font-weight: 500;
   margin-top: $_5_SPACING_SIZE;
+}
+
+@media screen and (max-width: 650px) {
+  .toast-messages-container {
+    width: 90vw;
+  }
 }

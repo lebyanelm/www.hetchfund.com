@@ -51,4 +51,12 @@ export class AppComponent {
   closeSidebar() {
     this.sidebarService.state.next(false);
   }
+
+  removeToastMessage(tmId: string): void {
+    const tmIndex = this.toastManager.currentMessages.findIndex(tm => tm.id === tmId);
+    if (tmIndex > -1) {
+      this.toastManager.currentMessages.splice(tmIndex, 1);
+    }
+    return;
+  } 
 }

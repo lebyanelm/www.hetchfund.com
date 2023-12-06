@@ -5,7 +5,7 @@
     <!-- Section seperator -->
     <section class="content-wrapper">
       <div *ngIf="this.isLoading">
-        <div class="header-text-style underlined">Hetcher profile</div>
+        <div class="header-text-style">Hetcher</div>
         <span class="paragraph-text-style text-loader"
           >Loading hetcher profile</span
         >
@@ -42,8 +42,7 @@
               {{this.hetcher?.display_name}}
               <!-- Toggle editing and changing the profile. -->
               <a
-                class="button"
-                data-title="Edit your profile"
+                class="button secondary"
                 (click)="this.showEditProfileModal()"
                 *ngIf="this.hetcher?.username === this.sessionService.data?.username"
               >
@@ -110,47 +109,37 @@
         <div class="page-eggs">
           <div class="tabs">
             <a
-              class="header-text-style colored small no-decoration"
-              [attr.isFocused]="this.currentTab === 'issued-pitches'"
-              (click)="this.focusTab('issued-pitches')"
+              class="tab"
+              [attr.isFocused]="this.currentTab === 'issued'"
+              [href]="'/hetcher/' + this.username + '?tab=issued'"
             >
-              Issued pitches
-              <span> ({{this.pitches_issued.length}})</span>
+              Issued
             </a>
 
             <a
-              class="header-text-style small no-decoration"
-              (click)="this.focusTab('bookmarked-pitches')"
-              [attr.isFocused]="this.currentTab === 'bookmarked-pitches'"
+              class="tab"
+              [href]="'/hetcher/' + this.username + '?tab=drafts'"
+              [attr.isFocused]="this.currentTab === 'drafts'"
             >
-              Bookmarked pitches
-              <span> ({{this.pitches_bookmarked.length}})</span>
+              Drafts
             </a>
 
             <a
-              class="header-text-style small no-decoration"
-              (click)="this.focusTab('drafted-pitches')"
-              [attr.isFocused]="this.currentTab === 'drafted-pitches'"
-            >
-              My draft pitches
-              <span> ({{this.pitches_drafted.length}})</span>
-            </a>
-
-            <a
-              class="header-text-style small no-decoration"
-              (click)="this.focusTab('supported-pitches')"
+              class="tab"
+              [href]="'/hetcher/' + this.username + '?tab=supported'"
               [attr.isFocused]="this.currentTab === 'supported-pitches'"
             >
-              Supporting pitches
-              <span> ({{this.pitches_supported.length}})</span>
+              Supported
             </a>
           </div>
 
-          <div class="">
+          <div class="main-content-container">
             <!-- ISSUED CONTRACTS -->
             <div
               class="tab-layout page-eggs-layout issued-pitches"
-              id="issued-pitches"
+              [style]="this.pitches_issued?.length || 0 === 0 ? 'grid-template-columns: 1fr !important;' : ''"
+              id="issued"
+              hidden
             >
               <div
                 class="illustration-message"
@@ -168,30 +157,11 @@
               ></app-egg>
             </div>
 
-            <!-- BOOKMAKED CONTRACTS -->
-            <div
-              class="tab-layout page-eggs-layout issued-pitches"
-              id="bookmarked-pitches"
-            >
-              <div
-                class="illustration-message"
-                *ngIf="this.pitches_bookmarked.length === 0"
-              >
-                <span class="header-text-style small"
-                  >You have not "bookmarked" any pitches yet.</span
-                >
-                <img src="/assets/illustrations/not_found.svg" alt="" />
-              </div>
-              <app-egg
-                *ngFor="let pitch of this?.pitches_bookmarked"
-                [data]="pitch"
-              ></app-egg>
-            </div>
-
             <!-- DRAFTED CONTRACTS -->
             <div
               class="tab-layout page-eggs-layout issued-pitches"
-              id="drafted-pitches"
+              id="drafts"
+              hidden
             >
               <div
                 class="illustration-message"
@@ -211,7 +181,9 @@
             <!-- SUPPORTED CONTRACTS -->
             <div
               class="tab-layout page-eggs-layout issued-pitches"
-              id="supported-pitches"
+              [style]="this.pitches_supported?.length || 0 === 0 ? 'grid-template-columns: 1fr !important;' : ''"
+              id="supported"
+              hidden
             >
               <div
                 class="illustration-message"

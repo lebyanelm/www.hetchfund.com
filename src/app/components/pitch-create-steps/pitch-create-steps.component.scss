@@ -24,20 +24,21 @@
 // Shows the status of the draft progress steps.
 .step .status {
   font-size: smaller;
-  color: $SUCCESS_COLOR;
 }
 
 .step .status[data-required="false"] {
   color: $WARNING_COLOR !important;
 }
 
-.step .status[data-required="true"][data-status="true"] {
-  color: $SUCCESS_COLOR;
+.step .status[data-required="true"][data-status="false"] {
+  color: $DANGER_COLOR !important;
 }
 
-.step .status[data-required="true"][data-status="false"] {
-  color: $DANGER_COLOR;
+.step .status[data-required="true"][data-status="true"] {
+  color: $SUCCESS_COLOR !important;
 }
+
+
 
 .steps-header .step:hover {
   background: $GRAY_COLOR;

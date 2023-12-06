@@ -75,9 +75,7 @@
       </p>
 
       <p class="paragraph-text-style clause-notice">
-        By creating an account with our platform you agree to our terms and
-        conditions that are stated in our
-        <a href="">Terms & Conditions Page.</a>
+        <b>Remember: </b> Please consult our <a href="/legal/terms-and-conditions">Terms and conditions</a> before continuing.
       </p>
 
       <div class="formfield-buttons">
@@ -92,15 +90,24 @@
 
       <div class="separator" title="Use Social Login"></div>
 
-      <div class="social-buttons">
-        <button class="apple">
-          <ion-icon name="logo-apple"></ion-icon>
-          Continue with an Apple account
-        </button>
-        <button class="secondary">
-          <ion-icon name="logo-google"></ion-icon>
-          Continue with a Google account
-        </button>
+      <!-- GOOGLE SIGNON -->
+      <asl-google-signin-button
+        type="standard"
+        size="large"
+        text="continue_with"
+        width="360"
+        theme="filled_black"
+        shape="pill"
+      >
+      </asl-google-signin-button>
+
+      <!-- FACEBOOK SIGNON -->
+      <div class="facebook-signin-button" (click)="this.socialLoginService.loginWithFacebook()">
+        <span>Continue with Facebook</span>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+          alt=""
+        />
       </div>
     </div>
   </div>

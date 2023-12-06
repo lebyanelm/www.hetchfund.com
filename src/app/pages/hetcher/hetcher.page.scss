@@ -69,13 +69,19 @@
 .hetcher-information-container .hetcher-minimal-details {
   margin: $_10_SPACING_SIZE 0;
   padding: $_10_SPACING_SIZE 0;
-  border-bottom: $BORDER;
 }
 
 .hetcher-information-container .hetcher-title,
 .hetcher-information-container .hetcher-follow-stats .name,
 .hetcher-information-container .hetcher-name {
   text-transform: capitalize;
+}
+
+.hetcher-information-container .hetcher-follow-stats .name {
+  text-transform: uppercase;
+  font-weight: normal;
+  letter-spacing: 2px;
+  margin-top: $_5_SPACING_SIZE;
 }
 
 .hetcher-information-container .hetcher-name {
@@ -126,6 +132,7 @@
   cursor: pointer;
 }
 
+
 .hetcher-information-container .hetcher-title *,
 .hetcher-information-container .hetcher-follow-stats .name * {
   font-size: small;
@@ -137,7 +144,9 @@
   display: flex;
   align-items: center;
   margin: 0 0;
+  padding: 20px 0;
   gap: $_20_SPACING_SIZE;
+  border-top: $BORDER;
 }
 
 .hetcher-information-container .hetcher-follow-stats .hetcher-followers {
@@ -161,21 +170,29 @@
 // LISTED CURATED CAMPAIGN EGGS
 .tabs {
   display: flex;
-  gap: $_20_SPACING_SIZE;
+  gap: calc($_20_SPACING_SIZE + $_20_SPACING_SIZE);
   align-items: center;
   margin-bottom: $_10_SPACING_SIZE;
-  border-bottom: $BORDER;
+  border: $BORDER;
+  padding: 0 $_20_SPACING_SIZE;
 }
 
 .tabs a {
   // padding-bottom: $_10_SPACING_SIZE;
   color: $DARK_COLOR;
-  border-bottom: 10px solid transparent;
+  padding: $_20_SPACING_SIZE 0;
+  border-bottom: 8px solid transparent;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.tabs a.tab ion-icon {
+  margin-right: $_10_SPACING_SIZE;
 }
 
 .tabs a:hover,
 .tabs a[isFocused="true"] {
-  border-color: $DARK_COLOR;
+  border-color: $SECONDARY_THEME_COLOR;
 }
 
 .curated-egg-campaigns {
@@ -183,6 +200,18 @@
 }
 
 .tab-layout {
-  display: none;
   width: 100%;
+}
+
+// MOBILE DEVICES
+@media screen and (max-width: 650px) {
+  .hetcher-information-container {
+    flex-direction: column;
+  }
+
+  .hetcher-follow-stats,
+  .hetcher-bio-description {
+    margin-top: $_20_SPACING_SIZE !important;
+  }
+  
 }
