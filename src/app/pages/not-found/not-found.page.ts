@@ -20,7 +20,7 @@ export class NotFoundPage implements OnInit {
 
   // Incase the user hit a deadend
   isLoadingRecommended = true;
-  reconmmended: IEgg[] = [];
+  recommended: IEgg[] = [];
 
   constructor(
     public route: ActivatedRoute,
@@ -60,9 +60,11 @@ export class NotFoundPage implements OnInit {
 
   ngOnInit(): void {
     this.isLoadingRecommended = true;
-    this.eggsService.getRecommended(24).then((reconmmended: IEgg[]) => {
+    this.eggsService.getRecommended(24).then((recommended: any[]) => {
       this.isLoadingRecommended = false;
-      this.reconmmended = reconmmended;
+      for (const category in recommended) {
+        this.recommended.push(...recommended[category])
+      }
     });
   }
 }

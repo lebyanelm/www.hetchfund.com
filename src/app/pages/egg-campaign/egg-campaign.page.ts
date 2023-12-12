@@ -35,13 +35,14 @@ export class EggCampaignPage implements OnInit {
   isLoadingRelated = true;
 
   // Tab management
-  activeTab = 'about';
+  activeTab = 'story';
 
   // Comments management
   comments: IComment[] = [];
 
   // Media files attached in the pitch.
   mediaFiles: IMediaFile[] = [];
+  currentMediaFile: number = 0;
 
   hetchers = {
     isLoading: true,
@@ -71,6 +72,20 @@ export class EggCampaignPage implements OnInit {
 
       this.eggService.get(this.eggKey, true).then((data: IEgg) => {
         this.data = data;
+
+        // Load query params data for processing.
+        this.activatedRoute.queryParamMap.subscribe((queryParams) => {
+          this.activeTab = queryParams.get("tab") || "story";
+          // Re-activate Editor.js element.
+          if (this.activeTab == 'about') {
+            setTimeout(() => {
+              if (this.storyBody) {
+                this.storyBody.setData(this.data?.story);
+              }
+            }, 50); // Wait 50ms for the UI to re-render.
+          }
+        });
+        
         this.storyBody.setData(this.data?.story);
 
         // TODO: Find ways to do SEO
@@ -100,7 +115,8 @@ export class EggCampaignPage implements OnInit {
           this.mediaFiles.push({
             source: 'Presentation video file',
             fileType: 'video',
-            url: this.data?.presentation_video,
+            index: this.mediaFiles.length,
+            cdnUrl: this.data?.presentation_video,
           });
         }
 
@@ -108,7 +124,8 @@ export class EggCampaignPage implements OnInit {
           {
             source: 'Placeholder image file',
             fileType: 'image',
-            url: this.data?.thumbnail_url,
+            index: this.mediaFiles.length,
+            cdnUrl: this.data?.thumbnail_url,
           },
         ];
 
@@ -120,10 +137,8 @@ export class EggCampaignPage implements OnInit {
                   ? 'Story image media file'
                   : 'Story video media file',
               fileType: block?.type,
-              url:
-                block?.type === 'video'
-                  ? block?.data?.thumbnail_url
-                  : block?.data?.url,
+              index: this.mediaFiles.length,
+              cdnUrl: block?.data?.cdnUrl,
             });
           }
         });
@@ -174,15 +189,33 @@ export class EggCampaignPage implements OnInit {
   }
 
   setActiveTab(tabName: string) {
-    this.activeTab = tabName;
+    this.routerService.route(["pitches", this.eggKey, '?tab=' + tabName])
+  }
 
-    // Re-activate Editor.js element.
-    if (tabName == 'about') {
-      setTimeout(() => {
-        if (this.storyBody) {
-          this.storyBody.setData(this.data?.story);
-        }
-      }, 50); // Wait 50ms for the UI to re-render.
+  selectMediaFile(mediaFile: IMediaFile) {
+    this.currentMediaFile = this.mediaFiles.findIndex((_mf) => _mf.cdnUrl === mediaFile.cdnUrl);
+    alert(this.currentMediaFile)
+  }
+
+  previousMedia() {
+    if (this.currentMediaFile - 1 === -1) {
+      return this.currentMediaFile = this.mediaFiles.length - 1;
+    }
+
+    this.currentMediaFile -= 1;
+  }
+
+  nextMedia() {
+    if (this.currentMediaFile + 1 > this.mediaFiles.length - 1) {
+      return this.currentMediaFile = 0;
+    }
+
+    this.currentMediaFile += 1;
+  }
+
+  showMediaFile(index: number): void {
+    if (index > -1 && index < this.mediaFiles.length) {
+      this.currentMediaFile = index;
     }
   }
 

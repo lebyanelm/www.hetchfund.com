@@ -114,15 +114,18 @@
             >
               <div class="option-content">
                 <div class="contribution-amount">
-                  <label class="section-title-style" for=""
+                  <label class="section-title-style" for="custom-contribution-amount"
                     >Custom contribution amount
                   </label>
                   <div class="input-container" #InputContainer>
-                    <span class="currency-name" #CurrencyNameElement
-                      >{{this.currencyService.currency.name}}</span
+                    <span class="currency-name"
+                      [attr.data-desktop-currency]="this.currencyService.currency?.name"
+                      [attr.data-mobile-currency]="this.currencyService.currency?.name_plural" #CurrencyNameElement
+                      ></span
                     >
                     <input
                       type="text"
+                      id="custom-contribution-amount"
                       placeholder="Enter your amount"
                       [style.text-indent]="CurrencyNameElement.getBoundingClientRect().width  + 10 + 'px'"
                       (keyup)="this.customContribution = CustomContribution.value"

@@ -146,7 +146,7 @@ ion-content,
 textarea {
   padding: 0;
   margin: 0;
-  background: $BACKGROUND_COLOR;
+  background: $DARK_COLOR;
   --background: transparent;
 }
 
@@ -180,6 +180,7 @@ body .page-content {
   padding: $_20_SPACING_SIZE;
   padding-top: 20px;
   width: 100vw !important;
+  background: $BACKGROUND_COLOR;
 }
 
 // Page content without a header present
@@ -241,7 +242,7 @@ body .page-content::before {
 }
 
 .content-wrapper.split.bordered > *:first-child {
-  border-right: 3px solid transparentize($DARK_COLOR, 0.5);
+  border-right: $BORDER;
   padding-right: $_20_SPACING_SIZE;
 }
 
@@ -374,8 +375,13 @@ body .page-content::before {
   font-family: $FONT_FAMILY;
   opacity: 0.7;
 }
+
 .paragraph-text-style.small {
   font-size: 0.875rem; // 14PX
+}
+
+.story-tab .ce-paragraph {
+  font-size: 18px;
 }
 
 .paragraph-text-style.italic {
@@ -486,8 +492,16 @@ ion-backdrop {
 
 .story-tab .ce-header {
   color: $LIGHT_COLOR;
-  font-family: "IBM Plex Sans Cond Medm", sans-serif;
-  font-weight: normal;
+  margin: $_20_SPACING_SIZE 0 $_10_SPACING_SIZE 0;
+}
+
+.cdx-block {
+  display: block;
+  margin: $_10_SPACING_SIZE 0 !important;
+}
+
+.ce-paragraph {
+  
 }
 
 .header-text-style.small {
@@ -570,7 +584,7 @@ a > span {
 a:hover,
 a:hover > * {
   cursor: pointer;
-  color: $SECONDARY_THEME_COLOR;
+  color: $SECONDARY_THEME_COLOR !important;
 }
 
 a:hover {
@@ -650,13 +664,11 @@ input[type="file"]::file-selector-button {
   font-size: smaller !important;
   appearance: none !important;
   box-shadow: none !important;
+  border: none;
+
   * {
     color: $LIGHT_COLOR !important;
   }
-}
-
-input[type="file"]::file-selector-button {
-  border: none !important;
 }
 
 button:active,
@@ -689,14 +701,13 @@ button.secondary,
 .button.secondary {
   border: $BORDER;
   color: $WHITE_COLOR;
-  background: $BACKGROUND_COLOR;
+  background: $DARK_COLOR;
 }
 
 button.bordered,
 .button.bordered {
-  border: $BORDER_THIN;
-  border-color: $DARK_GRAY_COLOR;
-  background: $BACKGROUND_COLOR;
+  border: $BORDER;
+  background: $BACKGROUND_COLOR !important;
   color: $DARK_COLOR;
   box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -751,16 +762,21 @@ textarea {
   border-radius: $BORDER_RADIUS;
   background: $BACKGROUND_COLOR !important;
   color: $WHITE_COLOR !important;
-  border: $BORDER;
+  border: $BORDER !important;
   cursor: pointer;
   text-decoration: none !important;
   margin: 0 10px 0 0;
+  font-family: $FONT_FAMILY !important;
+
+  &:focus {
+    border-color: $SECONDARY_THEME_COLOR !important;
+  }
 }
 
 input,
 textarea,
 input[type="file"]::file-selector-button {
-  font-family: "IBM Plex Sans Medm", $FONT_FAMILY !important;
+  font-family: $FONT_FAMILY;
 }
 
 input:disabled,
@@ -861,7 +877,6 @@ textarea:disabled {
 // INPUT CONTAINER
 .input-container {
   position: relative;
-  border: $BORDER;
   border-radius: $BORDER_RADIUS;
   margin: calc($_10_SPACING_SIZE) 0;
   transform: translateX(-4px);
@@ -997,8 +1012,7 @@ select {
   appearance: none;
   outline: none;
   position: relative;
-  border: $BORDER;
-  background: $WHITE_COLOR;
+  background: $BACKGROUND_COLOR;
   border-radius: $BORDER_RADIUS;
   padding: $_10_SPACING_SIZE $_20_SPACING_SIZE $_10_SPACING_SIZE
     $_10_SPACING_SIZE;
@@ -1288,9 +1302,10 @@ svg {
   width: 400px;
   height: fit-content;
   padding: $_20_SPACING_SIZE;
-  border: $BORDER;
   border-radius: $BORDER_RADIUS;
   margin: $_20_SPACING_SIZE 0;
+  background: $DARK_COLOR;
+  border: $BORDER !important;
 }
 
 .account-formfields button,
@@ -1325,7 +1340,7 @@ svg {
   padding: 10px;
   align-items: center;
   flex-direction: column;
-  background-color: transparent;
+  background-color: $BACKGROUND_COLOR;
   width: 100%;
   border: $BORDER;
   border-radius: 100px;
@@ -1376,7 +1391,7 @@ svg {
   content: attr(title);
   display: block;
   width: fit-content;
-  background: $BACKGROUND_COLOR;
+  background: $DARK_COLOR;
   padding: 0 $_10_SPACING_SIZE;
   font-size: small;
   text-transform: uppercase;
@@ -1619,15 +1634,22 @@ svg {
 .contribution-options .contribution-option,
 .contribution-options .contribution-option .option-level {
   display: flex;
+  gap: 20px;
   align-items: center;
 }
 
 .contribution-options .contribution-option {
-  padding: $_20_SPACING_SIZE 0;
+  padding: $_20_SPACING_SIZE;
   background: $BACKGROUND_COLOR;
-  border-bottom: $BORDER;
   margin-bottom: $_10_SPACING_SIZE;
   border-radius: $BORDER_RADIUS;
+  border: $BORDER;
+  border-color: transparent;
+
+  .input-container,
+  .input-container input {
+    background-color: $DARK_COLOR !important;
+  }
 }
 
 .contribution-options .contribution-option * {
@@ -1640,10 +1662,12 @@ svg {
 
 .contribution-options .contribution-option[data-selected="true"] {
   background: $DARK_COLOR;
-
-  * {
-    color: $WHITE_COLOR;
+  
+  &:not(.custom) {
+    border-color: $SECONDARY_THEME_COLOR;
   }
+
+  
 }
 
 .contribution-options .contribution-option .option-rewards {
@@ -1685,7 +1709,16 @@ svg {
 
 .contribution-options .contribution-option.custom {
   border-top: $BORDER;
-  border-width: 3px;
+
+  .currency-name::before {
+    display: none;
+  }
+
+  .currency-name::after {
+    content: attr(data-desktop-currency);
+    display: inline-block;
+    color: $SECONDARY_THEME_COLOR;
+  }
 }
 
 .contribution-options .contribution-option.custom .option-level {
@@ -1806,7 +1839,6 @@ svg {
 
 .illustration-message img {
   height: 250px;
-  filter: grayscale(1);
 }
 
 .illustration-message .header-text-style {
@@ -1837,6 +1869,7 @@ section.pitches-tiles {
       font-size: 18px;
       font-weight: bold;
       text-decoration: underline;
+      font-family: "Archivo Black", $FONT_FAMILY;
       color: $LIGHT_COLOR;
       &:hover {
         text-decoration-thickness: 2px;
@@ -1895,7 +1928,6 @@ section.pitches-tiles {
   .pitch .thumbnail-container .thumbnail {
     width: 100%;
     height: 120px;
-    background-image: url(https://www.freethink.com/wp-content/uploads/2023/08/BCIs.jpg?resize=400,225);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1927,7 +1959,7 @@ section.pitches-tiles {
 }
 
 section.pitches-tiles.dark-style {
-  background: $DARK_COLOR;
+  background: $BACKGROUND_COLOR;
 
   * {
     color: $LIGHT_COLOR;
@@ -1941,7 +1973,7 @@ section.pitches-tiles.dark-style {
 
 // DARK BACKGROUND OF CONTENT
 *.dark-background-style {
-  background-color: $DARK_COLOR !important;
+  background-color: $BACKGROUND_COLOR;
   color: $LIGHT_COLOR;
 }
 
@@ -1981,6 +2013,14 @@ section.pitches-tiles.dark-style {
 
 // MOBILE DEVICES
 @media screen and (max-width: 650px) {
+  .content-wrapper.split {
+    flex-direction: column;
+
+    &.bordered > *:first-child {
+      border: none !important;
+    }
+  }
+  
   .page-eggs-layout {
     grid-template-columns: 1fr;
   }
@@ -2095,6 +2135,35 @@ section.pitches-tiles.dark-style {
     .section-content {
       padding: 10px 0 10px 40px !important;
     }
+  }
+
+  // Contribution Option.
+  .contribution-option.custom {
+    padding: $_20_SPACING_SIZE 0 !important;
+    border-radius: 0 !important;
+
+    &[data-selected="true"] {
+      background-color: $BACKGROUND_COLOR;
+
+      .input-container {
+        border-color: $SECONDARY_THEME_COLOR !important;
+      }
+
+      .currency-name::after {
+        display: none;
+      }
+      
+      .currency-name::before {
+        content: attr(data-mobile-currency) !important;
+        display: inline-block;
+        color: $SECONDARY_THEME_COLOR !important;
+      }
+    }
+  }
+  
+  .contribution-option .option-level,
+  .contribution-option .option-image {
+    display: none !important;
   }
 }
 

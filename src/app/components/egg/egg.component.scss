@@ -6,17 +6,10 @@
   justify-content: space-between;
   border-radius: $BORDER_RADIUS;
   border: $BORDER;
-  background: transparent;
+  background: $DARK_COLOR;
   transition: box-shadow 100ms linear;
   height: 100%;
   position: relative;
-}
-
-.egg-campaign-container[data-color-style="light"] {
-  border-color: $LIGHT_COLOR;
-  * {
-    color: $LIGHT_COLOR;
-  }
 }
 
 // EGG CAMPAIGN THUMBNAIL
@@ -97,10 +90,11 @@
 }
 
 .egg-campaign-container .egg-campaign-details .name-bookmark-section .name {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
   text-decoration: underline;
   height: 80px;
+  font-family: $FONT_FAMILY !important;
 
   &:hover {
     text-decoration-thickness: 2px;
@@ -213,14 +207,12 @@ ins {
   height: 15px;
   width: 100%;
   background: $GRAY_COLOR;
-  border-radius: 0 0 $BORDER_RADIUS $BORDER_RADIUS;
   margin-top: $_10_SPACING_SIZE;
 }
 
 .funding-perfomance .funding-progress .funding-progress-current {
   height: 100%;
   background: $SECONDARY_THEME_COLOR;
-  border-radius: 0 0 $BORDER_RADIUS $BORDER_RADIUS;
 }
 
 .funding-perfomance .amount-funded {

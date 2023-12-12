@@ -3,14 +3,8 @@
 .footer-container {
   background: $THEME_COLOR;
   color: $WHITE_COLOR;
-  padding: 0 0 40px 0;
-}
-
-.full-width-content {
-  width: 100%;
-  height: 2px;
-  background: $WHITE_COLOR;
-  margin-bottom: 60px;
+  border-top: $BORDER;
+  padding: $_20_SPACING_SIZE 0 40px 0;
 }
 
 // FOOTER SITE LOGO
@@ -18,9 +12,19 @@
   padding: 0 $_10_SPACING_SIZE;
 }
 
+.footer-container .desktop-footer-container .site-footer-logo {
+  display: flex;
+  gap: $_20_SPACING_SIZE;
+  margin-bottom: $_20_SPACING_SIZE;
+}
+
 .footer-container .desktop-footer-container .site-footer-logo img {
   width: 120px;
-  margin-bottom: $_10_SPACING_SIZE;
+  
+  &.afca-member-attribution {
+    border-radius: 10px;
+    width: 80px;
+  }
 }
 
 .footer-container .desktop-footer-container .footer-brand-name {

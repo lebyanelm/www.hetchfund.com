@@ -22,6 +22,7 @@ import { CurrenciesSelectorComponent } from './currencies-selector/currencies-se
 import { SettingsHelpContentComponent } from './settings-help-content/settings-help-content.component';
 import { PitchCreateStepsComponent } from './pitch-create-steps/pitch-create-steps.component';
 import { SafePipeModule } from 'safe-pipe';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { SafePipeModule } from 'safe-pipe';
     SettingsHelpContentComponent,
     PitchCreateStepsComponent,
   ],
-  imports: [CommonModule, FormsModule, GoogleSigninButtonModule, SafePipeModule],
+  imports: [CommonModule, FormsModule, GoogleSigninButtonModule, SafePipeModule, IonicModule],
   exports: [
     HeaderComponent,
     EggComponent,

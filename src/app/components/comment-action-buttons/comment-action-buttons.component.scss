@@ -37,7 +37,7 @@
 .action-buttons,
 .action-buttons .action-button.reply {
   border-right: none;
-  border-left: $BORDER;
+  // border-left: $BORDER;
   padding-left: $_10_SPACING_SIZE;
 }
 
@@ -45,7 +45,7 @@
   cursor: pointer;
 
   &[data-isactive="true"] ion-icon {
-    color: red !important;
+    color: rgb(221, 59, 59) !important;
   }
 }
 

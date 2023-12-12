@@ -131,14 +131,10 @@
               >1</a
             >
             <a
-              href="history/contributions?page=2"
-              [attr.data-is-current]="this.current_page === 2"
-              >2</a
-            >
-            <a
-              href="history/contributions?page=3"
-              [attr.data-is-current]="this.current_page === 3"
-              >3</a
+              *ngFor="let next_page in round(this.results_left / this.results_per_page)"
+              [href]="'history/contributions?page=' + next_page"
+              [attr.data-is-current]="this.current_page === next_page"
+              >{{next_page}}</a
             >
           </div>
           <div class="next-page">

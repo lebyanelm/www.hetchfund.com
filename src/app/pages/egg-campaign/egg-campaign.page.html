@@ -28,20 +28,28 @@
             <span class="to-prefix">To: </span> {{ this.data?.funding_purpose }}
           </div>
 
+          <div class="slide-buttons">
+            <div class="slide-button slide-left" (click)="this.previousMedia()"><ion-icon name="chevron-back-outline"></ion-icon></div>
+            <div class="middle-bubbles">
+              <div class="bubble" [attr.data-isactive]="this.currentMediaFile === mediaFile.index" *ngFor="let mediaFile of this.mediaFiles" (click)="this.showMediaFile(mediaFile.index)"></div>
+            </div>
+            <div class="slide-button slide-right" (click)="this.nextMedia()"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+          </div>
+
           <div
             class="egg-campaign-thumbnail"
-            *ngIf="!this.data?.presentation_video"
-            [style.background-image]="'url(' + this.data?.thumbnail_url + ')'"
+            *ngIf="this.mediaFiles[this.currentMediaFile]?.fileType === 'image'"
+            [style.background-image]="'url(' + this.mediaFiles[this.currentMediaFile]?.cdnUrl + ')'"
           >
             <div class="hetchfund-attribution"></div>
           </div>
 
           <div
             class="egg-campaign-videoplayer"
-            *ngIf="this.data?.presentation_video"
+            *ngIf="this.mediaFiles[this.currentMediaFile]?.fileType === 'video'"
           >
             <div class="hetchfund-attribution"></div>
-            <app-video [src]="this.data?.presentation_video"></app-video>
+            <app-video [src]="this.mediaFiles[this.currentMediaFile]?.cdnUrl"></app-video>
           </div>
 
           <div class="bottom-attribute-items">
@@ -86,7 +94,8 @@
               <div
                 class="media-file"
                 *ngFor="let mediaFile of this.mediaFiles"
-                [style.background-image]="'url(' + mediaFile.url + ')'"
+                (click)="this.currentMediaFile = mediaFile.index"
+                [style.background-image]="'url(' + mediaFile.cdnUrl + ')'"
               ></div>
             </div>
           </div>
@@ -112,20 +121,20 @@
         <div class="tabs desktop-tabs">
           <a
             class="tab no-decoration header-text-style smaller"
-            [attr.isActiveTab]="this.activeTab === 'about'"
-            (click)="this.setActiveTab('about')"
+            [attr.isActiveTab]="this.activeTab === 'story'"
+            (click)="this.setActiveTab('story')"
             >Story</a
           >
           <a
             class="tab no-decoration header-text-style smaller"
-            [attr.isActiveTab]="this.activeTab === 'community'"
-            (click)="this.setActiveTab('community')"
+            [attr.isActiveTab]="this.activeTab === 'comments'"
+            (click)="this.setActiveTab('comments')"
             >Comments ({{this.data?.comments.length}})</a
           >
           <a
             class="tab no-decoration header-text-style smaller"
-            [attr.isActiveTab]="this.activeTab === 'resources'"
-            (click)="this.setActiveTab('resources')"
+            [attr.isActiveTab]="this.activeTab === 'faqs'"
+            (click)="this.setActiveTab('faqs')"
             >FAQs ({{this.data?.faqs.length}})</a
           >
         </div>
@@ -133,10 +142,9 @@
         <div class="campaign-statistics">
           <div class="statistic" data-title="Progress contributed.">
             <span class="value smaller"
-              >{{ this.data?.rewards_type === "share" ? this.data?.total_authorized_shares - (this.data?.total_authorized_shares * (this.data?.hetched_funds_perc / 100)) : (( (this.data?.hetched_funds / this.data?.hetching_goal) * 100
-              )?.toFixed(2) || 0) + '%' }}</span
+              >{{ this.data?.hetched_funds_perc + '%' }}</span
             >
-            <div class="name">{{ this.data?.rewards_type === "share" ? "Shares" : "Progress" }}</div>
+            <div class="name">Progress</div>
           </div>
 
           <div class="statistic" data-title="Funds raised.">
@@ -173,7 +181,7 @@
       <div class="bottom-body-section">
         <!-- View of the currently opened Tab. -->
         <div class="selected-tab-view">
-          <div class="story-tab tab-view" *ngIf="this.activeTab === 'about'">
+          <div class="story-tab tab-view" *ngIf="this.activeTab === 'story'">
             <app-rich-text-editor
               [isReadOnly]="true"
               [isAwaitData]="true"
@@ -181,42 +189,44 @@
             ></app-rich-text-editor>
           </div>
 
-          <div class="community-tab" *ngIf="this.activeTab === 'community'">
+          <div class="community-tab" *ngIf="this.activeTab === 'comments'">
             <app-comments-section
               [comments]="this.comments"
               [pitchKey]="this.eggKey"
               [isDisabled]="!(this.data?.hetchers.includes(this.sessionService.data?.email_address) || this.data?.curator === this.sessionService.data?.email_address || this.data?.other_curators.includes(this.sessionService.data?.email_address))"
             ></app-comments-section>
           </div>
-          <div class="resources-tab" *ngIf="this.activeTab === 'resources'">
-            <app-faqs [faqs]="this.data?.faqs"></app-faqs>
+          <div class="resources-tab" *ngIf="this.activeTab === 'faqs'">
+            <app-faqs [pitch_key]="this.eggKey" [_faqs]="this.data?.faqs" [is_able_to_add]="this.data?.curator === this.sessionService.data?.email_address || this.data?.other_curators.includes(this.sessionService.data?.email_address)"></app-faqs>
           </div>
         </div>
 
         <!-- Stats and Information of the campaign egg. -->
         <div class="campaign-information-stats" data-title="Pitch verified">
           <!-- A short-description why the campany deserves the funding. -->
-          <div class="egg-campaign-name">
-            <div class="paragraph-text-style">Pitch reviewed by:</div>
-            <div class="header-text-style smaller">
-              Libby Lebyane
-              <ion-icon name="checkmark-circle-sharp"></ion-icon>
+          <div class="stats-container">
+            <div class="egg-campaign-name">
+              <div class="paragraph-text-style">Pitch reviewed by:</div>
+              <div class="header-text-style smaller">
+                Libby Lebyane
+                <ion-icon name="checkmark-circle-sharp"></ion-icon>
+              </div>
             </div>
-          </div>
-
-          <div class="egg-campaign-name">
-            <div class="paragraph-text-style">Reward delivery rate:</div>
-            <div class="header-text-style smaller">
-              88% Gauranteed
-              <ion-icon name="rocket-sharp"></ion-icon>
+  
+            <div class="egg-campaign-name">
+              <div class="paragraph-text-style">Reward delivery rate:</div>
+              <div class="header-text-style smaller">
+                88% Gauranteed
+                <ion-icon name="rocket-sharp"></ion-icon>
+              </div>
             </div>
-          </div>
-
-          <div class="egg-campaign-name">
-            <div class="paragraph-text-style">Comment response rate:</div>
-            <div class="header-text-style smaller">
-              92% Fast
-              <ion-icon name="chatbox-ellipses-sharp"></ion-icon>
+  
+            <div class="egg-campaign-name">
+              <div class="paragraph-text-style">Comment response rate:</div>
+              <div class="header-text-style smaller">
+                92% Fast
+                <ion-icon name="chatbox-ellipses-sharp"></ion-icon>
+              </div>
             </div>
           </div>
 
@@ -243,8 +253,8 @@
       <div class="sticky-funding-button">
         <div class="pitch-buttons">
           <button class="pledge-button icon-button" (click)="this.commitPledge()">
-            <ion-icon name="hand-right-sharp"></ion-icon>
-            Contribute
+            <!-- <ion-icon name="hand-right-sharp"></ion-icon> -->
+            Make a contribution
           </button>
 
           <button
@@ -252,9 +262,9 @@
             [attr.data-is-bookmarked]="this.isbookmarked"
             (click)="this.bookmark()"
           >
-            <ion-icon
+            <!-- <ion-icon
               [name]="this.isbookmarked ? 'heart' : 'heart-outline'"
-            ></ion-icon>
+            ></ion-icon> -->
 
             {{ this.isbookmarked ? "Remove follow" : "Add follow"}}
             <div class="spinner small" *ngIf="this.isLoadingBookmark"></div>

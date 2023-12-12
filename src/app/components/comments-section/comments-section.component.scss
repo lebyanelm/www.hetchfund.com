@@ -9,6 +9,10 @@
   background: $SECONDARY_THEME_COLOR;
 }
 
+.new-comment-section textarea {
+  background: $DARK_COLOR !important;
+}
+
 .new-comment-section textarea[data-reply] {
   position: relative;
 }
@@ -34,6 +38,7 @@
   border: $BORDER;
   border-radius: $BORDER_RADIUS;
   padding: 0 $_20_SPACING_SIZE $_20_SPACING_SIZE $_20_SPACING_SIZE;
+  background: $DARK_COLOR;
   position: relative;
 }
 

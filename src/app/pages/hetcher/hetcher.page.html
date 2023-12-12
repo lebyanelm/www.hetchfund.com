@@ -40,27 +40,30 @@
               [contentEditable]="this.isEditingProfile"
             >
               {{this.hetcher?.display_name}}
-              <!-- Toggle editing and changing the profile. -->
-              <a
-                class="button secondary"
-                (click)="this.showEditProfileModal()"
-                *ngIf="this.hetcher?.username === this.sessionService.data?.username"
-              >
-                Edit profile
-              </a>
-
-              <!-- Following and unfollowing other hetchers. -->
-              <button
-                class="secondary"
-                [title]="!this.sessionService.data?.follows?.includes(this.hetcher._id) ? 'Get updates from hetcher campaigns' : 'Stop getting updates from this hetcher'"
-                [attr.isUnfollow]="this.sessionService.data?.follows?.includes(this.hetcher._id)"
-                (click)="this.followHetcher()"
-                *ngIf="this.hetcher?.username !== this.sessionService.data?.username"
-              >
-                {{!this.sessionService.data?.follows?.includes(this.hetcher._id)
-                ? "Follow" : "Unfollow"}}
-              </button>
+              
             </div>
+            
+            <!-- Toggle editing and changing the profile. -->
+            <button
+            class="bordered"
+            (click)="this.showEditProfileModal()"
+            *ngIf="this.hetcher?.username === this.sessionService.data?.username"
+            >
+              Edit profile
+            </button>
+
+            <!-- Following and unfollowing other hetchers. -->
+            <button
+              class="secondary"
+              [title]="!this.sessionService.data?.follows?.includes(this.hetcher._id) ? 'Get updates from hetcher campaigns' : 'Stop getting updates from this hetcher'"
+              [attr.isUnfollow]="this.sessionService.data?.follows?.includes(this.hetcher._id)"
+              (click)="this.followHetcher()"
+              *ngIf="this.hetcher?.username !== this.sessionService.data?.username"
+            >
+              {{!this.sessionService.data?.follows?.includes(this.hetcher._id)
+              ? "Follow" : "Unfollow"}}
+            </button>
+            
             <div class="hetcher-title">
               <span
                 >{{this.hetcher?.occupation}}{{this.hetcher?.is_collective ? "s"

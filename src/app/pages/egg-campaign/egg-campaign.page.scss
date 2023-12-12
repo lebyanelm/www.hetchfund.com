@@ -4,9 +4,15 @@
   background: $THEME_COLOR;
   color: $WHITE_COLOR;
   border-radius: $BORDER_RADIUS;
+  padding: $_10_SPACING_SIZE $_20_SPACING_SIZE $_20_SPACING_SIZE $_20_SPACING_SIZE;
+  border: $BORDER;
 
   & * {
     color: $WHITE_COLOR !important;
+  }
+
+  img {
+    margin: 20px 0 $_10_SPACING_SIZE 0;
   }
 }
 
@@ -47,16 +53,55 @@ app-rich-text-editor {
 .tab-selector-section {
   display: grid;
   grid-template-columns: 1fr 0.56fr;
-  gap: $_20_SPACING_SIZE;
+  gap: 40px;
 }
 
 .tab-selector-section {
-  background: $BACKGROUND_COLOR;
+  background: $DARK_COLOR;
   grid-template-columns: 1fr 1fr;
 }
 
 .egg-campaign-thumbnail-stages {
   margin-top: 10px;
+}
+
+// Slideshow view of the pitches.
+.egg-campaign-thumbnail-stages .slide-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: $_20_SPACING_SIZE;
+  width: 100%;
+}
+
+.egg-campaign-thumbnail-stages .slide-buttons .slide-button {
+  display: inline-block;
+  padding: 10px;
+  border: $BORDER;
+  border-radius: 100px;
+  cursor: pointer;
+
+  &:hover ion-icon {
+    color: $SECONDARY_THEME_COLOR !important;
+  }
+}
+
+.egg-campaign-thumbnail-stages .slide-buttons .middle-bubbles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $_10_SPACING_SIZE;
+}
+
+.egg-campaign-thumbnail-stages .slide-buttons .middle-bubbles .bubble {
+  height: 15px;
+  width: 15px;
+  border-radius: 100px;
+  border: $BORDER;
+  cursor: pointer;
+
+  &[data-isactive="true"] {
+    background: $WHITE_COLOR;
+  }
 }
 
 // When pitch stages are unavailable.
@@ -84,6 +129,7 @@ app-rich-text-editor {
   opacity: 0.8;
   background-size: cover;
   background-position: center center;
+  border-radius: $BORDER_RADIUS;
 
   // HOVER STATE.
   &:hover {
@@ -101,6 +147,7 @@ app-rich-text-editor {
   .egg-campaign-thumbnail-container
   .egg-campaign-funding-purpose {
   margin-bottom: $_10_SPACING_SIZE;
+
   font-size: 40px;
 }
 
@@ -110,6 +157,14 @@ app-rich-text-editor {
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
   opacity: 0.8;
+}
+
+.egg-campaign-thumbnail-stages
+  .egg-campaign-thumbnail-container
+  .egg-campaign-funding-purpose,
+.to-prefix {
+  font-family: "Archivo Black", $FONT_FAMILY;
+  font-weight: normal;
 }
 
 .egg-campaign-thumbnail-stages .egg-campaign-thumbnail,
@@ -262,6 +317,15 @@ ion-icon[name="heart-circle-outline"] {
 
 .bottom-body-section .campaign-information-stats {
   flex: 0.56;
+  padding: 0 $_20_SPACING_SIZE;
+}
+
+.bottom-body-section .campaign-information-stats .stats-container {
+  padding: $_20_SPACING_SIZE;
+  border: $BORDER;
+  background: $DARK_COLOR;
+  border-radius: $BORDER_RADIUS;
+  width: 100%;
 }
 
 .bottom-body-section .campaign-information-stats app-hetchers-list {
@@ -506,7 +570,7 @@ app-hetchers-list {
   align-items: center;
   position: sticky;
   padding: $_10_SPACING_SIZE;
-  background: $BACKGROUND_COLOR;
+  background: $DARK_COLOR;
   border-radius: $BORDER_RADIUS;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -592,9 +656,11 @@ app-hetchers-list {
 
   .tab-selector-section {
     display: block;
-    padding: 20px 0 40px 0 !important;
-    border: none;
-    border-bottom: $BORDER;
+    padding: 20px 20px 14px 20px !important;
+  }
+
+  .campaign-statistics {
+    padding: 10px 20px;
   }
 
   .campaign-statistics .value {

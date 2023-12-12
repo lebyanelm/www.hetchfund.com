@@ -96,13 +96,13 @@ export class CurrencyResolverService {
         this.loaderService.hideLoader(loaderIdx);
         if (response.statusCode == 200) {
           this.currency = {
-            // Keep old fields to replace new ones.
-            ...this.currency,
-
             // Replace with new.
-            ...currency,
-            exchange_rate: response.body.data.exchange_rate,
             timestamp: Date.now().toString(),
+            code: response.body.data?.to_currency,
+            exchange_rate: response.body.data?.exchange_rate,
+            name: response.body.data?.name,
+            name_plural: response.body.data?.name_plural,
+            symbol: response.body.data?.symbol
           };
           console.log(this.currency);
 

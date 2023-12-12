@@ -7,10 +7,11 @@
       [attr.data-isactive]="
         this.data?.approvals?.includes(this.sessionService?.data.email_address)
       "
-      (click)="this.addCommentReaction(this.data?._for, this.data?.key, true)"
+      (click)="this.addCommentReaction(this.data?._for, this.data?.key, !this.data?.approvals?.includes(this.sessionService?.data.email_address))"
       data-title="Love comment"
     >
-      <ion-icon name="heart-outline"></ion-icon>
+      <ion-icon name="heart-outline" *ngIf="!this.data?.approvals?.includes(this.sessionService?.data.email_address)"></ion-icon>
+      <ion-icon name="heart" *ngIf="this.data?.approvals?.includes(this.sessionService?.data.email_address)"></ion-icon>
       <span class="count">{{ this.data?.approvals_count }}</span>
     </div>
 

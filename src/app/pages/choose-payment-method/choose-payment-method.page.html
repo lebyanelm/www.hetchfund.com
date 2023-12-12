@@ -52,15 +52,15 @@
           <div class="supercharges-options">
             <span
               class="supercharge-amount"
-              *ngFor="let supacharge of [10, 20, 30, 40, 50]"
+              *ngFor="let supacharge of [10, 20, 30, 40, 50, 100]"
               [attr.data-title]="supacharge === this.supaChargeAmount ? 'Tap to remove.' : 'Tap to add.'"
               [attr.data-selected]="supacharge === this.supaChargeAmount"
               (click)="this.setSuperchargeAmount(supacharge)"
               >+ {{this.currencyService.format(supacharge)}}
-              <ion-icon
+              <!-- <ion-icon
                 name="close-circle-outline"
                 *ngIf="supacharge === this.supaChargeAmount"
-              ></ion-icon>
+              ></ion-icon> -->
             </span>
           </div>
         </div>
@@ -69,7 +69,7 @@
           class="payment-button yoco-button"
           (click)="this.openYocoPopup('https://pay.yoco.com/towards-common-foundry')"
         >
-          <span>Confirm payment with </span>
+          <span>Pay with</span>
           <img class="yoco" src="/assets/payments/yoco_colour.svg" alt="Yoco" />
         </div>
 
@@ -78,6 +78,14 @@
             style="text-align: center; margin-top: 0.625rem"
             id="paypal-button-container"
           ></div>
+        </div>
+
+        <div
+          class="payment-button credit-card-button"
+          (click)="this.toastService.show('This method is coming soon.')"
+        >
+          <span>Add a card (Coming soon)</span>
+          <ion-icon name="card-outline"></ion-icon>
         </div>
 
         <div class="supported-payment-methods">
@@ -106,7 +114,7 @@
             class="payment-button coinbase-button"
             (click)="this.createCoinbaseCharge()"
           >
-            <span>Cryptocurrency payment with</span>
+            <span>Cryptopay with</span>
             <img
               class="coinbase"
               alt="Coinbase"
@@ -147,9 +155,7 @@
 
     <div class="disclaimers">
       <span class="paragraph-text-style">
-        We prefer not to store card payment information for security reasons,
-        your Credit / Debit card information will be used once-off and disposed
-        by our payment processors.
+        <b>Your payment information "will not" be saved for reuse.</b> By contributing through Hetchfund.com, you agree that we have permission to provide your email address to the project creator incase they may need to contact you in regards to the contribition.
       </span>
 
       <br />

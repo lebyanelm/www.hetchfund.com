@@ -1,8 +1,9 @@
-import { ICommentor } from './IComment';
-
 export interface IFaq {
-  id: string;
+  key: string;
   question: string;
   answer: string;
-  added_by: ICommentor;
+  posted_by: string;
+  _for: string;
+  unreferenced_up_votes: [];
+  up_votes: [];
 }

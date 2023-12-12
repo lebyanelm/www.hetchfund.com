@@ -52,7 +52,7 @@ export class ChoosePaymentMethodPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private routerService: RouterService,
     private pitchService: EggService,
-    private toastService: ToastManagerService,
+    public toastService: ToastManagerService,
     private loaderService: LoaderService
   ) {}
 
@@ -66,11 +66,6 @@ export class ChoosePaymentMethodPage implements OnInit {
     // Listen to currency changes.
     let currentCurrencyCode = this.currencyService.currency?.code;
     this.currencyService.currency_state.subscribe((newCurrency) => {
-      console.log(
-        currentCurrencyCode,
-        newCurrency.code,
-        this.customContributionAmount
-      );
       if (newCurrency.code !== currentCurrencyCode) {
         this.currencyService
           .translateTo(
@@ -79,7 +74,6 @@ export class ChoosePaymentMethodPage implements OnInit {
             newCurrency.code
           )
           .then((newCustomContributionAmount) => {
-            console.log('New amount', newCustomContributionAmount);
             this.customContributionAmount = newCustomContributionAmount;
             currentCurrencyCode = newCurrency.code;
           });
@@ -122,7 +116,6 @@ export class ChoosePaymentMethodPage implements OnInit {
               )
               .then((translatedAmount: number) => {
                 this.translatedAmount = translatedAmount;
-                console.log(this.translatedAmount, this.contributionAmount);
 
                 // Choose the appropriate reward if contribution is custom.
                 if (!this.rewardId) {
@@ -144,8 +137,6 @@ export class ChoosePaymentMethodPage implements OnInit {
                       }
                     }
                   }
-
-                  console.log('Reward selected:', this.reward);
                 }
 
                 // Convert it to USD for paypal / coinbase payments
@@ -154,10 +145,6 @@ export class ChoosePaymentMethodPage implements OnInit {
                   .then((usdContributionAmount: number) => {
                     this.usdContributionAmount = usdContributionAmount;
 
-                    console.log(
-                      'Initializing Paypal Payment Button.',
-                      this.usdContributionAmount
-                    );
                     this.initPayPalButton();
                     this.loaderService.hideLoader(loaderIdx);
                   });
@@ -227,14 +214,14 @@ export class ChoosePaymentMethodPage implements OnInit {
       // handle unrecoverable errors
       onError: (err) => {
         this.toastService.show(
-          'An error prevented the buyer from checking-out with PayPal.'
+          'An error prevented the buyer from checking-out with PayPal.', true, true
         );
         console.log(err);
       },
     });
 
     paypalButtonsComponent.render('#paypal-button-container').catch((err) => {
-      this.toastService.show('PayPal Buttons failed to render');
+      this.toastService.show('PayPal Buttons failed to render', true, true);
       console.log(err);
     });
   }
@@ -246,6 +233,8 @@ export class ChoosePaymentMethodPage implements OnInit {
 
   // Complete the contribution by sending it to the Farmhouse for comfirmation
   confirmContribution(data) {
+    const loaderIdx = this.loaderService.showLoader();
+    
     const contribution = {
       charge_id: data.id || null,
       key: uniqid([this.paymentSource, '-'].join('')).toUpperCase(),
@@ -275,7 +264,7 @@ export class ChoosePaymentMethodPage implements OnInit {
     if (contribution.payment_source === 'paypal_buttons') {
       if (contribution.status !== 'completed') {
         return this.toastService.show(
-          'Somehow the payment failed, please check if you were charged before trying again. Report this if it occurs again.'
+          'Somehow the payment failed, please check if you were charged before trying again. Report this if it occurs again.', true, true
         );
       }
     }
@@ -294,6 +283,8 @@ export class ChoosePaymentMethodPage implements OnInit {
     }
 
     contributionRequest.send(contribution).end((_, response) => {
+      this.loaderService.hideLoader(loaderIdx);
+
       if (response) {
         if (response.statusCode === 200) {
           const a = document.createElement('a');
@@ -301,11 +292,11 @@ export class ChoosePaymentMethodPage implements OnInit {
           a.click();
         } else {
           this.toastService.show(
-            response.body.reason || ERROR_MESSAGES.UNEXPECTED_ERROR
+            response.body.reason || ERROR_MESSAGES.UNEXPECTED_ERROR, true, true
           );
         }
       } else {
-        this.toastService.show(ERROR_MESSAGES.NO_INTERNET);
+        this.toastService.show(ERROR_MESSAGES.NO_INTERNET, true, true);
       }
     });
   }
@@ -319,9 +310,10 @@ export class ChoosePaymentMethodPage implements OnInit {
         amountInCents: contributionAmountInCents,
         currency: 'ZAR',
         name: ['Giving forward to', this.pitchName].join(' '),
-        description: 'Contribution made through Yoco from Hetchfund.com',
+        description: 'Contribution made through Yoco to Hetchfund.com',
         metadata: {
           pitch: this.pitchKey,
+          hetcher: this.sessionService.data?.email_address
         },
         callback: (result) => {
           if (result.error) {
@@ -367,11 +359,11 @@ export class ChoosePaymentMethodPage implements OnInit {
                     });
                   } else {
                     this.toastService.show(
-                      response.body?.reason || ERROR_MESSAGES.UNEXPECTED_ERROR
+                      response.body?.reason || ERROR_MESSAGES.UNEXPECTED_ERROR, true, true
                     );
                   }
                 } else {
-                  this.toastService.show(ERROR_MESSAGES.NO_INTERNET);
+                  this.toastService.show(ERROR_MESSAGES.NO_INTERNET, true, true);
                 }
               });
           }
@@ -416,7 +408,7 @@ export class ChoosePaymentMethodPage implements OnInit {
       .set('X-CC-Version', '2018-03-22')
       .send({
         name: this.pitchName.split('').splice(0, 97).join('') + '...',
-        description: 'Powered by Hetchfund.com',
+        description: 'Contribution made through Coinbase to Hetchfund.com',
         pricing_type: 'fixed_price',
         local_price: {
           amount: this.usdContributionAmount + this.usdSupaChargeAmount,
@@ -427,7 +419,7 @@ export class ChoosePaymentMethodPage implements OnInit {
           pitch_key: this.pitchKey,
         },
         logo_url:
-          'data:image/png;base64,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',
+          'data:image/png;base64,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',
         redirect_url:
           'https://localhost:8100/pitches/support-my-new-ep:-c---GW_QkhqImp',
         cancel_url:
@@ -491,9 +483,10 @@ export class ChoosePaymentMethodPage implements OnInit {
                   // Statuses a stored in a list, the last is the latest.
                   const lastPaymentStatus =
                     response.body.data.timeline.pop().status;
+                  console.log(lastPaymentStatus)
 
                   // When a payment is just created, the status is NEW, so it has to be avoided.
-                  if (lastPaymentStatus === 'COMPLETED') {
+                  if (lastPaymentStatus === 'PENDING' || lastPaymentStatus === "COMPLETED") {
                     isPaymentVerified = true;
                     const COINBASE_FEES = 0.01,
                       SERVICE_FEES = 0.05;
@@ -515,16 +508,19 @@ export class ChoosePaymentMethodPage implements OnInit {
                       return;
                     }
 
-                    isPaymentError = true;
-                    this.toastService.show(
-                      [
-                        'Something went wrong, please check your account before retrying. Error code:',
-                        chargeCode,
-                        '| Reason:',
-                        lastPaymentStatus,
-                      ].join(' '),
-                      true
-                    );
+                    if (!isPaymentError) {
+                      this.toastService.show(
+                        [
+                          'Something went wrong, please check your account before retrying. Error code:',
+                          chargeCode,
+                          '| Reason:',
+                          lastPaymentStatus,
+                        ].join(' '),
+                        true, true
+                      );
+                      isPaymentError = true;
+                    }
+                    
                   } else {
                     this.toastService.show(
                       'Something went wrong while accepting your crypto contribution.'
@@ -532,13 +528,14 @@ export class ChoosePaymentMethodPage implements OnInit {
                   }
                 } else {
                   // There's a malform in the status check request.
+                  this.toastService.show(ERROR_MESSAGES.UNEXPECTED_ERROR, true, true);
                   console.log(
                     'Something went wrong, please check your account before retrying. Error code: ',
                     chargeCode
                   );
                 }
               } else {
-                console.log(ERROR_MESSAGES.NO_INTERNET);
+                this.toastService.show(ERROR_MESSAGES.NO_INTERNET, true, true);
               }
             });
         }, 1000);

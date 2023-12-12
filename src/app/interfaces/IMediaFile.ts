@@ -1,5 +1,6 @@
 export interface IMediaFile {
   source: string;
   fileType: string;
-  url: string;
+  cdnUrl: string;
+  index: number;
 }

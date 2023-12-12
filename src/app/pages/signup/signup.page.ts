@@ -50,7 +50,7 @@ export class SignupPage implements OnInit {
         this.isLoading = false;
         if (response.statusCode == 201) {
           this.isLoading = false;
-          this.routerService.route(['2fa-auth', 'verifications', 'sent']);
+          this.routerService.route(['2fa-auth', 'verifications', 'sent?hid=' + btoa(credentials.email_address)]);
         } else {
           this.errorMessage = [
             response.body.status_message,

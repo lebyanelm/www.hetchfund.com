@@ -138,6 +138,8 @@
   border-radius: $BORDER_RADIUS + 5px;
   margin: $_10_SPACING_SIZE 0;
   cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .coinbase-button img {
@@ -174,20 +176,25 @@
   font-family: "IBM Plex Sans" !important;
 }
 
-// .yoco-button::after {
-//   content: "Recommended: Quicker";
-//   display: block;
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   transform: translateX(20%) translateY(-50%);
-//   padding: 5px 15px;
-//   border-radius: 50px;
-//   background: $SECONDARY_THEME_COLOR;
-//   color: $WHITE_COLOR;
-//   font-size: small;
-//   font-weight: bolder;
-// }
+.credit-card-button {
+  background: transparent;
+  border: $BORDER;
+  padding: 15px;
+  display: flex;
+  gap: 20px;
+  border-radius: 0;
+  margin-bottom: $_20_SPACING_SIZE;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 0.5;
+    background: rgba($WHITE_COLOR, 0.2)
+  }
+
+  ion-icon {
+    font-size: 30px;
+  }
+}
 
 .coinbase-button {
   background: #011082;
@@ -270,13 +277,13 @@
   align-items: center;
   padding: 10px;
   border-radius: $BORDER_RADIUS;
-  background: transparentize($WHITE_COLOR, 0.7);
-  border: 2px solid transparent;
+  background: $BACKGROUND_COLOR;
+  border: $BORDER_THIN;
 
   &:hover,
   &[data-selected="true"] {
     cursor: pointer;
-    border: 2px solid transparentize($WHITE_COLOR, 0.5);
+    border-color: ($WHITE_COLOR, 0.5);
   }
 
   &[data-selected="true"] {
@@ -294,4 +301,19 @@
   border-radius: $BORDER_RADIUS;
   font-weight: bold;
   margin: 5px;
+}
+
+.disclaimers span.paragraph-text-style {
+  max-width: 40%;
+  text-align: center;
+}
+
+@media screen and (max-width: 650px) {
+  .disclaimers span.paragraph-text-style {
+    max-width: 100%;
+  }
+
+  .contribution-amount-summary span.amount {
+    margin-top: $_10_SPACING_SIZE;
+  }
 }

@@ -59,7 +59,7 @@
             href=""
             class="recommended-item"
             [href]="['/pitches', recommended.key + '?ref=error-page'].join('/')"
-            *ngFor="let recommended of this.reconmmended"
+            *ngFor="let recommended of this.recommended"
             [style.background-image]="'url(' + recommended.thumbnail_url + ')'"
           ></a>
         </div>

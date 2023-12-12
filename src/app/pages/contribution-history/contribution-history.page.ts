@@ -17,7 +17,7 @@ export class ContributionHistoryPage implements OnInit {
   // PAGE DETAILS
   current_page = 1;
   next_page = this.current_page + 1;
-  results_per_page = 1;
+  results_per_page = 10;
   results = [];
   results_available = 0;
   results_left = 0;
@@ -69,5 +69,9 @@ export class ContributionHistoryPage implements OnInit {
 
   nextPage() {
     this.current_page += 1;
+  }
+
+  round(n: number): number {
+    return Math.round(n);
   }
 }
