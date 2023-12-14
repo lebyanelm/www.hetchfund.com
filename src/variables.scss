@@ -15,15 +15,17 @@ $WARNING_COLOR: #ffa500;
 // SHAPES AND SIZES
 $_5_SPACING_SIZE: 5px;
 $_10_SPACING_SIZE: 10px;
+$_15_SPACING_SIZE: 15px;
 $_20_SPACING_SIZE: 20px;
 
-$FONT_SIZE: 17px;
 $HEADER_SIZE: 40px;
 $BORDER: 2px solid black;
 $BORDER_THIN: 1px solid black;
 $BORDER_RADIUS: 5px;
 
 // TYPOGRAPHY SETUP
+$FONT_SIZE: 17px;
+
 @font-face {
   font-family: VCGaramondCondensed;
   src: url("/assets/fonts/VC_Garamond_Condensed.woff2");
