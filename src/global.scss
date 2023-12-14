@@ -117,12 +117,11 @@
   font-weight: bold !important;
   text-transform: uppercase;
   opacity: 0.8;
-  font-size: small;
-  color: $SECONDARY_THEME_COLOR;
+  color: $SECONDARY_THEME_COLOR !important;
 }
 
 .formfields label::after {
-  content: ":";
+  content: ":" !important;
 }
 
 .yc-card-input-wrapper {
@@ -171,8 +170,7 @@ textarea {
 
 // SELECTION COLOR
 *::selection {
-  background-color: transparentize($THEME_COLOR, 0.8);
-  color: $SECONDARY_THEME_COLOR;
+  background-color: $SECONDARY_THEME_COLOR;
 }
 
 // PAGE CONTENT
@@ -252,12 +250,17 @@ body .page-content::before {
   align-items: center;
   position: sticky;
   padding: $_10_SPACING_SIZE;
-  background: $BACKGROUND_COLOR;
+  background: $DARK_COLOR;
   border-radius: $BORDER_RADIUS $BORDER_RADIUS 0 0;
   border: $BORDER;
   z-index: 200;
   bottom: 0;
   left: 0;
+
+  button.bordered,
+  .button.bordered {
+    background: $BACKGROUND_COLOR !important;
+  }
 }
 
 .bottom-button-panel button {
@@ -773,6 +776,12 @@ textarea {
   }
 }
 
+.field-section-input .input-container input,
+.field-section-input .input-container textarea,
+.field-section-input .input-container select {
+  background: $DARK_COLOR !important;
+}
+
 input,
 textarea,
 input[type="file"]::file-selector-button {
@@ -1013,9 +1022,9 @@ select {
   outline: none;
   position: relative;
   background: $BACKGROUND_COLOR;
+  border: $BORDER;
   border-radius: $BORDER_RADIUS;
-  padding: $_10_SPACING_SIZE $_20_SPACING_SIZE $_10_SPACING_SIZE
-    $_10_SPACING_SIZE;
+  padding: 12px $_20_SPACING_SIZE;
   font-weight: 500;
   width: 100%;
 }
@@ -1177,11 +1186,20 @@ svg {
   border: $BORDER;
   border-radius: $BORDER_RADIUS;
   margin-top: $_20_SPACING_SIZE;
+  background: $DARK_COLOR;
   text-align: center;
   position: relative;
   background-size: cover;
   background-position: center center;
   cursor: pointer;
+
+  ion-icon {
+    font-size: 64px !important;
+  }
+
+  .paragraph-text-style {
+    text-align: center !important;
+  }
 }
 
 .formfield .media-selector .media-selector-button {
@@ -1237,14 +1255,15 @@ svg {
   gap: 80px;
   width: 100%;
   padding: $_20_SPACING_SIZE 0;
-  border-top: 4px dashed $GRAY_COLOR;
+  border-top: $BORDER;
+  border-top-style: dashed;
   margin-top: 20px;
 }
 
 .field-status {
-  font-size: small;
+  font-size: small !important;
   text-transform: uppercase;
-  color: $DANGER_COLOR;
+  color: $DANGER_COLOR !important;
   font-weight: bold;
 
   &.optional {
@@ -1640,10 +1659,10 @@ svg {
 
 .contribution-options .contribution-option {
   padding: $_20_SPACING_SIZE;
-  background: $BACKGROUND_COLOR;
+  background: $DARK_COLOR;
   margin-bottom: $_10_SPACING_SIZE;
   border-radius: $BORDER_RADIUS;
-  border: $BORDER;
+  border: $BORDER !important;
   border-color: transparent;
 
   .input-container,
@@ -1661,7 +1680,8 @@ svg {
 }
 
 .contribution-options .contribution-option[data-selected="true"] {
-  background: $DARK_COLOR;
+  border-color: $SECONDARY_THEME_COLOR !important;
+  color: $SECONDARY_THEME_COLOR !important;
   
   &:not(.custom) {
     border-color: $SECONDARY_THEME_COLOR;
