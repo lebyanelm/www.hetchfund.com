@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .page-content {
   padding-top: 20px;
 }
@@ -15,4 +17,25 @@
 
 input.funding-goal {
   font-weight: bold !important;
+}
+
+.split-finance-inputs {
+  display: flex;
+  align-items: center;
+  gap: $_20_SPACING_SIZE;
+  margin-bottom: $_10_SPACING_SIZE;
+
+  .formfield {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  & > *:first-child {
+    flex: 0.8;
+  }
+  
+  & > *:last-child {
+    flex: 0.2;
+  }
 }

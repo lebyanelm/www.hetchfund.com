@@ -20,6 +20,25 @@ export class CreateContributionsPage implements OnInit {
   draft: IEgg;
 
   finances: any;
+  finance_categories_details = {
+    research_and_development: { name: "R&D (Research and Development)", description: "Cost incured to perfom research for manufacturing your project.", required: true },
+    regulatory_compliance: { name: "Regulatory compliance", description: "Cost incured to be registered with proper regulatory bodies, eg. patent or company registrations.", required: true },
+    manufacturing: { name: "Manufacturing", description: "Cost incured to produce the actual products/outcomes of your project.", required: true },
+    packaging: { name: "Packaging", description: "Cost incured to package your manufactured outcomes for branding and shipping to funders.", required: true },
+    shipping: { name: "Shipping", description: "Cost incured to ship packaged outcomes of your project to funders.", required: true },
+    tax: { name: "Tax", description: "Tax amount to the total above costs incured.", required: true },
+    labor: { name: "Shipping", description: "Cost incured to people / employees helping produce the project's outcomes.", required: false },
+    miscellaneous: { name: "Miscellaneous", description: "Costs that can not be categorised in the above fields.", required: false },
+  }
+  finance_categories_list = [
+    "research_and_development",
+    "regulatory_compliance",
+    "manufacturing",
+    "packaging",
+    "shipping",
+    "labor",
+    "miscellaneous",
+  ]
 
   constructor(
     public currencyService: CurrencyResolverService,
@@ -30,15 +49,15 @@ export class CreateContributionsPage implements OnInit {
     private titleService: TitleService
   ) {
     this.titleService.onTitleChange.next('New pitch | Create: Finances - Hetchfund.com');
-
+    
     this.finances = {
-      design_and_prototype: { amount: '', date_fulfilled: undefined },
-      regulatory_compliance: { amount: '', date_fulfilled: undefined },
-      development: { amount: '', date_fulfilled: undefined },
-      testing: { amount: '', date_fulfilled: undefined },
-      professional_fees: { amount: '', date_fulfilled: undefined },
-      final_development: { amount: '', date_fulfilled: undefined },
-      reward_fulfillment: { amount: '', date_fulfilled: undefined },
+      research_and_development: { amount: '', last_updated: undefined, status: "funding" },
+      regulatory_compliance: { amount: '', last_updated: undefined, status: "funding" },
+      manufacturing: { amount: '', last_updated: undefined, status: "funding" },
+      packaging: { amount: '', last_updated: undefined, status: "funding" },
+      shipping: { amount: '', last_updated: undefined, status: "funding" },
+      labor: { amount: '', last_updated: undefined, status: "funding" },
+      miscellaneous: { amount: '', last_updated: undefined, status: "funding" },
     };
 
     this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {

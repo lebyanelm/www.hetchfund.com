@@ -56,162 +56,42 @@
       </div>
 
       <div class="field-section-input">
-        <div class="formfield"  *ngIf="true">
-          <label for="">Prototype costs</label>
-          <div class="field-status">(REQUIRED)</div>
+        <div class="split-finance-inputs" *ngFor="let finance_category_item of this.finance_categories_list">
+          <div class="formfield"  *ngIf="true">
+            <label for="">{{this.finance_categories_details[finance_category_item].name}}</label>
+            <div class="field-status" [class.optional]="!this.finance_categories_details[finance_category_item].required">({{this.finance_categories_details[finance_category_item].required ? 'REQUIRED' : 'OPTIONAL'}})</div>
 
-          <div class="paragraph-text-style">
-            This should involve the amount of funds required to start
-            prototyping the project.
+            <div class="paragraph-text-style">
+              {{this.finance_categories_details[finance_category_item].description}}
+            </div>
+
+            <div class="input-container">
+              <input
+                class="larger"
+                type="number"
+                rows="3"
+                placeholder="e.g. 1000."
+                [(ngModel)]="this.finances[finance_category_item].amount"
+                #MilestoneTitle
+              />
+            </div>
           </div>
 
-          <div class="input-container">
-            <input
-              class="larger"
-              type="number"
-              rows="3"
-              placeholder="e.g. 1000."
-              [(ngModel)]="this.finances.design_and_prototype.amount"
-              #MilestoneTitle
-            />
-          </div>
-        </div>
+          <div class="formfield"  *ngIf="true">
+            <label for="">Status</label>
+            <div class="field-status" [class.optional]="!this.finance_categories_details[finance_category_item].required">({{this.finance_categories_details[finance_category_item].required ? 'REQUIRED' : 'OPTIONAL'}})</div>
 
-        <div class="formfield" *ngIf="true">
-          <label for="">Regulatory compliance costs</label>
-          <div class="field-status">(REQUIRED)</div>
+            <div class="paragraph-text-style">
+              Select state of category.
+            </div>
 
-          <div class="paragraph-text-style">
-            Fees for permits, licenses, and compliance with local, state, and
-            federal regulations.
-          </div>
-
-          <div class="input-container">
-            <input
-              class="larger"
-              type="number"
-              rows="3"
-              placeholder="e.g. 1000."
-              [(ngModel)]="this.finances.regulatory_compliance.amount"
-              #MilestoneTitle
-            />
-          </div>
-        </div>
-
-        <div class="formfield" *ngIf="true">
-          <label for="">Development costs</label>
-          <div class="field-status">(REQUIRED)</div>
-
-          <div class="paragraph-text-style">
-            Costs for raw materials, equipment, tools, and consumables needed
-            for the project.
-          </div>
-
-          <div class="input-container">
-            <input
-              class="larger"
-              type="number"
-              rows="3"
-              placeholder="e.g. 1000."
-              [(ngModel)]="this.finances.development.amount"
-              #MilestoneTitle
-            />
-          </div>
-        </div>
-
-        <div class="formfield" *ngIf="true">
-          <label for="">Testing costs</label>
-          <div class="field-status">(REQUIRED)</div>
-
-          <div class="paragraph-text-style">
-            Costs for testing, quality control, and quality assurance
-            activities.
-          </div>
-
-          <div class="input-container">
-            <input
-              class="larger"
-              type="number"
-              rows="3"
-              placeholder="e.g. 1000."
-              [(ngModel)]="this.finances.testing.amount"
-              #MilestoneTitle
-            />
-          </div>
-        </div>
-
-        <div class="formfield" *ngIf="true">
-          <label for="">Professional fees and Consulting costs</label>
-          <div class="field-status">(REQUIRED)</div>
-
-          <div class="paragraph-text-style">
-            Fees for specialized consultants or experts brought in to address
-            specific project challenges.
-          </div>
-
-          <div class="input-container">
-            <input
-              class="larger"
-              type="number"
-              rows="3"
-              placeholder="e.g. 1000."
-              [(ngModel)]="this.finances.professional_fees.amount"
-              #MilestoneTitle
-            />
-          </div>
-        </div>
-
-        <div class="formfield" *ngIf="true">
-          <label for="">Final development costs</label>
-          <div class="field-status">(REQUIRED)</div>
-
-          <div class="paragraph-text-style">
-            Fees for final developments on the project.
-          </div>
-
-          <div class="input-container">
-            <input
-              class="larger"
-              type="number"
-              rows="3"
-              placeholder="e.g. 1000."
-              [(ngModel)]="this.finances.final_development.amount"
-              #MilestoneTitle
-            />
-          </div>
-        </div>
-
-        <div class="formfield" *ngIf="true">
-          <label for="">Reward Fulfillment and Shipping costs</label>
-          <div class="field-status">(REQUIRED)</div>
-
-          <div class="paragraph-text-style">
-            Once production is complete, you ship rewards to funders. Properly
-            managing this stage is crucial to maintain funders' trust.
-          </div>
-          <div class="input-container">
-            <input
-              class="larger"
-              type="number"
-              rows="1"
-              placeholder="e.g. 1000."
-              [(ngModel)]="this.finances.reward_fulfillment.amount"
-              #MilestoneTarget
-            />
-          </div>
-        </div>
-
-        <div class="formfield" *ngIf="true">
-          <label for="">Funding goal (Total of all above defined costs.)</label>
-          <div class="field-status optional">(CALCULATED VALUE)</div>
-
-          <div class="input-container">
-            <input
-              class="funding-goal"
-              [disabled]="true"
-              [value]="this.currencyService.format(this.getTotalCosts() || 0)"
-              #PitchFundingGoal
-            />
+            <div class="input-container">
+              <select [id]="'select-' + finance_category_item" [(ngModel)]="this.finances[finance_category_item].status">
+                <option  value="funding">Funding</option>
+                <option value="funded">Funded</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
           </div>
         </div>
 
