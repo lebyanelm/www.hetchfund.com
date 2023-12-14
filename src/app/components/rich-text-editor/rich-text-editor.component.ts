@@ -28,6 +28,8 @@ export class CustomRichTextEditorComponent implements OnInit {
   data = null;
   editor: EditorJS;
 
+  currentFullscreenImage: string;
+
   ngOnInit() {
     this._data.subscribe((data) => {
       if (!this.editor && this.isReadOnly === false) this.editor = this.initEditor(data);
@@ -122,6 +124,14 @@ export class CustomRichTextEditorComponent implements OnInit {
       return true;
     } else {
       return false;
+    }
+  }
+
+  zoomInOut(imageUrl: string): void {
+    if (!this.currentFullscreenImage) {
+      this.currentFullscreenImage = imageUrl;
+    } else {
+      this.currentFullscreenImage = null;
     }
   }
 }

@@ -1,0 +1,34 @@
+@import "../../../variables.scss";
+
+.fullscreen-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparentize(#000, 0.1);
+    z-index: 5000;
+    cursor: pointer;
+    transition: display 300ms ease;
+}
+
+.image-container {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    &::after {
+        content: "close";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translateY(-100%);
+    }
+}
+
+.image-tool__image img {
+    cursor: pointer;
+}

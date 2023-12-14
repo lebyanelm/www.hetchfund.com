@@ -2,6 +2,12 @@
   <div id="editor" *ngIf="this.isReadOnly === false"></div>
 
   <div class="ce-block" *ngIf="this.isReadOnly === true && this.data !== null">
+    <div class="fullscreen-image" *ngIf="this.currentFullscreenImage" (click)="this.zoomInOut()">
+        <div class="image-container">
+            <img [src]="this.currentFullscreenImage" alt="Fullscreen Image">
+        </div>
+    </div>
+    
     <div class="ce-block__content">
         <ng-container [ngSwitch]="block?.type" *ngFor="let block of this.data; let i = index">
             <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
@@ -29,7 +35,7 @@
                         <div class="cdx-block image-tool image-tool--filled" *ngIf="block?.data?.cdnUrl">
                             <div class="image-tool__image">
                                 <ng-container *ngIf="block?.data?.isImage; else videoTemplate">
-                                    <img width="100%" (click)="zoomInOut($event)" class="image-tool__image-picture"
+                                    <img width="100%" (click)="this.zoomInOut(block?.data?.cdnUrl)" class="image-tool__image-picture"
                                         [src]="block?.data?.cdnUrl | safe: 'url'">
                                     <div style="text-align: center; margin-top: 5px;" [innerHTML]="block?.data?.caption">
                                     </div>
