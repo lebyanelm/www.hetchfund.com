@@ -55,13 +55,12 @@ ion-app {
   transform: translateX(-100%);
   background: $THEME_COLOR;
   padding: $_20_SPACING_SIZE 40px;
-  border-left: 1px solid $DARK_COLOR;
-  border-left-color: $WHITE_COLOR;
+  border-left: $BORDER;
   transition: left 400ms ease-in-out;
   overflow-y: scroll;
 
   section {
-    border-top: 1px solid $LIGHT_COLOR;
+    border-top: $BORDER;
     padding: 15px 0;
     margin-bottom: 20px;
   }
@@ -91,8 +90,7 @@ ion-app {
 
 .whole-winder-loader-container .sidebar .top-sidebar-header {
   display: flex;
-  border-bottom: $BORDER;
-  border-color: $WHITE_COLOR;
+  // border-bottom: $BORDER;
 }
 
 .whole-winder-loader-container .sidebar .close-button {
@@ -119,6 +117,7 @@ ion-app {
 
 .whole-winder-loader-container .sidebar a.signout {
   color: tomato !important;
+  filter: none !important;
 }
 
 .toast-messages-container {
