@@ -2,7 +2,7 @@
   <div id="editor" *ngIf="this.isReadOnly === false"></div>
 
   <div class="ce-block" *ngIf="this.isReadOnly === true && this.data !== null">
-    <div class="fullscreen-image" *ngIf="this.currentFullscreenImage" (click)="this.zoomInOut()">
+    <div class="fullscreen-image" *ngIf="this.currentFullscreenImage" (click)="this.zoomInOut(null)">
         <div class="image-container">
             <img [src]="this.currentFullscreenImage" alt="Fullscreen Image">
         </div>
