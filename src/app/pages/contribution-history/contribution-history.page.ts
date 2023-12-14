@@ -71,6 +71,10 @@ export class ContributionHistoryPage implements OnInit {
     this.current_page += 1;
   }
 
+  previousPage() {
+    
+  }
+
   round(n: number): number {
     return Math.round(n);
   }
