@@ -79,6 +79,7 @@ app-rich-text-editor {
   border: $BORDER;
   border-radius: 100px;
   cursor: pointer;
+  background: $DARK_COLOR;
 
   &:hover ion-icon {
     color: $SECONDARY_THEME_COLOR !important;
@@ -98,6 +99,7 @@ app-rich-text-editor {
   border-radius: 100px;
   border: $BORDER;
   cursor: pointer;
+  background: $DARK_COLOR;
 
   &[data-isactive="true"] {
     background: $WHITE_COLOR;
@@ -409,7 +411,6 @@ ion-icon[name="heart-circle-outline"] {
   font-size: 19px;
   font-weight: 900;
   color: $SECONDARY_THEME_COLOR;
-  // font-family: "IBM Plex Mono";
 }
 
 .campaign-statistics .statistic .name {
@@ -464,11 +465,6 @@ ion-icon[name="heart-circle-outline"] {
 
 .egg-campaign-name:first-child {
   padding: 20px 0 10px 0;
-}
-
-.egg-campaign-name:last-child {
-  padding: 10px 20px 20px 20px;
-  box-shadow: 0 8px 6px -6px gray;
 }
 
 .egg-campaign-name ion-icon {
