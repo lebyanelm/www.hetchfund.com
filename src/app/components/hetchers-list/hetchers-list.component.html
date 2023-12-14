@@ -24,7 +24,7 @@
     <a
       class="hetcher"
       *ngFor="let hetcher of this.hetchers.data"
-      [href]="['hetchers', hetcher?.username].join('/')"
+      [href]="['hetcher', hetcher?.username].join('/')"
       [attr.data-title]="hetcher?.display_name"
     >
       <div
