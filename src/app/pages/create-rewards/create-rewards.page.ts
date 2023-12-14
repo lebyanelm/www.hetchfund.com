@@ -51,7 +51,7 @@ export class CreateRewardsPage implements OnInit, AfterViewInit {
   availableQuantity: string = '';
   rewardShipsTo: string = 'anywhere';
   rewardContributionAmount: string;
-  rewardThumbnail: { filename?: string; url?: string; name?: string } = null;
+  rewardThumbnail: { filename?: string; cdnUrl?: string; name?: string } = null;
 
 
   rewardThumbnailUploadProgress = 0;
@@ -138,7 +138,7 @@ export class CreateRewardsPage implements OnInit, AfterViewInit {
       contribution_amount: this.rewardContributionAmount,
       availability: this.rewardAvailability,
       ships_to: this.rewardShipsTo,
-      thumbnail: this.rewardThumbnail.url,
+      thumbnail: this.rewardThumbnail.cdnUrl,
       thumbnail_filename: this.rewardThumbnail.filename,
     });
 
@@ -158,7 +158,7 @@ export class CreateRewardsPage implements OnInit, AfterViewInit {
       this.rewardAvailability = reward.availability;
       this.rewardShipsTo = reward.ships_to;
       this.rewardThumbnail = {
-        url: reward.thumbnail,
+        cdnUrl: reward.thumbnail,
         filename: reward.thumbnail_filename,
       };
       this.rewardThumbnailSelector.nativeElement.files[0] = new File(
@@ -191,7 +191,7 @@ export class CreateRewardsPage implements OnInit, AfterViewInit {
       contribution_amount: this.rewardContributionAmount,
       availability: this.rewardAvailability,
       ships_to: this.rewardShipsTo,
-      thumbnail: this.rewardThumbnail.url,
+      thumbnail: this.rewardThumbnail.cdnUrl,
       thumbnail_filename: this.rewardThumbnail.filename,
     };
 

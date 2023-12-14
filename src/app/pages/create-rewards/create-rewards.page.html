@@ -226,14 +226,13 @@
           <div class="field-status">(REQUIRED)</div>
 
           <div class="input-container">
-            <textarea
+            <input
               class="larger"
-              type="text"
-              rows="1"
+              type="number"
               placeholder="e.g. 5"
               [(ngModel)]="this.rewardContributionAmount"
               #ContributionAmount
-            ></textarea>
+            >
           </div>
         </div>
 
@@ -251,7 +250,7 @@
               ></ion-icon>
               <span
                 >{{this.isUploadedRewardThumbnail === true ||
-                this.rewardThumbnail ? this.rewardThumbnail.cdnUrl :
+                this.rewardThumbnail ? this.rewardThumbnail?.cdnUrl :
                 (this.isUploadingRewardThumbnail ? 'Uploading thumbnail...' :
                 'Something went wrong.')}}</span
               ></span
