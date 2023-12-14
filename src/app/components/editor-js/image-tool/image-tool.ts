@@ -2,6 +2,7 @@ import { environment } from 'src/environments/environment';
 import * as superagent from 'superagent';
 import ToolConstructable, { OutputData } from '@editorjs/editorjs';
 import { SessionService } from 'src/app/services/session.service';
+import { nanoid } from 'nanoid';
 
 // UPLOADCARE API INTERGRATION.
 import { UploadClient } from '@uploadcare/upload-client'
@@ -32,6 +33,7 @@ export class CustomImageTool {
     const imageSelectorInput = document.createElement('input');
 
     // Add elements to the selector button.
+    const selectorId = nanoid()
     imageSelectorButton.className = 'formfield';
     imageSelectorButton.id = 'image-selector';
 
@@ -54,6 +56,7 @@ export class CustomImageTool {
 
                                         <div
                                           class="upload-progress"
+                                          id="${selectorId}"
                                           width="0"
                                         ></div>
                                         <div class="image-loader" style="display: none"><div class="flexbox flexbox-center"><div class="spinner"></div></div></div>
@@ -84,7 +87,12 @@ export class CustomImageTool {
       )[0].innerText = imageSelectorInput.files?.[0].name;
 
       // Upload the file.
-      uploadcareClient.uploadFile(imageSelectorInput.files[0]).then((uploadResult) => {
+      uploadcareClient.uploadFile(imageSelectorInput.files[0], { onProgress: function(event: any) {
+        const progressElement = document.getElementById(selectorId);
+        if (progressElement) {
+          progressElement.style.width = event.value * 100 + '%';
+        }
+      }}).then((uploadResult) => {
         console.log("File uploaded: ", uploadResult)
         if (uploadResult) {
             this.data = uploadResult;
