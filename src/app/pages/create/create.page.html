@@ -19,21 +19,19 @@
     <!-- Pitch name and brief description -->
     <div class="field-section">
       <div class="field-section-description">
-        <div class="field-name">Pitch title, and brief description</div>
+        <div class="field-name">Project name, and brief description</div>
         <div class="paragraph-text-style field-description">
-          A clear name of your company, the business issuing out a funding
-          pitch. Should be as it appears on the Company Registration Certificate
-          (COR14.1) document.
+          A clear name of your project, may also be the name of your business. <b>eg. SatchBot, a de-weeding bot for agriculture or Building a better library for our community.</b>
 
           <br />
           <br />
-          Potential funders will see this name as they offer contribution to the
+          Potential funders will see this name as they offer contributions to the
           pitch. Also provide a brief description of what your company is about.
         </div>
       </div>
       <div class="field-section-input">
         <div class="formfield">
-          <label for="">Pitch title, or company name</label>
+          <label for="">Project name</label>
           <div class="field-status">(REQUIRED)</div>
           <div class="input-container">
             <textarea
@@ -77,7 +75,7 @@
         </div>
 
         <div class="formfield">
-          <label for="">Company brief description</label>
+          <label for="">Project brief description</label>
           <div class="field-status">(REQUIRED)</div>
           <div class="input-container">
             <textarea
@@ -85,7 +83,7 @@
               type="text"
               rows="3"
               placeholder="e.g. At AdvaTech Solar Powers, Ltd we supply businesses with solar panels during this tough time of loaddshedding."
-              [disabled]="BriefDescription.value.length === 125"
+              [disabled]="BriefDescription.value.length > 250"
               #BriefDescription
               [(ngModel)]="this.basicPitch.brief_description"
             ></textarea>
@@ -93,7 +91,7 @@
           <div class="flexbox">
             <div class="flexbox-space"></div>
             <span class="paragraph-space max-character-count"
-              >{{BriefDescription.value.length}}/125</span
+              >{{BriefDescription.value.length}}/250</span
             >
           </div>
 
