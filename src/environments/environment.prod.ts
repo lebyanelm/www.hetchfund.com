@@ -5,10 +5,10 @@ export const environment = {
   frontend: 'https://www.hetchfund.com',
 
   // BACKEND SERVICES
-  accounts: 'https://accounts-backoffice.hetchfund.com/accounts',
-  farmhouse: 'https://farmhouse-backoffice.hetchfund.com/farmhouse',
-  media_resources: 'https://media-resources-backoffice.hetchfund.com/media-resources',
-  translator: 'https://translator-backoffice.hetchfund.com/translator',
+  accounts: 'https://accounts-hetchfund-com-9b998c8f8b01.herokuapp.com/accounts',
+  farmhouse: 'https://farmhouse-hetchfund-com-a1f201498286.herokuapp.com/farmhouse',
+  translator: 'https://translator-hetchfund-com-7d6d227056a9.herokuapp.com/translator',
+  media_resources: null,
 
   // REQUIRED PUBLIC KEYS FOR SOME DEPENDENTS.
   YOCO_PUBLIC_KEY: 'pk_live_22af565cbVOW3qDe7784',
