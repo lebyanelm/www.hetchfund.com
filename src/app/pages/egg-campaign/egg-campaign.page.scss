@@ -564,16 +564,22 @@ app-hetchers-list {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  padding: $_10_SPACING_SIZE;
+  width: 100%;
+  position: fixed;
+  padding: $_10_SPACING_SIZE 15.8%;
   background: $DARK_COLOR;
-  border-radius: $BORDER_RADIUS;
+  border-radius: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border: $BORDER;
   z-index: 200;
   bottom: 0;
   left: 0;
+
+  &.sticky {
+    position: sticky !important;
+    padding: $_10_SPACING_SIZE;
+  }
 }
 
 .sticky-funding-button button {
@@ -621,6 +627,10 @@ app-hetchers-list {
 
 // MOBILE DEVICES
 @media screen and (max-width: 650px) {
+  .sticky-funding-button {
+    padding: $_10_SPACING_SIZE;
+  }
+  
   .egg-campaign-funding-purpose {
     font-size: 36px !important;
   }

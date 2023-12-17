@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DomSanitizer, Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as e from 'express';
 import { CustomRichTextEditorComponent } from 'src/app/components/rich-text-editor/rich-text-editor.component';
 import { IComment } from 'src/app/interfaces/IComment';
 import { IEgg } from 'src/app/interfaces/IEgg';
@@ -19,7 +20,7 @@ import * as superagent from 'superagent';
   templateUrl: './egg-campaign.page.html',
   styleUrls: ['./egg-campaign.page.scss'],
 })
-export class EggCampaignPage implements OnInit {
+export class EggCampaignPage implements OnInit, AfterViewInit {
   @ViewChild('StoryBody') storyBody: CustomRichTextEditorComponent;
 
   eggKey: string;
@@ -225,5 +226,33 @@ export class EggCampaignPage implements OnInit {
 
   URLEncode(item: string) {
     return encodeURIComponent(item);
+  }
+
+  ngAfterViewInit(): void {
+    const content = document.querySelector('ion-content'),
+          socialMediaButtons = document.querySelector(".mobile-social-buttons"),
+          headerContainer = document.querySelector(".header-container"),
+          stickyButtonsContainer = document.querySelector(".sticky-funding-button");
+
+    let stickyPointEnabled = false;
+
+    // Scroll events are disabled by default for content for
+    // performance reasons, enable them to listen to them
+    content.scrollEvents = true;
+    content.addEventListener('ionScroll', (event: any) => {
+      const bottomPoint = socialMediaButtons.getClientRects()[0].bottom,
+            headerContainerHeight = headerContainer.getClientRects()[0].height,
+            scrollPosition = event.detail.scrollTop;
+      
+    if (scrollPosition >= (bottomPoint - headerContainerHeight)) {
+      if (!stickyPointEnabled) {
+        stickyPointEnabled = true;
+        stickyButtonsContainer.classList.add("sticky");
+      }
+    } else {
+      stickyPointEnabled = false;
+      stickyButtonsContainer.classList.remove("sticky");
+    }
+    });
   }
 }
