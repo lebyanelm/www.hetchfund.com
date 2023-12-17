@@ -9,8 +9,9 @@
   gap: 20px;
   background: $DARK_COLOR;
   border-bottom: $BORDER !important;
-  position: sticky;
-  top: 0;
+  position: fixed;
+  width: 100%;
+  top: 0px;
   z-index: 10000;
 
   * {
@@ -24,8 +25,8 @@
 
   .hamburger-menu-button .hamburger-line {
     display: block;
-    height: 3px;
-    width: 20px;
+    height: 2px;
+    width: 30px;
     background: $LIGHT_COLOR;
 
     &:first-child {
