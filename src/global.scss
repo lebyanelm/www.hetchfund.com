@@ -2046,14 +2046,7 @@ section.pitches-tiles.dark-style {
   }
 
   .page-eggs-layout app-egg .egg-campaign-container {
-    border: none;
-    border-bottom: $BORDER;
-    border-width: 2px;
     padding-bottom: $_20_SPACING_SIZE;
-  }
-
-  .page-eggs-layout app-egg:last-child .egg-campaign-container {
-    border-bottom: none;
   }
 
   .page-eggs-layout app-egg .funding-perfomance .amount-funded-percentage {
@@ -2118,8 +2111,7 @@ section.pitches-tiles.dark-style {
   }
 
   .page-eggs-layout app-egg .name {
-    font-size: 25px !important;
-    height: auto !important;
+    font-size: 18px;
   }
 
   .page-eggs-layout {
@@ -2128,15 +2120,9 @@ section.pitches-tiles.dark-style {
     .thumbnail-container {
       height: 150px !important;
     }
-
-    app-egg:last-child .egg-campaign-container {
-      border-bottom: none !important;
-    }
   }
 
   .egg-campaign-container {
-    border-bottom: $BORDER_THIN !important;
-    border-color: $WHITE_COLOR !important;
     margin-bottom: 10px;
     margin-top: 10px;
     gap: 0 !important;
