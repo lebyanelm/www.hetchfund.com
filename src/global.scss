@@ -176,7 +176,7 @@ textarea {
 // PAGE CONTENT
 body .page-content {
   padding: $_20_SPACING_SIZE;
-  padding-top: 20px;
+  padding-top: 80px;
   width: 100vw !important;
   background: $BACKGROUND_COLOR;
 }
@@ -271,8 +271,10 @@ body .page-content::before {
   // Utilized for responsive typography design
   --font-size-multiplier: 1;
   --content-padding: $_10_SPACING_SIZE;
+  --swiper-scrollbar-bg-color: black;
+  --swiper-scrollbar-drag-bg-color: #CA9627;
   // Block black/dark mode forcefully
-  color-scheme: light only;
+  color-scheme: dark only;
 }
 
 * {
@@ -281,6 +283,36 @@ body .page-content::before {
   font-style: normal !important;
   line-height: 1;
   color: $DARK_COLOR;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: white;
+  padding: 8px 16px;
+  border-radius: 100%;
+  border: 2px solid black;
+  color: red;
+}
+
+swiper-slide {
+  padding: 0 $_20_SPACING_SIZE;
+  
+  svg {
+  transform: scaleY(4) !important;
+  }
+  
+//   &:not(:first-child) {
+//     padding-left: 20px;
+//   }
+
+//   &:not(:first-child) {
+//     padding-left: 40px;
+//   }
+
+//   &:last-child {
+//     width: calc(100%) !important;
+//     padding-left: 80px;
+//   }
 }
 
 // TOOLTIPS
@@ -485,7 +517,7 @@ ion-backdrop {
 .header-text-style *,
 .ce-header {
   display: inline-block;
-  font-size: 36px;
+  font-size: clamp(20px, 26px, 30px);
   font-family: $FONT_FAMILY_HEADER;
   margin-bottom: $_5_SPACING_SIZE;
   position: relative;
@@ -500,7 +532,7 @@ ion-backdrop {
 
 .cdx-block {
   display: block;
-  margin: $_10_SPACING_SIZE 0 !important;
+  margin: $_10_SPACING_SIZE 0;
 }
 
 .ce-paragraph {
@@ -508,11 +540,12 @@ ion-backdrop {
 }
 
 .header-text-style.small {
-  font-size: 1.5rem;
+  font-size: clamp(18px, 20px, 24px);
 }
 
 .header-text-style.smaller {
   font-size: 1rem;
+  font-size: clamp(16px, 18px, 20px);
 }
 
 .header-text-style.colored {
@@ -710,15 +743,14 @@ button.secondary,
 button.bordered,
 .button.bordered {
   border: $BORDER;
-  background: $BACKGROUND_COLOR !important;
+  background: $BACKGROUND_COLOR;
   color: $DARK_COLOR;
   box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 
   &:hover {
-    border-color: $DARK_COLOR;
-    color: $DARK_COLOR !important;
+    background: $DARK_COLOR;
   }
 }
 
@@ -1057,8 +1089,12 @@ select::-ms-expand {
   grid-template-rows: 1fr;
   gap: 20px;
   row-gap: 50px;
-  padding: $_20_SPACING_SIZE 0;
+  padding: 0 $_20_SPACING_SIZE;
   height: fit-content;
+
+  &.content-wrapper {
+    padding-top: 0 !important;
+  }
 }
 
 .page-eggs-layout .egg-container .campaign-progress {
@@ -1867,7 +1903,7 @@ svg {
 
 // SECTIONS FOR DISPLAYING CONTRACTS
 section.pitches-tiles {
-  padding: 40px 20px;
+  padding: 0px 20px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
@@ -1976,6 +2012,8 @@ section.pitches-tiles {
       height: 360px;
     }
   }
+
+  
 }
 
 section.pitches-tiles.dark-style {
@@ -2033,6 +2071,8 @@ section.pitches-tiles.dark-style {
 
 // MOBILE DEVICES
 @media screen and (max-width: 650px) {
+  $BORDER: 1px solid $DARK_COLOR !important;
+  
   .content-wrapper.split {
     flex-direction: column;
 
@@ -2047,6 +2087,8 @@ section.pitches-tiles.dark-style {
 
   .page-eggs-layout app-egg .egg-campaign-container {
     padding-bottom: $_20_SPACING_SIZE;
+    border-top: none !important;
+    border-bottom: $BORDER !important;
   }
 
   .page-eggs-layout app-egg .funding-perfomance .amount-funded-percentage {
@@ -2068,13 +2110,8 @@ section.pitches-tiles.dark-style {
     padding-right: 0;
   }
 
-  .recommended-sections section .section-name *,
-  .recommended-sections section .section-more * {
-    font-size: 24px !important;
-  }
-
-  .recommended-sections section .section-more {
-    margin-right: 0 !important;
+  .recommended-sections section .header-text-style.section-name *{
+    font-size: 18px !important;
   }
 
   .recommended-sections section .section-more .desktop-text {

@@ -34,7 +34,6 @@ section.section-header {
 
 section.section-header a.section-more {
   transform: translateY(26px);
-  text-decoration-style: wavy;
   margin-right: 20px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -47,4 +46,46 @@ section.section-header a.section-more .mobile-text {
 
 section.section-header a.section-more:hover {
   text-decoration-style: solid;
+}
+
+swiper-container {
+  position: relative;
+}
+
+.slider-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  padding: 0 !important;
+  pointer-events: none;
+
+  .slider-button {
+    pointer-events: all;
+
+    &:first-child {
+      transform: translateX(-20px);
+    }
+  
+    &:last-child {
+      transform: translateX(20px);
+    }
+
+    &[data-disabled="true"] {
+      opacity: 0.2;
+    }
+  }
+
+  .slider-button svg {
+    height: 80px;
+    transform: scaleY(4);
+    fill: transparent !important;
+    stroke: #FFF;
+    filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+  }
 }

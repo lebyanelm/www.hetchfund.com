@@ -59,25 +59,30 @@
       <section
         class="pitches-tiles one-display-size dark-style content-wrapper section-header"
       >
-        <div class="header-text-style light-colored section-name">
+        <div class="header-text-style small section-name">
           {{section_name}}
         </div>
         <a
-          class="paragraph-text-style light-colored undecorated section-more"
+          class="button bordered section-more"
           [href]="'/categories/' + section_name"
         >
-          View more
+          Browse all
         </a>
       </section>
-      <div
-        class="page-eggs-layout dark-background-style default-padding-style content-wrapper"
-      >
-        <app-egg
-          *ngFor="let pitch_recommended of this.recommended[section_name]"
-          color_style="light"
-          [data]="pitch_recommended"
-        ></app-egg>
-      </div>
+
+      <swiper-container class="swiper-container">
+        <div class="slider-buttons" slot="container-end">
+          <div class="slider-button swiper-prev-slide" data-disabled="true"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="square" stroke-miterlimit="10" stroke-width="10" d="M328 112L184 256l144 144" class="ionicon-fill-none"></path></svg></div>
+          <div class="slider-button swiper-next-slide" data-disabled="false"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="square" stroke-miterlimit="10" stroke-width="10" d="M184 112l144 144-144 144" class="ionicon-fill-none"></path></svg></div>
+        </div>
+
+        <swiper-slide *ngFor="let pitch_recommended of this.recommended[section_name]">
+          <app-egg
+            color_style="light"
+            [data]="pitch_recommended"
+          ></app-egg>
+        </swiper-slide>
+      </swiper-container>
     </div>
   </div>
 
