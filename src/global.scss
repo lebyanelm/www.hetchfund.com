@@ -1086,11 +1086,11 @@ select::-ms-expand {
 .page-eggs-layout {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-auto-rows: 1fr;
+
   gap: 20px;
   row-gap: 50px;
   padding: 0 $_20_SPACING_SIZE;
-  height: fit-content;
 
   &.content-wrapper {
     padding-top: 0 !important;

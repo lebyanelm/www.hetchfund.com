@@ -230,7 +230,7 @@ export class EggCampaignPage implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const content = document.querySelector('ion-content'),
-          socialMediaButtons = document.querySelector(".mobile-social-buttons"),
+          bottomElement = document.querySelector(".mobile-social-buttons") || document.querySelector(".story-tab"),
           headerContainer = document.querySelector(".header-container"),
           stickyButtonsContainer = document.querySelector(".sticky-funding-button");
 
@@ -240,7 +240,7 @@ export class EggCampaignPage implements OnInit, AfterViewInit {
     // performance reasons, enable them to listen to them
     content.scrollEvents = true;
     content.addEventListener('ionScroll', (event: any) => {
-      const bottomPoint = socialMediaButtons.getClientRects()[0].bottom,
+      const bottomPoint = bottomElement.getClientRects()[0].bottom,
             headerContainerHeight = headerContainer.getClientRects()[0].height,
             scrollPosition = event.detail.scrollTop;
       

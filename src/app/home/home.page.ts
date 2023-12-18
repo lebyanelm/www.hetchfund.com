@@ -24,6 +24,22 @@ export class HomePage implements OnInit, AfterViewInit {
   recommended = {};
   recommended_sections = [];
 
+  sliderBreakpoints = {
+    360: {
+      slidesPerView: 1,
+    },
+    520: {
+      slidesPerView: 2,
+      spaceBetween: 0
+    },
+    960: {
+      slidesPerView: 3
+    },
+    1285: {
+      slidesPerView: 4
+    }
+  }
+
   isLoadingRecommended = false;
   isLoadingError = false;
   constructor(
@@ -84,6 +100,8 @@ export class HomePage implements OnInit, AfterViewInit {
       if (swiperContainer) {
         clearInterval(swiperReferenceElement);
         const swiperRef = swiperContainer.swiper;
+        swiperRef.setBreakpoint()
+
         swiperRef.on("slideChange", () => {
           checkButtonDisability();
         });

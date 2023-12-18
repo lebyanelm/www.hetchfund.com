@@ -70,10 +70,10 @@
         </a>
       </section>
 
-      <swiper-container class="swiper-container">
+      <swiper-container class="content-wrapper swiper-container" [breakpoints]="this.sliderBreakpoints">
         <div class="slider-buttons" slot="container-end">
           <div class="slider-button swiper-prev-slide" data-disabled="true"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="square" stroke-miterlimit="10" stroke-width="10" d="M328 112L184 256l144 144" class="ionicon-fill-none"></path></svg></div>
-          <div class="slider-button swiper-next-slide" data-disabled="false"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="square" stroke-miterlimit="10" stroke-width="10" d="M184 112l144 144-144 144" class="ionicon-fill-none"></path></svg></div>
+          <div class="slider-button swiper-next-slide" [attr.data-disabled]="this.recommended[section_name].length === 1"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="square" stroke-miterlimit="10" stroke-width="10" d="M184 112l144 144-144 144" class="ionicon-fill-none"></path></svg></div>
         </div>
 
         <swiper-slide *ngFor="let pitch_recommended of this.recommended[section_name]">
