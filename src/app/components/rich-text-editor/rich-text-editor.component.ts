@@ -3,6 +3,10 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import NestedList from '@editorjs/nested-list';
+import Checklist from '@editorjs/checklist';
+import Warning from '@editorjs/warning';
+import LinkTool from '@editorjs/link';
+import Qoute from '@editorjs/quote';
 import Marker from '@editorjs/marker';
 import Table from '@editorjs/table';
 import Embed from '@editorjs/embed';
@@ -12,6 +16,7 @@ import Strikethrough from '@sotaproject/strikethrough';
 import { environment } from 'src/environments/environment';
 import { SessionService } from 'src/app/services/session.service';
 import { Observable, Subject } from 'rxjs';
+import { IRichTextEditorData } from 'src/app/IRichTextEditorData';
 
 // Imported from the index.html file.
 
@@ -23,86 +28,89 @@ import { Observable, Subject } from 'rxjs';
 export class CustomRichTextEditorComponent implements OnInit {
   @Input() isReadOnly = false;
   @Input() isAwaitData: boolean = false;
+  @Input() isVisible: boolean = true;
+  @Input() textSize: number = 16;
 
   _data: Subject<any> = new Subject();
   data = null;
   editor: EditorJS;
-
   currentFullscreenImage: string;
 
   ngOnInit() {
     this._data.subscribe((data) => {
-      if (!this.editor && this.isReadOnly === false) this.editor = this.initEditor(data);
-      this.data = data?.blocks;
-      console.log(this.data)
+      if (!this.editor && !this.isReadOnly) this.editor = this.initEditor(data);
     });
   }
-  ngAfterViewInit(): void {
-    if (!this.isAwaitData && this.isReadOnly === false) {
-      this.editor = this.initEditor();
+
+  initEditor({data, isEditable}) {
+    if (isEditable === true) {
+      return new EditorJS({
+        autofocus: false,
+        inlineToolbar: true,
+        placeholder: 'Start editing your pitch story',
+        holder: 'editor',
+        tools: {
+          header: {
+            class: Header,
+            inlineToolbar: true,
+          },
+          nestedList: {
+            class: NestedList,
+            inlineToolbar: true
+          },
+          image: CustomImageTool,
+          delimeter: CustomDelimeterTool,
+          strikethrough: {
+            class: Strikethrough,
+            inlineToolbar: true
+          },
+          marker: {
+            class: Marker,
+            inlineToolbar: true
+          },
+          table: {
+            class: Table,
+            inlineToolbar: true
+          },
+          embed: {
+            class: Embed,
+            inlineToolbar: true,
+            config: {
+              services: {
+                youtube: true
+              }
+            }
+          },
+          quote: {
+            class: Qoute,
+            inlineToolbar: true,
+            config: {
+              quotePlaceholder: 'Enter a quote',
+              captionPlaceholder: 'Quote reference',
+            },
+          },
+          warning: {
+            class: Warning,
+            inlineToolbar: true,
+            config: {
+              titlePlaceholder: 'Warning title',
+              messagePlaceholder: 'Message',
+            },
+          },
+          checklist: {
+            class: Checklist,
+            inlineToolbar: true
+          },
+        },
+        data: data,
+      });
+    } else {
+      this.isReadOnly = true;
+      this.data = data?.blocks;
     }
   }
 
-  initEditor(data: any = null) {
-    return new EditorJS({
-      autofocus: true,
-      inlineToolbar: true,
-      placeholder: 'Start editing your pitch story',
-      holder: 'editor',
-      tools: {
-        header: {
-          class: Header,
-          inlineToolbar: true,
-        },
-        nestedList: NestedList,
-        image: CustomImageTool,
-        delimeter: CustomDelimeterTool,
-        strikethrough: Strikethrough,
-        marker: Marker,
-        table: Table,
-        embed: Embed,
-      },
-      data: data,
-      onReady: () => {
-        // If read only mode is toggled on, disable edits on the editor.
-        if (this.isReadOnly) {
-          console.log("Ready to work.")
-          // let editable_elements = document.querySelectorAll(
-          //   '*[contenteditable]'
-          // );
-          // console.log("Editable elements:", editable_elements);
-
-          // editable_elements.forEach((el) =>
-          //   el.removeAttribute('contenteditable')
-          // );
-
-          // let icon_settings = document.querySelectorAll(
-          //   '.ce-toolbar__plus, .ce-toolbar__settings-btn, .ce-toolbar__actions *'
-          // );
-          // icon_settings.forEach((el) => el.remove());
-
-          // // Disable file selector on images.
-          // let imageBlocks = document.querySelectorAll(
-          //   'input[file]'
-          // );
-          // console.log("Image block inputs:", imageBlocks);
-          // imageBlocks.forEach((imageBlockInput) => imageBlockInput.remove());
-
-          // Turn off events for the image selector
-          // let imageSelectors = document.querySelectorAll('#image-selector');
-          // imageSelectors.forEach((el: HTMLDivElement) => (el.onclick = null));
-        }
-      },
-    });
-  }
-
   constructor(private sessionService: SessionService) {}
-
-  saveStoryChanges() {
-    return new Promise((resolve, reject) => {
-      this.editor.save().then((data) => resolve(data));
-    });
-  }
 
   save() {
     return new Promise((resolve, reject) => {
@@ -114,8 +122,8 @@ export class CustomRichTextEditorComponent implements OnInit {
     });
   }
 
-  setData(data) {
-    this._data.next(data);
+  setData(data: any, isEditable: boolean = false) {
+    this._data.next({data, isEditable});
   }
 
   isImage(url: string): boolean {

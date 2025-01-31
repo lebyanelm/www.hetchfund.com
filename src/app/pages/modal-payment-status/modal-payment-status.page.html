@@ -1,0 +1,23 @@
+<ion-content>
+  <div class="payment-response-container">
+    <div class="payment-status-circled-icon" [attr.data-success]="this.paymentStatus === 'success'"><ion-icon [name]="this.paymentStatuses[this.paymentStatus]?.icon"></ion-icon></div>
+    <div class="header-text-style payment-status-text">{{this.paymentStatuses[this.paymentStatus]?.text}}</div>
+
+    <!-- Description of the payment. -->
+    <div class="paragraph-text-style payment-status-description">{{this.paymentStatuses[this.paymentStatus]?.description}}</div>
+    <div class="payment-status-sub">{{this.paymentStatuses[this.paymentStatus]?.sub}}</div>
+
+    <br>
+    <div class="paragraph-text-style"><a href="">View our refund policy</a></div>
+
+    <div class="buttons" *ngIf="this.paymentStatus === 'success'">
+      <a class="button" [href]="'/pitches/' + this.pitchKey">Go back to pitch</a>
+      <a class="button secondary" [href]="'/history/contributions/' + this.contributionId">View your payment reciept</a>
+    </div>
+
+    <div class="buttons" *ngIf="this.paymentStatus !== 'success'">
+      <a class="button" (click)="this.copyErrorMessage()">Copy error message</a>
+      <a class="button secondary" href="mailto:support@hetchfund.com">Contact support faculty</a>
+    </div>
+  </div>
+</ion-content>

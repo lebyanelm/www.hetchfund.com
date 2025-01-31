@@ -1,6 +1,23 @@
 <ion-content>
   <app-header [hasBackground]="true"></app-header>
 
+  <!-- Coinbase background overlay. -->
+  <div class="coinbase-background-overlay" *ngIf="this.isAwaitCoinbaseWindow">
+    <div class="overlay-contents">
+      <img
+        class="coinbase"
+        alt="Coinbase"
+        src="/assets/payments/nowpayments-logos-idN01P6NR4.svg"
+      />
+      <span>Don't see the secure NOWPayments window? We'll help you re-launch the window to complete your purchase.</span>
+      
+      <div class="buttons">
+        <div class="button">Continue to payment</div>
+        <div class="button secondary">Cancel the payment</div>
+      </div>
+    </div>
+  </div>
+  
   <div class="page-content">
     <div class="content-wrapper split bordered">
       <div class="left-side">
@@ -9,7 +26,7 @@
             Reward to be recieved:<br />
             <span
               ><a
-                class="currency-selectable project-name light"
+                class="currency-selectable project-name theme-text-style"
                 [href]="'/pitches/' + this?.pitchKey"
                 target="_blank"
               >
@@ -32,16 +49,13 @@
       <div class="right-side">
         <div class="contribution-amount-summary">
           <div class="header-text-style small">
-            Total contribution amount:
+            CONTRIBUTION AMOUNT:
             <span
               class="amount"
               data-title="Click to change currency"
               (click)="this.currencyService.openCurrencySelectorModal()"
-              >{{this.customContributionAmount !== "0" ?
-              this.currencyService.format(this.customContributionAmount,
-              this.supaChargeAmount) :
-              this.currencyService.translate(this.contributionAmount, true,
-              true, this.supaChargeAmount)}}</span
+              >{{this.currencyService.format(this.contributionAmount,
+              this.supaChargeAmount)}}</span
             >
           </div>
 
@@ -65,14 +79,21 @@
           </div>
         </div>
 
+        <div class="header-text-style small">Contribute with Yoco:</div>
+        <!-- Yoco Payment method. -->
+        <div class="pill-text-style">Lower fees (Recommended for small amounts)</div>
         <div
           class="payment-button yoco-button"
-          (click)="this.openYocoPopup('https://pay.yoco.com/towards-common-foundry')"
-        >
+          (click)="this.openYocoPopup('https://pay.yoco.com/towards-common-foundry')">
           <span>Pay with</span>
           <img class="yoco" src="/assets/payments/yoco_colour.svg" alt="Yoco" />
         </div>
 
+        <br>
+        <br>
+        <div class="header-text-style small">Or you can contribute with PayPal:</div>
+        <div class="pill-text-style warning-style">Faster checkout (Recommended for larger amounts)</div>
+        <!-- PayPal payment method. -->
         <div class="paypal-button">
           <div
             style="text-align: center; margin-top: 0.625rem"
@@ -80,50 +101,47 @@
           ></div>
         </div>
 
-        <div
-          class="payment-button credit-card-button"
-          (click)="this.toastService.show('This method is coming soon.')"
-        >
-          <span>Add a card (Coming soon)</span>
-          <ion-icon name="card-outline"></ion-icon>
-        </div>
-
+        <br>
         <div class="supported-payment-methods">
           <img
-            src="data:image/png;charset=utf-8;base64,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"
+            class="visa"
+            src="/assets/payments/Visa_Brandmark_White_RGB_2021.png"
             alt="Visa"
           />
 
           <img
-            src="data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAABQCAMAAADoWzH8AAABU1BMVEUAAADrABvwWR73nRvrABv3nhv3nhvrABv3nxv4nhvrABv3nhv3nhvrABvrABvrABvrABv3nhv4nxr3nhvrABvrABvrABv3nhv3nhvrABv3nhv3nhvrABv3nhvrABv3nhvrABv3nhv3nhvrABvrABvrABv3nhvrABv3nhvrABv3nhv3nhvrABv3nhv3nxvrABvrABv3nhvrABv3nhvrABvrABv3nhvrABv3nhv3nhv3nhv3nhv4nxv3nhv3nhv4Pwn3nhv2Qw/rABv3nhv3nhvrABvrAhvrABvrABv3nhvrABv3nhvrABvrABvxWRvrABv3nhv/XwD/XQD/ZQD3oBz/YwD/WwD3ohz4nRr+aATsBBr5kBX4PQn4lhf4lBfxGxPzJRD9dAn6RQf9bgb8UAT/WgDvFRX7gA71LQ77fA33Ngv6SQb9VAPuDhf6hRD1MQ38ewwYcTawAAAAT3RSTlMA/AIDA/z+I2MJ+ruGcU8sEzv67LuwqKKYZFx+9/Xy8eLgwsGPaVQ9NTUnFgmyEejc2dTLxrSuoJZ3QCEVSBn86OHfz62eloJ9bltPQR8ILZDe0AAAA21JREFUaN7MlVdX20AQhcezruAGxAZM7713Qnqvu7KxTE9CQhpp//8pWukcRja27GEfku/R8jnf3LsNmoAY9oMIgaCoAoxw1FCLMwI0oJ7uxiOg65nPpFPj+VsOG1vjqXQs7H1p5Lm7G092L7Q7PO7pK0wv3nQCnRszqdxwSPppW85PxLzPflAb9iZ7Hg2oKrpGk7sJPQFTjgCx56uuOuTHHWE9la1uQAAkJjeHVFSpaMRHVDmMbHcgawB0ok3l+j21rMb7ZfBJhgYQAHN9I47b8blCIuqNsFZIAIrWo0+NuSZZH/0hlNcDeL0vJrs8UV2ieqiVggDRYvQ3eXI3nqBtPAthnSl+XytUAHq0tQ4qIDB67yDJAwcYTkMYZkeD5FSBUtsJEM3skM2RPBjnX08xPqBIHtyAWpkG0cQ+81CSvHkBDzr3I6RoVkBnHESgPd1P9ha4Zx2e7ivV+gBJwAB7rwwx7EfnJcsun1U4/m7ym9ovS0XLKpbPKH9TOsl/zf6SVbw813btP2X5e0DUtb9ukxxOtF1jHx4w/BHVV8ePEFtihf/q2j3/R0fPWP/Ja37E8BjL/q5sERffKgy/GpoFrK3+Gct+9KNctAj7uMKpfxRrq5/hL7yP4uGB4vh3aupHbvVkN6qfTrxk8MnR18A5/dW3D8L8Mkv/vnTNbn+oKE7+DkAKP2Ec3ioes+IvXOkR3q6ahKf4HKYBr945XvhLCu/nlBOf7l6EDZb+s1WXiy+szd81d3Xd9ksO36n76rOvWGe/AMJk45luvk1AL33OpHvCZra/59mzS1LynzqC9/CR/w4I3f2UZHFebqAvlnkXf9LTpwzeOpPFbwfU+i2W/ifJa7F/sRZ/JOGu/brZY0fYf1j6gds6/vyw6Y1L9+4+89kRANlByeE36c22fkS90vpYyODOM7r34lqfkSxOAvQl3sl7ofUz/0y/8x/o/1ZrxjgAgkAQVGi0tLazJfoBEv//LO2tiMAMLyAhcLe7s+DlC54e+vHgsQMPXXblCBYuKDdwsUVKTYXQxmyGwGTxFhMy2Ip4gQpXJNESEqxFUaz4J1Qtf3dHiPm+Vi5Snpb9fFcOFqinvKUPTpg74QQBTAkqlNQNpEkxYheIKkbIzQG6vD7QsjwxRHWkTXFmoNoQXpqqVBkLBWcDhbkHMwAXbRw1ET0AAAAASUVORK5CYII="
+            class="mastercard"
+            src="/assets/payments/ma_symbol_opt_73_3x.png"
             alt="Mastercard"
           />
 
           <img
             class="amex"
-            src="data:image/png;charset=utf-8;base64,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"
+            src="/assets/payments/American_Express_Square_Logo.png"
             alt="Amex"
             data-title="Amex Accepted."
           />
         </div>
 
-        <br />
-
-        <div class="other-methods">
-          <div
-            class="payment-button coinbase-button"
-            (click)="this.createCoinbaseCharge()"
-          >
-            <span>Cryptopay with</span>
-            <img
-              class="coinbase"
-              alt="Coinbase"
-              src="/assets/payments/Coinbase.svg"
-            />
-          </div>
-        </div>
-
-        <br />
+        <!-- Seperate the payment sections. -->
+        <!-- <br>
+        <br> -->
+        <!-- <div class="header-text-style small">Contribute using your cryptocurrency wallet:</div> -->
+        <!-- Cryptopayment method. -->
+        <!-- <div
+          class="payment-button crypto-button"
+          (click)="this.requestCryptoPayment()"
+        >
+          <span>Cryptopay with</span>
+          <img
+            class="nowpayments"
+            alt="NOWPayments"
+            src="/assets/payments/nowpayments-logos-idN01P6NR4.svg"
+          />
+        </div> -->
+        
+        <!-- Available currencies via cryptopayments. -->
+        <!-- <br />
         <div class="supported-payment-methods">
           <img
             src="/assets/payments/bitcoin.png"
@@ -149,7 +167,7 @@
             src="/assets/payments/usd_cash.png"
             data-title="USD Cash Accepted"
           />
-        </div>
+        </div> -->
       </div>
     </div>
 

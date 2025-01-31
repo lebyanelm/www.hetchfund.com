@@ -1,15 +1,15 @@
 <ion-content>
   <app-header [hasBackground]="true"></app-header>
 
-  <!-- Header that shows the steps of the pitch creation process -->
-  <app-pitch-create-steps
-    [step]="2"
-    [saveMethod]="this.save"
-    [binder]="this"
-    [draftProgress]="this.draft?.draft_progress"
-  ></app-pitch-create-steps>
-
   <div class="page-content content-wrapper">
+    <!-- Header that shows the steps of the pitch creation process -->
+    <app-pitch-create-steps
+      [step]="2"
+      [saveMethod]="this.save"
+      [binder]="this"
+      [draftProgress]="this.draft?.draft_progress"
+    ></app-pitch-create-steps>
+    
     <span class="header-text-style">Pitch story</span>
     <div class="field-status">(REQUIRED)</div>
 
@@ -26,6 +26,7 @@
         #TextEditor
         [isAwaitData]="true"
         [isReadOnly]="false"
+        [isVisible]="true"
       ></app-rich-text-editor>
     </div>
 

@@ -19,42 +19,54 @@ export class EggService {
 
   get(
     eggKeys = null,
-    enableRecent: number | boolean = false,
-    enableInterest: number | boolean = false
+    options: { enableRecent?: number | boolean,
+      enableInterest?: number | boolean,
+      isDraft?: number | boolean } = Object.create({isDraft: false})
   ) {
     return new Promise((resolve, reject) => {
       if (this.sessionService.sessionToken) {
-        enableRecent = false;
-        enableInterest = false;
+        options.enableRecent = false;
+        options.enableInterest = false;
       } else {
-        enableRecent = true;
-        enableInterest = true;
+        options.enableRecent = true;
+        options.enableInterest = true;
       }
 
-      if (typeof eggKeys === 'string') eggKeys = [eggKeys];
-
       if (eggKeys.length) {
-        const companyRequest = superagent.get(
-          [
-            environment.farmhouse,
+        let pitchRequest;
+        if (options.isDraft === false) {
+          if (typeof eggKeys === 'string') eggKeys = [eggKeys];
+          pitchRequest = superagent.get(
             [
-              eggKeys.join('^'),
+              environment.farmhouse,
               [
-                'enable_recent=' + enableRecent,
-                'enable_interest=' + enableInterest,
-              ].join('&'),
-            ].join('?'),
-          ].join('/')
-        );
+                eggKeys.join('^'),
+                [
+                  'enable_recent=' + options.enableRecent,
+                  'enable_interest=' + options.enableInterest,
+                ].join('&'),
+              ].join('?'),
+            ].join('/')
+          );
+        } else {
+          pitchRequest = superagent.get(
+            [
+              environment.farmhouse,
+              'pitch',
+              'draft',
+              eggKeys
+            ].join('/')
+          );
+        }
 
         if (this.sessionService.sessionToken) {
-          companyRequest.set(
+          pitchRequest.set(
             'Authorization',
             ['Bearer', this.sessionService.sessionToken].join(' ')
           );
         }
 
-        companyRequest.end((_, response) => {
+        pitchRequest.end((_, response) => {
           if (response.statusCode == 200) {
             resolve(response.body.data);
           } else {
@@ -388,6 +400,27 @@ export class EggService {
     });
   }
 
+  deleteDraft(draftKey) {
+    return new Promise((resolve, reject) => {
+      superagent
+        .delete([environment.farmhouse, 'pitch', 'draft', draftKey].join('/'))
+        .set(
+          'Authorization',
+          ['Bearer', this.sessionService.sessionToken].join(' ')
+        ).end((_, response) => {
+          if (response) {
+            if (response.statusCode === 200) {
+              resolve(response);
+            } else {
+              this.toastService.show(response.body.reason || ERROR_MESSAGES.UNEXPECTED_ERROR, false, true);
+            }
+          } else {
+            this.toastService.show(ERROR_MESSAGES.NO_INTERNET, false, true)
+          }
+        });
+    });
+  }
+
   getPitchRewards(pitchKey) {
     return new Promise((resolve, reject) => {
       superagent
@@ -413,6 +446,27 @@ export class EggService {
     return new Promise((resolve, reject) => {
       superagent
         .get([environment.farmhouse, 'search', 'trending'].join('/'))
+        .end((_, response) => {
+          if (response) {
+            if (response.statusCode === 200) {
+              resolve(response.body.data);
+            } else {
+              reject(
+                response.body.reason ||
+                  'Something went wrong, please reload the page.'
+              );
+            }
+          } else {
+            reject('Please check your internet connection.');
+          }
+        });
+    });
+  }
+
+  getCurator(curator: string) {
+    return new Promise((resolve, reject) => {
+      superagent
+        .get([environment.accounts, 'by_email', curator].join('/'))
         .end((_, response) => {
           if (response) {
             if (response.statusCode === 200) {

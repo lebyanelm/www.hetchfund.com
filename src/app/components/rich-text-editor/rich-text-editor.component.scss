@@ -18,6 +18,7 @@
     height: 100%;
     width: 100%;
     position: relative;
+    border-radius: $BORDER_RADIUS;
 
     &::after {
         content: "close";
@@ -29,6 +30,59 @@
     }
 }
 
-.image-tool__image img {
+.image-tool__image-picture {
+    height: 250px;
+    width: 100%;
+    background: $BACKGROUND_COLOR;
+    background-position: center center;
     cursor: pointer;
+    border-radius: $BORDER_RADIUS;
+    margin-bottom: $_20_SPACING_SIZE;
+    background-size: cover;
+    border: $BORDER_THIN;
+}
+
+// Styling the tools.
+// Paragraph
+.paragraph-text-style {
+    color: $WHITE_COLOR !important;
+}
+
+// Delimeter.
+.delimeter {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1.8px solid transparentize(#000000, 0.5);
+    margin: $_20_SPACING_SIZE 0;
+}
+
+// List items.
+ul > li {
+    margin-bottom: $_10_SPACING_SIZE;
+    text-indent: 0;
+}
+
+// Table.
+table {
+    tr {
+        &:first-child {
+            td {
+                text-transform: uppercase !important;
+            }
+        }
+        
+        td {
+            padding: $_10_SPACING_SIZE;
+            border-bottom: $BORDER_THIN;
+    
+            &:first-child {
+                border-right: $BORDER_THIN;
+            }
+    
+            &,
+            &:first-child {
+                border-color: $WHITE_COLOR;
+            }
+        }
+    }
 }

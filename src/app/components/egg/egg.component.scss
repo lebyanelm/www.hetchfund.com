@@ -8,6 +8,7 @@
   border: $BORDER;
   background: $DARK_COLOR;
   transition: box-shadow 100ms linear;
+  margin-bottom: $_20_SPACING_SIZE;
   height: 100%;
   position: relative;
 }
@@ -16,22 +17,29 @@
 .egg-campaign-container .thumbnail-container {
   display: block;
   background: $GRAY_COLOR;
-  height: 180px;
+  height: 240px;
   background-size: cover;
   background-position: center center;
   // border: $BORDER;
   border-width: 1px;
   border-radius: $BORDER_RADIUS $BORDER_RADIUS 0 0;
   position: relative;
+  margin-bottom: 40px;
 
-  &::before {
-    content: "";
-    height: 60px;
-    width: 100%;
-    background: linear-gradient(0deg, $BACKGROUND_COLOR, transparent);
+  .company-logo-container {
+    display: block;
+    height: 80px;
+    width: 80px;
+    border-radius: 100px;
+    border: 4px solid $DARK_COLOR;
     position: absolute;
-    bottom: 0;
     left: 0;
+    bottom: 0;
+    transform: translateX(8px) translateY(50%);
+    background-color: $BACKGROUND_COLOR;
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://ui-avatars.com/api/?size=141&rounded=true&bold=true&format=svg&name=Libby+Lebyane&background=F8F8F8&color=808080&border=E6E6E6");
   }
 }
 
@@ -91,10 +99,10 @@
 
 .egg-campaign-container .egg-campaign-details .name-bookmark-section .name {
   font-size: 22px;
-  font-weight: bold;
+  font-weight: 900;
+  font-family: $FONT_FAMILY_HEADER;
   text-decoration: underline;
   height: 80px;
-  font-family: $FONT_FAMILY !important;
 
   &:hover {
     text-decoration-thickness: 2px;
@@ -206,17 +214,38 @@ ins {
 .funding-perfomance .funding-progress {
   height: 15px;
   width: 100%;
-  background: $GRAY_COLOR;
+  background: $LIGHT_COLOR;
   margin-top: $_10_SPACING_SIZE;
+  border: $BORDER_THIN;
 }
 
 .funding-perfomance .funding-progress .funding-progress-current {
   height: 100%;
-  background: $SECONDARY_THEME_COLOR;
+  background-color: $SUCCESS_COLOR;
 }
 
 .funding-perfomance .amount-funded {
   display: block !important;
   font-size: small;
   margin-top: 5px;
+}
+
+.bottom-action-button {
+  display: block;
+  padding: $_20_SPACING_SIZE 0;
+  text-align: center;
+  font-weight: bold;
+  color: $DANGER_COLOR !important;
+  text-transform: uppercase;
+  border-top: $BORDER;
+  cursor: pointer;
+  letter-spacing: 2px;
+
+  &:hover {
+    background: #000;
+  }
+
+  &.normal {
+    color: $SECONDARY_THEME_COLOR !important;
+  }
 }

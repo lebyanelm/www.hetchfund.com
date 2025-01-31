@@ -3,42 +3,33 @@
   <div class="page-content content-wrapper">
     <!-- SUPPORT PORTAL HEADER -->
     <div class="support-portal-header-searchbox">
-      <div class="header-text-style header-searchbox-title">
-        How can we assist you?
-      </div>
       <div class="search-input-container">
-        <ion-icon name="search-sharp"></ion-icon>
         <input
           type="text"
           placeholder="Type here to search articles"
           name="search"
           autofocus
+          #SearchInput
         />
       </div>
+
+      <div class="search-button" data-title="Search typed keywords" (click)="this.search(SearchInput.value)">
+        <ion-icon name="search"></ion-icon>
+      </div>
+
+      <a class="search-button add-button" data-title="Post an article" href="/support/article/new?create=1">
+        <ion-icon name="add"></ion-icon>
+      </a>
     </div>
 
-    <!-- ARTICLES SECTION -->
-    <div class="support-portal-articles">
-      <div class="header-text-style">Support articles</div>
-      <div class="articles-content">
-        <div class="article">
-          <div class="thumbnail-container"></div>
-          <div class="article-content">
-            <div class="article-category">Financial management</div>
-            <a
-              class="header-text-style article-name smaller"
-              href="/support/article/1"
-            >
-              How can I change the credit card on file for my account?
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <br>
+    <div class="paragraph-text-style">For more information please don't hesitate to email us: <a href="mailto:support@hetchfund.com">support@hetchfund.com.</a></div>
 
     <!-- EXPLORE TOP TOPICS -->
+    <br>
+    <br>
     <div class="topics">
-      <div class="header-text-style">Explore topics</div>
+      <div class="header-text-style">Explore support categories</div>
 
       <div class="topics-content">
         <a href="/support/categories/1" class="topic undecorated"
@@ -53,6 +44,33 @@
         <a href="/support/categories/4" class="topic undecorated"
           >Reward Management</a
         >
+      </div>
+    </div>
+
+    <!-- ARTICLES SECTION -->
+    <br>
+    <br>
+    <div class="support-portal-articles">
+      <div class="header-text-style">{{this.searchKeyword ? 'Showing results for "' + this.searchKeyword + '"' : "Browse support articles"}}</div>
+      <div class="paragraph-text-style">{{this.searchKeyword ? 'Found "' + this.availabeleTotalResults + '" for this search.' : "Browse a handful of our self-help articles for guides to use our platform."}}</div>
+
+      <div class="articles-content">
+        <div class="article" *ngFor="let article of this.articles">
+          <div class="thumbnail-container" [style.background-image]="'url(' + article?.thumbnail_image + ')'"></div>
+          <div class="article-content">
+            <div class="article-category">{{article?.category || "General"}}</div>
+            <a
+              class="header-text-style article-name smaller"
+              [href]="'/support/article/' + article?.key"
+            >
+              {{article?.name}}
+            </a>
+
+            <br>
+            <br>
+            <div class="paragraph-text-style small">{{article?.upvotes}}/{{article?.downvotes + article?.upvotes}} upvotes. {{article?.age ? ['Updated', article?.age].join(' ') : ''}}.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

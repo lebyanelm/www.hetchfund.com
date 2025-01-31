@@ -13,7 +13,6 @@ export class CustomImageTool {
   data;
   config;
   selectedImage;
-  readOnly;
 
   constructor({ data, config, readOnly }, private toastService: ToastManagerService) {
     this.data = data;
@@ -125,11 +124,6 @@ export class CustomImageTool {
     wrapper.appendChild(imageSelectorButton);
 
     return wrapper;
-  }
-
-  toggleReadonly(s) {
-    this.readOnly = s;
-    return this.readOnly;
   }
 
   save() {

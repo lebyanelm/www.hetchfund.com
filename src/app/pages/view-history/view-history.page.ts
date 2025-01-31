@@ -40,7 +40,7 @@ export class ViewHistoryPage implements OnInit {
       );
 
       this.eggService
-        .get(this.all_viewed_ids[this.currentPage], false, false)
+        .get(this.all_viewed_ids[this.currentPage], { enableInterest: false, enableRecent: false })
         .then((eggs: IEgg[]) => {
           this.all_viewed = eggs;
           // Remove the recently viewed pitch from the list

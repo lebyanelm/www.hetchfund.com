@@ -23,6 +23,7 @@ import { SettingsHelpContentComponent } from './settings-help-content/settings-h
 import { PitchCreateStepsComponent } from './pitch-create-steps/pitch-create-steps.component';
 import { SafePipeModule } from 'safe-pipe';
 import { IonicModule } from '@ionic/angular';
+import { IdentityVerificationModalComponent } from './identity-verification-modal/identity-verification-modal.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { IonicModule } from '@ionic/angular';
     CurrenciesSelectorComponent,
     SettingsHelpContentComponent,
     PitchCreateStepsComponent,
+    IdentityVerificationModalComponent
   ],
   imports: [CommonModule, FormsModule, GoogleSigninButtonModule, SafePipeModule, IonicModule],
   exports: [
@@ -67,6 +69,7 @@ import { IonicModule } from '@ionic/angular';
     CurrenciesSelectorComponent,
     SettingsHelpContentComponent,
     PitchCreateStepsComponent,
+    IdentityVerificationModalComponent
   ],
   schemas: [],
   providers: [],

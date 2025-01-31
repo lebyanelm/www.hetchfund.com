@@ -60,6 +60,7 @@ export class CreateRewardsPage implements OnInit, AfterViewInit {
 
   selectedEditId: number;
   isEditMode = false;
+  islivepitch = false;
 
   hasUnsavedChanges = false;
 
@@ -80,14 +81,15 @@ export class CreateRewardsPage implements OnInit, AfterViewInit {
     this.titleService.onTitleChange.next('Pitch rewards | Create: Hetchfund');
 
     this.activatedRoute.queryParamMap.subscribe((queryParams) => {
-      this.draft_key = queryParams.get('draft_key');
+      this.draft_key = queryParams.get('draft_key') || queryParams.get('pitch_key');
+      this.islivepitch = queryParams.get('islive') === '1' ? true : false;
 
       // To retrieve the draft progress data.
-      this.pitchService.getSavedDraft(this.draft_key).then((draft) => {
+      this.pitchService.get(this.draft_key, {isDraft: !this.islivepitch}).then((draft) => {
         this.draft = draft;
-        this.totalAuthorizedShares = this.draft?.total_authorized_shares;
+        // this.totalAuthorizedShares = this.draft?.total_authorized_shares;
 
-        this.rewardsType = this.draft?.rewards_type;
+        this.rewardsType = 'non-shares';
         document.getElementById(this.rewardsType)?.setAttribute("selected", "selected");
         if (this.rewardsType === "non-shares") {
           this.nonfinancialRewardsSection.nativeElement.hidden = false;
@@ -272,10 +274,15 @@ export class CreateRewardsPage implements OnInit, AfterViewInit {
     this.rewardThumbnailSelector.nativeElement.files = null;
 
     this.rewardThumbnail = null;
+    this.availableQuantity = "";
 
     // Select options.
-    this.rewardAvailability = 'limited';
+    this.rewardAvailability = 'available';
     this.rewardShipsTo = 'anywhere';
+
+    // Toggles.
+    this.isUploadedRewardThumbnail = false;
+    this.isUploadingRewardThumbnail = false;
   }
 
   uploadFile(file: File) {

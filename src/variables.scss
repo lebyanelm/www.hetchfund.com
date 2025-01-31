@@ -1,44 +1,42 @@
 // COLORS
-$THEME_COLOR: #161616;
-$SECONDARY_THEME_COLOR: #CA9627;
-$THME_LIGHTER_COLOR: rgba(45, 45, 45, 0.7);
-$DARK_COLOR: $THEME_COLOR;
-$WHITE_COLOR: #ffffff;
-$LIGHT_COLOR: #eff2f5;
-$GRAY_COLOR: gray;
-$BACKGROUND_COLOR: #192427;
-$DARK_GRAY_COLOR: #444;
-$SUCCESS_COLOR: #00684a;
-$DANGER_COLOR: rgb(255, 99, 71);
-$WARNING_COLOR: #ffa500;
+$THEME_COLOR:          #171f40;
+$DARK_COLOR:           #161616;
+$THME_LIGHTER_COLOR:   #161616b3;
+$BACKGROUND_COLOR:     #192427;
+$DARK_GRAY_COLOR:      #444444;
+$GRAY_COLOR:           #808080;
+$LIGHT_COLOR:          transparentize($GRAY_COLOR, 0.5);
+$WHITE_COLOR:          #FFFFFF;
+$DANGER_COLOR:         #FF2709;
+$SECONDARY_THEME_COLOR:#FF7009;
+$WARNING_COLOR:        #FF7009;
+$SUCCESS_COLOR:        #0AAD5F;
 
 // SHAPES AND SIZES
-$_5_SPACING_SIZE: 5px;
-$_10_SPACING_SIZE: 10px;
-$_15_SPACING_SIZE: 15px;
-$_20_SPACING_SIZE: 20px;
+$_5_SPACING_SIZE:        5px;
+$_10_SPACING_SIZE:       10px;
+$_15_SPACING_SIZE:       15px;
+$_20_SPACING_SIZE:       20px;
 
-$HEADER_SIZE: 40px;
-$BORDER: 1px solid black;
-$BORDER_THIN: 1px solid black;
-$BORDER_RADIUS: 0px;
+$HEADER_SIZE:            40px;
+$BORDER:                 1px solid #000000;
+$BORDER_THIN:            1px solid #000000;
+$BORDER_RADIUS:          15px;
 
-// TYPOGRAPHY SETUP
-$FONT_SIZE: 17px;
-
-@font-face {
-  font-family: VCGaramondCondensed;
-  src: url("/assets/fonts/VC_Garamond_Condensed.woff2");
-}
-
-@font-face {
-  font-family: PPEditorialNew;
-  src: url("/assets/fonts/PP_Editorial_New.woff2");
-}
-
-$FONT_FAMILY: "IBM Plex Sans Condensed", "Archivo", "Roboto", system-ui, -apple-system,
-  BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans",
-  "Helvetica Neue", sans-serif;
-$FONT_FAMILY_MONOSPACED: "PPEditorialNew", "Fira Code", monospace, sans-serif,
-  arial;
-$FONT_FAMILY_HEADER: $FONT_FAMILY;
+$FONT_SIZE:              17px;
+$FONT_FAMILY:            "Recursive", 
+                         "Roboto",
+                         system-ui,
+                         -apple-system,
+                         BlinkMacSystemFont, 
+                         "Segoe UI", 
+                         Oxygen,
+                         Ubuntu,
+                         Cantarell,
+                         "Open Sans",
+                         "Helvetica Neue",
+                         sans-serif;
+$FONT_FAMILY_MONOSPACED: "IBM Plex Mono", 
+                         monospace, 
+                         $FONT_FAMILY;
+$FONT_FAMILY_HEADER:     $FONT_FAMILY;

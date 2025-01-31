@@ -1,9 +1,9 @@
 <ion-content>
   <app-header highlightHeader="pitches"></app-header>
 
-  <div class="page-content">
-    <section class="pitches-tiles one-display-size dark-style content-wrapper">
-      <span class="pitches-subsection-label">Featured Pitch</span>
+  <div class="page-content content-wrapper">
+    <section class="pitches-tiles one-display-size dark-style">
+      <span class="pitches-subsection-label header-text-style">Featured pitch</span>
       <div class="pitch" *ngIf="this.featured !== null">
         <div class="thumbnail-container">
           <div
@@ -11,12 +11,13 @@
             [style.background-image]="'url(' + this.featured?.thumbnail_url + ')'"
           ></div>
         </div>
+        
         <div class="pitch-details">
           <a
             [href]="'/pitches/' + this.featured?.key"
             class="header-text-style pitch-funding-purpose"
           >
-            {{ this.featured?.funding_purpose }}
+            {{ this.featured?.name }}
           </a>
 
           <div class="amount-funded-percentage">
@@ -48,43 +49,41 @@
           <div class="pitch-description">
             {{ this.featured?.brief_description }}
           </div>
+
+          <div class="buttons">
+            <a [href]="'/pitches/' + this.featured?.key" class="button">View Pitch</a>
+            <a [href]="'/pitches/' + this.featured?.key + '/contribution'" class="button secondary">Make a contribution</a>
+          </div>
         </div>
       </div>
     </section>
 
     <div
-      class="recommended-sections"
       *ngFor="let section_name of this.recommended_sections"
-    >
-      <section
-        class="pitches-tiles one-display-size dark-style content-wrapper section-header"
       >
-        <div class="header-text-style small section-name">
-          {{section_name}}
-        </div>
-        <a
-          class="button bordered section-more"
-          [href]="'/categories/' + section_name"
+        <section
+          class="pitches-tiles one-display-size dark-style section-header"
         >
-          Browse all
-        </a>
-      </section>
-
-      <swiper-container class="content-wrapper swiper-container" [breakpoints]="this.sliderBreakpoints">
-        <div class="slider-buttons" slot="container-end">
-          <div class="slider-button swiper-prev-slide" data-disabled="true"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="square" stroke-miterlimit="10" stroke-width="10" d="M328 112L184 256l144 144" class="ionicon-fill-none"></path></svg></div>
-          <div class="slider-button swiper-next-slide" [attr.data-disabled]="this.recommended[section_name].length === 1"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="square" stroke-miterlimit="10" stroke-width="10" d="M184 112l144 144-144 144" class="ionicon-fill-none"></path></svg></div>
-        </div>
-
-        <swiper-slide *ngFor="let pitch_recommended of this.recommended[section_name]">
+          <div class="header-text-style small section-name">
+            {{section_name}}: {{this.recommended_sections[section_name]?.length}}
+          </div>
+          <a
+            class="button bordered section-more"
+            [href]="'/categories/' + section_name"
+          >
+            Browse category
+          </a>
+        </section>
+        <!-- Pitches section. -->
+        <div class="page-eggs-layout" *ngIf="this.recommended_sections[section_name]?.length !== 0">
           <app-egg
             color_style="light"
+            *ngFor="let pitch_recommended of this.recommended[section_name]"
+            [is_draft]="false"
             [data]="pitch_recommended"
           ></app-egg>
-        </swiper-slide>
-      </swiper-container>
-    </div>
+        </div>
+      </div>
   </div>
-
   <app-footer></app-footer>
 </ion-content>

@@ -1,0 +1,231 @@
+@import "../../../variables.scss";
+
+.kyc-verification-container {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    width: 100vw;
+
+    .kyc-steps-progress {
+        display: flex;
+        align-items: center;
+        gap: $_20_SPACING_SIZE;
+        width: 500px;
+        height: 10px;
+        margin-top: $_10_SPACING_SIZE;
+
+        .step {
+            display: grid;
+            place-items: center;
+            flex: 1;
+            height: 100%;
+            background: $BACKGROUND_COLOR;
+
+            &[data-active="true"] {
+                background: $SECONDARY_THEME_COLOR !important;
+                border-color: $SECONDARY_THEME_COLOR !important;
+            }
+
+            &[data-completed="true"] {
+                background: $SUCCESS_COLOR !important;
+            }
+
+            &[data-last="true"] {
+                height: fit-content;
+                border-radius: 100px;
+            }
+
+            ion-icon {
+                font-size: 30px;
+            }
+        }
+    }
+
+    .slide-header-icon {
+        height: 78px;
+        width: 55px;
+        margin: $_20_SPACING_SIZE auto;
+    }
+
+    .kyc-wrapper {
+        height: fit-content;
+        width: 500px;
+        border: $BORDER;
+        border-radius: 12px;
+        background: $BACKGROUND_COLOR;
+        padding: $_10_SPACING_SIZE;
+    }
+
+    .slide-wrapper {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        padding: $_20_SPACING_SIZE;
+
+        .centered-content {
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .platform-logo {
+            width: 40%;
+            align-self: center;
+            margin-bottom: $_20_SPACING_SIZE;
+            text-align: center;
+        }
+
+        li {
+            display: flex;
+            gap: $_20_SPACING_SIZE;
+            list-style: none;
+            margin-bottom: $_15_SPACING_SIZE;
+            transform: translateX(-20px);
+
+            svg {
+                height: 80px;
+                transform: translateY(-20px);
+            }
+        }
+
+        a {
+            align-self: center;
+            margin-bottom: $_5_SPACING_SIZE;
+        }
+    }
+}
+
+// Shows the permission status:
+.permission-status {
+    &[data="true"] {
+        .permission-status-icon {
+            border-color: $SUCCESS_COLOR !important;
+        }
+
+        .paragraph-text-style,
+        ion-icon {
+            color: $SUCCESS_COLOR !important;
+        }
+    }
+    
+    .permission-status-icon {
+        display: grid;
+        place-items: center;
+        border: $BORDER;
+        border-color: $DANGER_COLOR;
+        border-radius: 100px;
+        height: 100px;
+        width: 100px;
+        margin: 40px auto $_20_SPACING_SIZE auto;
+    }
+
+    ion-icon {
+        font-size: 40px;
+    }
+
+    ion-icon,
+    .paragraph-text-style {
+        color: $DANGER_COLOR !important;
+    }
+
+    .paragraph-text-style {
+        font-weight: bold;
+        opacity: 1 !important;
+    }
+}
+
+// Taking a selfie:
+.snapshot-container {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    margin: $_20_SPACING_SIZE 0;
+    
+    .selfie-image {
+        height: 280px;
+        width: 200px;
+        border-radius: 200px;
+        border: 10px solid $SECONDARY_THEME_COLOR;
+    }
+
+    .selfie-image-preview {
+        width: 300px;
+        height: 300px;
+    }
+
+    .selfie-image,
+    .selfie-image-preview,
+    .id-document-container {
+        background-position: center center;
+        background-repeat: no-repeat !important;
+        background-size: contain;
+        background: transparent;
+        margin-top: $_20_SPACING_SIZE;
+    }
+
+    .id-document-container {
+        width: 300px;
+        height: 200px;
+        position: relative;
+        --border-size: 10px;
+        --border-color: #CA9627;
+        
+        &::before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--border-color) var(--border-size), transparent var(--border-size)) 0 0,
+                        linear-gradient(to right, var(--border-color) var(--border-size), transparent var(--border-size)) 0 100%,
+                        linear-gradient(to left, var(--border-color) var(--border-size), transparent var(--border-size)) 100% 0,
+                        linear-gradient(to left, var(--border-color) var(--border-size), transparent var(--border-size)) 100% 100%,
+                        linear-gradient(to bottom, var(--border-color) var(--border-size), transparent var(--border-size)) 0 0,
+                        linear-gradient(to bottom, var(--border-color) var(--border-size), transparent var(--border-size)) 100% 0,
+                        linear-gradient(to top, var(--border-color) var(--border-size), transparent var(--border-size)) 0 100%,
+                        linear-gradient(to top, var(--border-color) var(--border-size), transparent var(--border-size)) 100% 100%;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+        }
+
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    }
+}
+
+button,
+.button {
+    width: 100%;
+}
+
+// Mobile of the KYC Verification.
+@media screen and (max-width: 650px) {
+    .kyc-wrapper {
+        border: none !important;
+        background: transparent !important;
+        width: 400px !important;
+    }
+    
+    .kyc-steps-progress {
+        width: 340px !important;
+    }
+
+    select,
+    button.secondary {
+        background-color: $BACKGROUND_COLOR;
+    }
+}
+
+// Mobile of the KYC Verification.
+@media screen and (max-width: 375px) {
+    .kyc-wrapper {
+        width: 350px !important;
+    }
+    
+    .kyc-steps-progress {
+        width: 300px !important;
+    }
+}
+

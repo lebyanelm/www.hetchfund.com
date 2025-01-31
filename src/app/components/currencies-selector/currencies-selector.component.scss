@@ -1,5 +1,9 @@
 @import "../../../variables.scss";
 
+.currency-selector-container {
+  padding: $_20_SPACING_SIZE;
+}
+
 .currencies {
   border-top: $BORDER;
   width: calc(100% - 8px);

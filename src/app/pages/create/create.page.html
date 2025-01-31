@@ -1,15 +1,17 @@
 <ion-content>
   <app-header [hasBackground]="true"></app-header>
 
-  <!-- Header that shows the steps of the pitch creation process -->
-  <app-pitch-create-steps
-    [step]="1"
-    [saveMethod]="this.saveDraftEdits"
-    [binder]="this"
-    [draftProgress]="this.basicPitch?.draft_progress"
-  ></app-pitch-create-steps>
+  
 
   <div class="page-content content-wrapper">
+    <!-- Header that shows the steps of the pitch creation process -->
+    <app-pitch-create-steps
+      [step]="1"
+      [saveMethod]="this.saveDraftEdits"
+      [binder]="this"
+      [draftProgress]="this.basicPitch?.draft_progress"
+    ></app-pitch-create-steps>
+    
     <div class="header-text-style">Basics</div>
     <div class="paragraph-text-style">
       <ion-icon name="information-circle"></ion-icon> Brief your potential
@@ -106,7 +108,6 @@
         </div>
       </div>
     </div>
-    <!-- https://storage.googleapis.com/hetchfund_files_bucket/support%40towardscommonfoundry.com/12cb17a5-4009-43c1-8719-7ea7dfbfa5f6.mp4 -->
 
     <div class="field-section">
       <div class="field-section-description">

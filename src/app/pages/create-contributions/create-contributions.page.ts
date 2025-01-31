@@ -40,6 +40,8 @@ export class CreateContributionsPage implements OnInit {
     "miscellaneous",
   ]
 
+  islivepitch = false;
+
   constructor(
     public currencyService: CurrencyResolverService,
     private eggService: EggService,
@@ -61,17 +63,19 @@ export class CreateContributionsPage implements OnInit {
     };
 
     this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {
-      this.draft_key = queryParamMap.get('draft_key');
-      if (this.draft_key) {
-        this.eggService.getSavedDraft(this.draft_key).then((draft: IEgg) => {
-          this.draft = draft;
+      this.draft_key = queryParamMap.get('draft_key') || queryParamMap.get('pitch_key');
+      this.islivepitch = queryParamMap.get('islive') === '1' ? true : false;
+
+      // Pull the draft from the backend
+      this.eggService.get(this.draft_key, { isDraft: !this.islivepitch })
+        .then((data) => {
+          this.draft = data;
           this.finances = this.draft.finances;
 
           // Set the saved and recovered values.
-          this.hetchingGoal = this.draft?.hetching_goal || 0;
+          this.hetchingGoal = this.draft?.hetching_goal;
           this.pitchPeriod = this.draft?.pitch_period || 2;
         });
-      }
     });
   }
 
@@ -100,14 +104,16 @@ export class CreateContributionsPage implements OnInit {
         today.setMonth(today.getMonth() + this.pitchPeriod) / 1000;
 
     // Save the edits.
+    const payload = {
+      key: this.draft_key,
+      hetching_goal: this.getTotalCosts(),
+      finances: this.finances,
+      ending_timestamp: pitchEndingTimestamp || null,
+      pitch_period: this.pitchPeriod || null,
+    }
+
     return this.eggService
-      .saveDraftEdits({
-        key: this.draft_key,
-        hetching_goal: this.getTotalCosts() || 0,
-        finances: this.finances,
-        ending_timestamp: pitchEndingTimestamp || null,
-        pitch_period: this.pitchPeriod || null,
-      })
+      .saveDraftEdits(payload)
       .then(() => {
         this.routerService.route(['pitches', 'create', 'rewards'], {
           draft_key: this.draft_key,
@@ -122,13 +128,13 @@ export class CreateContributionsPage implements OnInit {
 
   getTotalCosts() {
     return (
-      parseFloat(this.finances?.design_and_prototype?.amount || '0') +
+      parseFloat(this.finances?.research_and_development?.amount || '0') +
       parseFloat(this.finances?.regulatory_compliance?.amount || '0') +
-      parseFloat(this.finances?.development?.amount || '0') +
-      parseFloat(this.finances?.testing?.amount || '0') +
-      parseFloat(this.finances?.professional_fees?.amount || '0') +
-      parseFloat(this.finances?.final_development?.amount || '0') +
-      parseFloat(this.finances?.reward_fulfillment?.amount || '0')
+      parseFloat(this.finances?.manufacturing?.amount || '0') +
+      parseFloat(this.finances?.packaging?.amount || '0') +
+      parseFloat(this.finances?.shipping?.amount || '0') +
+      parseFloat(this.finances?.labor?.amount || '0') +
+      parseFloat(this.finances?.miscellaneous?.amount || '0')
     );
   }
 }

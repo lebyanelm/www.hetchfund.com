@@ -1,0 +1,31 @@
+<ion-content>
+  <app-header [hasBackground]="true"></app-header>
+
+  <div class="page-content content-wrapper">
+    <!-- Header that shows the steps of the pitch creation process -->
+    <app-pitch-create-steps
+      [step]="6"
+      [saveMethod]="this.sendReview"
+      [draftProgress]="this.draft?.draft_progress"
+      [binder]="this"
+    ></app-pitch-create-steps>
+
+    <!-- The box containing the review status. -->
+    <div class="payment-response-container" *ngIf="this.draft">
+      <div class="payment-status-circled-icon" [attr.data-success]="this.draft?.status === 'drafting' ? null : (this.draft?.status === 'approved' ? true : false)"><ion-icon [name]="'cloud-upload-outline'"></ion-icon></div>
+      <div class="header-text-style payment-status-text">{{this.draft?.status === 'drafting' ? 'Review not requested yet.' : (this.draft?.status === 'review_rejected' ? 'Review has been rejected.' : 'Pitch has been approved.')}}</div>
+  
+      <!-- Description of the payment. -->
+      <div class="paragraph-text-style payment-status-description">{{this.draft?.status === 'drafting' ? 'You haven\'t requested for review yet, click the button below to send your Pitch for review.' : (this.draft?.status === 'review_rejected' ? this.draft?.status_message  : 'Pitch has been approved.')}}</div>
+      <div class="payment-status-sub" *ngIf="this.draft?.status == 'review_rejected'">Fix the following: {{this.draft?.status_fields}}.</div>
+  
+      <br>
+      <div class="paragraph-text-style"><a href="">Read our review standards</a></div>
+  
+      <div class="buttons" *ngIf="this.draft?.status === 'drafting' || this.draft?.status === 'review_rejected'">
+        <button (click)="sendReview()">Submit for review</button>
+      </div>
+    </div>
+</div>
+<app-footer></app-footer>
+</ion-content>

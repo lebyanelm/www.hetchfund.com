@@ -3,25 +3,25 @@
 
   <div class="page-content content-wrapper">
     <div class="back-buttons-container">
-      <a class="back-buttons" href="/history/contributions">
+      <a class="back-buttons" href="/history/contributions" *ngIf="this.sessionService?.sessionToken">
         <ion-icon name="chevron-back-sharp"></ion-icon>
         <span>View all contributions</span>
       </a>
     </div>
 
-    <div class="paper-document-wrapper">
+    <div class="paper-document-wrapper" *ngIf="this.contribution">
       <div class="paper-document-immitation">
         <div class="document-header">
           <div class="document-logo-address">
             <div class="logo-container">
               <img
-                src="https://ci3.googleusercontent.com/proxy/sK_MCe2PU-p5n3zH9zuKRJTw5Sv1QvBADYtR-woyIZf5ZV4fTzy3FJKan3vVgSj1onHenbQdxzh5kSQ19qJuMGeN6Mc2HCJ8T90vvtqTr13MV3PgBFUroTq79v_lQJYxCS_JCFxIirV7XC03_2I5dCEFdwryv5f124P_u3FkmE1XjDASEg=s0-d-e1-ft#http://cdn.mcauto-images-production.sendgrid.net/556f4642b50fe9f8/627c7149-c0f9-4397-b901-fb8723ddfd76/802x121.png"
+                src="/assets/hetchfund-paperlogo.svg"
                 alt="Hetchfund Paper Logo"
               />
             </div>
 
             <div class="company-address">
-              <span class="company-name">HETCHFUND.COM (PTY) LTD</span>
+              <b class="company-name">HETCHFUND.COM</b>
               <span>4006 PENCIL FISH CR</span>
               <span>KAALFONTEIN EXT. 10</span>
               <span>MIDRAND</span>
@@ -30,12 +30,13 @@
             </div>
           </div>
 
+          <br>
           <div class="header-text-style small">Contribution Receipt</div>
           <div class="paragraph-text-style">Helping entreprenuers grow</div>
 
           <div class="header-text-style xs">Hope has been received</div>
           <div class="paragraph-text-style">
-            You just got your future a little more funded
+            A future has been funded
           </div>
         </div>
 
@@ -45,61 +46,67 @@
           <table>
             <tr>
               <td>Contribution Amount</td>
-              <td>+ R 300</td>
+              <td>+ {{this.contribution.currency_symbol}} {{this.contribution.amount_in_currency.toFixed(2)}}</td>
             </tr>
             <tr>
               <td>Service Fees</td>
-              <td>- R 20</td>
+              <td>- {{this.contribution.currency_symbol}} {{this.contribution.fees_in_currency.total_fees.toFixed(2)}}</td>
             </tr>
             <tr class="key-attribute">
               <td>Pledged Amount</td>
-              <td>+ R 280</td>
+              <td>+ {{this.contribution.currency_symbol}} {{this.contribution.amount_in_currency_minus_fees.toFixed(2)}}</td>
             </tr>
 
-            <!-- EXTRA DETAILS -->
+            <!-- E  XTRA DETAILS -->
             <tr>
               <td>Transaction Identifier</td>
-              <td>6534dd4bd8a0d95a1fd206b9</td>
+              <td>{{this.contribution.key}}</td>
             </tr>
 
             <tr>
               <td>Payer Email</td>
-              <td><a href="mailto:">lebyane.lm@gmail.com</a></td>
+              <td><a href="mailto:" *ngIf="this.sessionService?.data?.email_address === this.contribution.payer || this.sessionService?.data?.email_address === this.contribution.payer.id">{{this.contribution.payer}} {{this.contribution.payer?.name ? "("+ this.contribution.payer?.name +")" : ""}}</a></td>
+              <td><a *ngIf="this.sessionService?.data?.email_address !== this.contribution.payer || this.sessionService?.data?.email_address !== this.contribution.payer.id">[PRIVATE]</a></td>
             </tr>
 
             <tr>
               <td>Status</td>
-              <td>Captured</td>
+              <td style="text-transform: capitalize;">{{this.contribution.status}}</td>
             </tr>
 
             <tr>
               <td>Date</td>
-              <td>22 Oct, 2023</td>
+              <td>{{this.contribution.time_created.formatted_date}}</td>
             </tr>
 
             <tr>
               <td>Time</td>
-              <td>10:28:59</td>
+              <td>{{this.contribution.time_created.time}}</td>
             </tr>
 
             <tr>
-              <td>Transaction Method</td>
-              <td>Yoco</td>
+              <td>Transaction Source</td>
+              <td style="text-transform: capitalize;">{{this.contribution.payment_source}}</td>
             </tr>
 
             <tr>
               <td>Contract Purpose</td>
               <td class="long-text">
-                To: simplify and improve the lives of our customers through the
-                creation of innovative, eco-friendly, and practical solutions.
+                {{this.contribution.pitch_name}}
               </td>
             </tr>
 
-            <tr>
+            <tr *ngIf="this.contribution.reward_name">
               <td>Reward Selected</td>
+              <td>
+                {{this.contribution.reward_name}}
+              </td>
+            </tr>
+
+            <tr *ngIf="this.contribution.rewards_address">
+              <td>Reward Address</td>
               <td class="long-text">
-                Receive two AirePure air purifiers with customization options
-                and premium features.
+                {{this.contribution.rewards_address}}
               </td>
             </tr>
           </table>
@@ -108,12 +115,12 @@
 
           <div class="progress-contributed">
             <div class="header-text-style small">
-              Progress contributed (4.9%):
+              Progress contributed ({{this.contribution.progress_contributed}}%):
               <span class="progress-indicator"></span>
             </div>
             <div class="progress-contributed-bar-total">
-              <div class="progress-contributed-bar-before"></div>
-              <div class="progress-contributed-bar-current"></div>
+              <div class="progress-contributed-bar-before" [style.width]="this.contribution.from_progress + '%'"></div>
+              <div class="progress-contributed-bar-current" [style.width]="this.contribution.progress_contributed + '%'"></div>
             </div>
           </div>
         </div>
@@ -133,6 +140,13 @@
             backers at all times.
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="paper-document-wrapper" *ngIf="!this.contribution">
+      <div class="paper-document-immitation">
+        <div class="header-text-style">{{ this.responseStatus === 0 ? "Something unexpected happened" : (this.responseStatus === 404 ? "Contribution not found" : (this.responseStatus === 403 ? "Not allowed to view" : "Something went wrong")) }}</div>
+        <div class="paragraph-text-style">Error: {{this.resonseMessage}}</div>
       </div>
     </div>
   </div>

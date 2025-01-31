@@ -1,36 +1,50 @@
+<div class="alert-banner-container page-content content-wrapper" *ngIf="this.isShownVerificationAlert">
+  <div class="banner-message-container">
+    <div class="header-text-style small">Your Identity has not been verified.</div>
+    <div class="paragraph-text-style">We are required by law to comply with Anti-Fraud and KYC regulations. Please verify your identity for the safety of everyone in this platform.</div>
+  </div>
+  <div class="buttons banner-buttons-contaner">
+    <button (click)="this.startVerification()">Verify identity</button>
+    <button class="secondary">Do this later</button>
+  </div>
+</div>
+
 <div
   class="header-container content-wrapper"
   [attr.data-is-logovisible]="true"
-  (window:scroll)="onScroll($event)"
 >
-  <div class="search-button">
-    <a href="/search"><ion-icon name="search-outline"></ion-icon></a>
-  </div>
+  
 
-  <a href="/">Discover</a>
-  <a href="/categories">Categories</a>
-
-  <div class="start-pitch-button">
-    <a href="/pitches/create/basics">Start a pitch</a>
-  </div>
-
-  <!-- Space -->
-  <a class="hetchfund-header-logo" href="/pitches">
-    <img src="/assets/hetchfund+white.svg" alt="Hetchfund Logo" />
-  </a>
-  <div class="flexbox-space"></div>
-
-  <!-- Login / Signup button -->
-  <a href="/signin" *ngIf="!this.sessionService.sessionToken"
-    >Sign in or join our community</a
-  >
-  <a
-    [href]="'/hetcher/' + this.sessionService.data?.username"
-    *ngIf="this.sessionService.sessionToken"
-    >{{ this.sessionService.data?.display_name }}</a
-  >
-  <div class="hamburger-menu-button" (click)="this.sidebarService.toggle(true)">
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
+  <div class="header-wrapper">
+    <div class="search-button">
+      <a href="/search"><ion-icon name="search-outline"></ion-icon></a>
+    </div>
+  
+    <a href="/">Discover</a>
+    <a href="/categories">Categories</a>
+  
+    <div class="start-pitch-button">
+      <a href="/pitches/create/basics">Start a pitch</a>
+    </div>
+  
+    <!-- Space -->
+    <a class="hetchfund-header-logo" href="/pitches">
+      <img src="/assets/hetchfund+white-2.svg" alt="Hetchfund Logo" />
+    </a>
+    <div class="flexbox-space"></div>
+  
+    <!-- Login / Signup button -->
+    <a href="/signin" *ngIf="!this.sessionService.sessionToken"
+      >Sign in or join our community</a
+    >
+    <a
+      [href]="'/hetcher/' + this.sessionService.data?.username"
+      *ngIf="this.sessionService.sessionToken"
+      >{{ this.sessionService.data?.display_name }}</a
+    >
+    <div class="hamburger-menu-button" (click)="this.sidebarService.toggle(true)">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </div>
   </div>
 </div>

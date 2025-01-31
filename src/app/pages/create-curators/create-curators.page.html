@@ -1,15 +1,17 @@
 <ion-content>
   <app-header [hasBackground]="true"></app-header>
 
-  <!-- Header that shows the steps of the pitch creation process -->
-  <app-pitch-create-steps
-    [step]="5"
-    [binder]="this"
-    [saveMethod]="this.saveChanges"
-    [draftProgress]="this.draft?.draft_progress"
-  ></app-pitch-create-steps>
+
 
   <div class="page-content content-wrapper">
+    <!-- Header that shows the steps of the pitch creation process -->
+    <app-pitch-create-steps
+      [step]="5"
+      [binder]="this"
+      [saveMethod]="this.saveChanges"
+      [draftProgress]="this.draft?.draft_progress"
+      ></app-pitch-create-steps>
+
     <div class="header-text-style">Add curators</div>
     <div class="field-status optional">(OPTIONAL FOR ONE MEMBER)</div>
 

@@ -144,37 +144,9 @@
   </a>
 
   <a
-    (click)="this.navigateTo('/pitches/create/documentation')"
-    class="step no-decoration"
-    [attr.is-current]="this.step === 7"
-  >
-    <span
-      >Documentation
-      <ion-icon
-        *ngIf="this.draftProgress?.documentation?.has_unread_reviews"
-        class="danger-text-style"
-        name="ellipse"
-      ></ion-icon
-    ></span>
-    <div
-      class="status"
-      [attr.data-required]="this.draftProgress?.documentation?.required"
-      [attr.data-status]="this.draftProgress?.documentation?.value"
-    >
-      {{
-        this.draftProgress?.documentation?.required
-          ? this.draftProgress?.documentation?.value
-            ? "Complete"
-            : "Incomplete"
-          : "Optional"
-      }}
-    </div>
-  </a>
-
-  <a
     (click)="this.navigateTo('/pitches/create/review')"
     class="step no-decoration"
-    [attr.is-current]="this.step === 8"
+    [attr.is-current]="this.step === 6"
   >
     <span>Review</span>
     <div
@@ -184,7 +156,7 @@
     >
       {{
         this.draftProgress?.review?.required
-          ? this.draftProgress?.basic?.value
+          ? this.draftProgress?.review?.value
             ? "Complete"
             : "Incomplete"
           : "Optional"

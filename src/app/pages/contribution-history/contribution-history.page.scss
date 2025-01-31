@@ -3,7 +3,8 @@
 .contributions-balance-container {
   display: flex;
   padding: $_20_SPACING_SIZE;
-  background: $THEME_COLOR;
+  background: $DARK_COLOR;
+  border: $BORDER;
   border-radius: $BORDER_RADIUS;
   height: 250px;
   align-items: center;
@@ -42,8 +43,8 @@
 }
 
 .all-transactions-history {
+  background: $DARK_COLOR;
   border: $BORDER;
-  border-color: $GRAY_COLOR;
   border-radius: $BORDER_RADIUS;
   padding: $_20_SPACING_SIZE;
 }
@@ -82,7 +83,6 @@
   background: $BACKGROUND_COLOR;
   text-align: center;
   cursor: pointer;
-  font-family: "IBM Plex Sans Medm", $FONT_FAMILY;
 
   &:hover {
     border-color: $DARK_COLOR;
@@ -144,8 +144,7 @@
 }
 
 .all-transactions-history table tbody tr:not(:last-child) td {
-  border-bottom: $BORDER;
-  border-bottom-color: $GRAY_COLOR;
+  border-bottom: $BORDER_THIN;
 }
 
 // PAGINATION SECTION.

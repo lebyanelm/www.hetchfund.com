@@ -129,7 +129,8 @@
 
 .hetcher-information-container .hetcher-title *,
 .hetcher-information-container .hetcher-follow-stats .name * {
-  font-size: small;
+  font-weight: normal !important;
+  letter-spacing: 2px;
   color: transparentize($DARK_COLOR, 0.4);
 }
 
@@ -139,7 +140,7 @@
   align-items: center;
   margin: 0 0;
   padding: 20px 0;
-  gap: $_20_SPACING_SIZE;
+  gap: 30px;
   border-top: $BORDER;
 }
 
@@ -150,7 +151,6 @@
 
 .hetcher-information-container .hetcher-follow-stats .value {
   font-weight: 900;
-  font-family: "Arial Black", sans-serif;
   font-size: larger;
 }
 
@@ -188,6 +188,7 @@
 .tabs a:hover,
 .tabs a[isFocused="true"] {
   border-color: $SECONDARY_THEME_COLOR;
+  color: $SECONDARY_THEME_COLOR !important;
 }
 
 .curated-egg-campaigns {
@@ -196,6 +197,7 @@
 
 .tab-layout {
   width: 100%;
+  padding: $_20_SPACING_SIZE 0 !important;
 }
 
 // MOBILE DEVICES

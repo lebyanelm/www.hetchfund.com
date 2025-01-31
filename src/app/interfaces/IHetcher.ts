@@ -35,4 +35,5 @@ export interface IHetcher {
   media_files?: any[]; // TODO: make IMediaFile
 
   is_collective?: boolean;
+  kyc_status?: "unverified" | "pending" | "verified";
 }

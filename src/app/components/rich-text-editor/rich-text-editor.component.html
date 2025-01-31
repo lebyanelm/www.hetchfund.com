@@ -1,29 +1,35 @@
 <div class="editor-container">
-  <div id="editor" *ngIf="this.isReadOnly === false"></div>
+  <div id="editor" *ngIf="!this.isReadOnly"></div>
 
-  <div class="ce-block" *ngIf="this.isReadOnly === true && this.data !== null">
+  <div class="ce-block"  *ngIf="this.isReadOnly">
     <div class="fullscreen-image" *ngIf="this.currentFullscreenImage" (click)="this.zoomInOut(null)">
         <div class="image-container">
             <img [src]="this.currentFullscreenImage" alt="Fullscreen Image">
         </div>
     </div>
-    
+
     <div class="ce-block__content">
         <ng-container [ngSwitch]="block?.type" *ngFor="let block of this.data; let i = index">
             <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
                 <div fxFlex="92">
+                    <br>
+                    <br>
+                    
                     <!-- Paragraph -->
                     <div *ngSwitchCase="'paragraph'">
-                        <div class="ce-paragraph cdx-block" [innerHTML]="block?.data?.text">
+                        <div class="paragraph-text-style" [innerHTML]="block?.data?.text">
                         </div>
                     </div>
 
                     <!-- List -->
-                    <div *ngSwitchCase="'list'">
+                    <div *ngSwitchCase="'nestedList'">
                         <ul [ngClass]="['cdx-block', 'cdx-list', 'cdx-list--' + block?.data?.style]">
-                            <li class="cdx-list__item" *ngFor="let i of block?.data?.items" [innerHTML]="i"></li>
+                            <li class="paragraph-text-style" *ngFor="let i of block?.data?.items" [innerHTML]="i.content"></li>
                         </ul>
                     </div>
+
+                    <!-- Delimeter -->
+                    <div *ngSwitchCase="'delimeter'" class="delimeter"></div>
 
                     <!-- Header -->
                     <div style="height: fit-content;" *ngSwitchCase="'header'"
@@ -35,15 +41,14 @@
                         <div class="cdx-block image-tool image-tool--filled" *ngIf="block?.data?.cdnUrl">
                             <div class="image-tool__image">
                                 <ng-container *ngIf="block?.data?.isImage; else videoTemplate">
-                                    <img width="100%" (click)="this.zoomInOut(block?.data?.cdnUrl)" class="image-tool__image-picture"
-                                        [src]="block?.data?.cdnUrl | safe: 'url'">
-                                    <div style="text-align: center; margin-top: 5px;" [innerHTML]="block?.data?.caption">
-                                    </div>
+                                    <div class="image" width="100%" (click)="this.zoomInOut(block?.data?.cdnUrl)" class="image-tool__image-picture"
+                                        [style]="'background-image: url(' + block?.data?.cdnUrl + ')'" data-title="Click to zoom"></div>
+                                    <div style="text-align: center; margin-top: 5px;" [innerHTML]="block?.data?.caption"></div>
                                 </ng-container>
 
                                 <ng-template #videoTemplate>
-                                    <video class="image-tool__image-picture" autoplay loop controls
-                                        [src]="block?.data?.file?.url | safe: 'url'"></video>
+                                    <app-video class="image-tool__image-picture" autoplay loop controls
+                                        [src]="block?.data?.file?.url"></app-video>
                                     <div style="text-align: center; margin-top: 5px;" [innerHTML]="block?.data?.caption">
                                     </div>
                                 </ng-template>
@@ -91,5 +96,9 @@
             </div>
         </ng-container>
     </div>
+
+    <br>
+    <br>
+    <img src="/assets/Pattern_5.svg" alt="Pattern" width="100%">
   </div>
 </div>

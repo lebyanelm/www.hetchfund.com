@@ -50,6 +50,11 @@
   padding: 0 0;
 }
 
+// Ionic Backdrop
+ion-backdrop {
+  opacity: 0.9 !important;
+}
+
 // Delimeter element
 .delimeter-tool * {
   letter-spacing: 10px;
@@ -57,7 +62,7 @@
   margin: 40px 0;
   text-align: center;
   font-weight: 900;
-  font-family: "IBM Plex Mono";
+  font-family: $FONT_FAMILY_MONOSPACED !important;
   opacity: 0.4;
 }
 
@@ -151,6 +156,11 @@ textarea {
 
 * {
   color: #FFFFFF !important;
+  font-variation-settings:
+    "slnt" 0,
+    "CASL" 0,
+    "CRSV" 1,
+    "MONO" 0.49;
 }
 
 /* width */
@@ -176,7 +186,6 @@ textarea {
 // PAGE CONTENT
 body .page-content {
   padding: $_20_SPACING_SIZE;
-  padding-top: 80px;
   width: 100vw !important;
   background: $BACKGROUND_COLOR;
 }
@@ -285,36 +294,6 @@ body .page-content::before {
   color: $DARK_COLOR;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-  background-color: white;
-  padding: 8px 16px;
-  border-radius: 100%;
-  border: 2px solid black;
-  color: red;
-}
-
-swiper-slide {
-  padding: 0 $_20_SPACING_SIZE;
-  
-  svg {
-  transform: scaleY(4) !important;
-  }
-  
-//   &:not(:first-child) {
-//     padding-left: 20px;
-//   }
-
-//   &:not(:first-child) {
-//     padding-left: 40px;
-//   }
-
-//   &:last-child {
-//     width: calc(100%) !important;
-//     padding-left: 80px;
-//   }
-}
-
 // TOOLTIPS
 *[data-title] {
   position: relative;
@@ -333,8 +312,8 @@ swiper-slide {
   text-align: center;
   padding: $_10_SPACING_SIZE 0;
   border-radius: $BORDER_RADIUS;
-  border: 1px solid $LIGHT_COLOR;
-  font-size: 14px;
+  border: $BORDER;
+  font-size: smaller;
   font-weight: bolder;
   // letter-spacing: normal !important;
 
@@ -346,18 +325,6 @@ swiper-slide {
   z-index: 1000;
   pointer-events: none;
 }
-
-// *[data-title]::after {
-//   content: " ";
-//   position: absolute;
-//   visibility: hidden;
-//   top: -10%;
-//   left: 50%;
-//   margin-left: -5px;
-//   border-width: 5px;
-//   border-style: solid;
-//   border-color: $DARK_COLOR transparent transparent transparent;
-// }
 
 *[data-title]:hover::before,
 *[data-title]:hover::after {
@@ -385,11 +352,20 @@ swiper-slide {
 
 // FIXING THE TYPOGRAPHY
 *.theme-text-style {
-  color: $THEME_COLOR;
+  color: $SECONDARY_THEME_COLOR !important;
+  opacity: 1 !important;
 }
 
 *.gray-text-style {
   opacity: 0.6;
+}
+
+*.center-text-style {
+  text-align: center !important;
+}
+
+*.normal-align-text-style {
+  text-align: left !important;
 }
 
 *.visually-hidden {
@@ -398,17 +374,16 @@ swiper-slide {
 }
 
 *.monospace {
-  font-family: "ProFont", "Fira Code", monospace !important;
+  font-family: $FONT_FAMILY_MONOSPACED !important;
 }
 
 .story-tab .ce-paragraph,
 .paragraph-text-style {
   display: block;
-  font-weight: medium; // Regular font weight
   font-size: 16px;
   text-align: justify;
-  font-family: $FONT_FAMILY;
-  opacity: 0.7;
+  font-family: $FONT_FAMILY !important;
+  color: $LIGHT_COLOR;
 }
 
 .paragraph-text-style.small {
@@ -432,7 +407,7 @@ swiper-slide {
 }
 
 .ce-paragraph {
-  font-family: "Archivo", sans-serif;
+  font-family: $FONT_FAMILY !important;
   font-size: 18px;
 }
 
@@ -521,9 +496,28 @@ ion-backdrop {
   font-family: $FONT_FAMILY_HEADER;
   margin-bottom: $_5_SPACING_SIZE;
   position: relative;
-  font-weight: bold;
+  font-weight: 900;
   color: $DARK_COLOR;
 }
+
+
+// PILL TEXTS
+.pill-text-style {
+  font-size: small;
+  padding: 5px;
+  border-radius: $BORDER_RADIUS;
+  background-color: transparentize($SUCCESS_COLOR, .5);
+  width: fit-content;
+
+  &.warning-style {
+    background-color: transparentize($SECONDARY_THEME_COLOR, .5);
+  }
+
+  &.danger-style {
+    background-color: transparentize($DANGER_COLOR, .5);
+  }
+}
+
 
 .story-tab .ce-header {
   color: $LIGHT_COLOR;
@@ -612,9 +606,8 @@ a,
 a > span {
   color: $THEME_COLOR;
   font-weight: 700;
-  text-underline-offset: 3px;
+  text-underline-offset: 2px;
   text-decoration-style: underline;
-  text-decoration-thickness: 2px;
 }
 
 a:hover,
@@ -684,23 +677,21 @@ input[type="file"]::file-selector-button {
   gap: $_10_SPACING_SIZE;
   outline: none;
   font-weight: 900;
-  font-family: "IBM Plex Sans Medm", $FONT_FAMILY;
   color: $WHITE_COLOR;
   margin: 10px 0;
   transition: transform 300ms ease-in-out;
-  text-transform: uppercase;
-  letter-spacing: 2px;
   text-align: center;
   margin-right: 10px;
   position: relative;
-  padding: $_10_SPACING_SIZE;
+  border: $BORDER;
+  // border-color: $SECONDARY_THEME_COLOR;
   border-radius: $BORDER_RADIUS;
   background: $SECONDARY_THEME_COLOR;
   cursor: pointer;
-  font-size: smaller !important;
+  font-size: medium !important;
   appearance: none !important;
   box-shadow: none !important;
-  border: none;
+  padding: 10px $_20_SPACING_SIZE;
 
   * {
     color: $LIGHT_COLOR !important;
@@ -743,7 +734,7 @@ button.secondary,
 button.bordered,
 .button.bordered {
   border: $BORDER;
-  background: $BACKGROUND_COLOR;
+  background: $DARK_COLOR;
   color: $DARK_COLOR;
   box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -797,7 +788,7 @@ textarea {
   border-radius: $BORDER_RADIUS;
   background: $BACKGROUND_COLOR !important;
   color: $WHITE_COLOR !important;
-  border: $BORDER !important;
+  border: $BORDER;
   cursor: pointer;
   text-decoration: none !important;
   margin: 0 10px 0 0;
@@ -1053,7 +1044,7 @@ select {
   appearance: none;
   outline: none;
   position: relative;
-  background: $BACKGROUND_COLOR;
+  background: $DARK_COLOR;
   border: $BORDER;
   border-radius: $BORDER_RADIUS;
   padding: 12px $_20_SPACING_SIZE;
@@ -1090,11 +1081,17 @@ select::-ms-expand {
 
   gap: 20px;
   row-gap: 50px;
-  padding: 0 $_20_SPACING_SIZE;
+  padding: 0 $_20_SPACING_SIZE $_20_SPACING_SIZE $_20_SPACING_SIZE;
 
   &.content-wrapper {
     padding-top: 0 !important;
   }
+}
+
+.swiper-wrapper {
+  display: flex !important;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
 }
 
 .page-eggs-layout .egg-container .campaign-progress {
@@ -1435,9 +1432,9 @@ svg {
   align-items: center;
   justify-content: center;
   width: 100%;
-  // height: 3px;
   border-top: $BORDER;
-  border-width: 5px;
+  border-color: $SECONDARY_THEME_COLOR;
+  border-width: 8px;
   margin: $_20_SPACING_SIZE 0;
   position: relative;
 }
@@ -1596,7 +1593,11 @@ svg {
 
 // MODALS
 .default-modal {
-  --backdrop-opacity: 0.95;
+  --backdrop-opacity: 0.98;
+  --border-radius: 20px;
+  --background: transparent;
+  --box-shadow: none;
+  --border: 10px solid white;
 }
 
 .settings-modal {
@@ -1627,7 +1628,16 @@ svg {
 }
 
 .consent-modal {
-  --height: 200px;
+  --height: 250px;
+  --border-radius: 8px;
+}
+
+.modal-content-wrapper {
+  padding: $_20_SPACING_SIZE;
+}
+
+.modal-buttons-wrapper {
+  padding: $_10_SPACING_SIZE $_20_SPACING_SIZE;
 }
 
 .modal-container {
@@ -1923,10 +1933,11 @@ section.pitches-tiles {
 
     .pitch-funding-purpose {
       font-size: 18px;
-      font-weight: bold;
+      font-weight: 900 !important;
       text-decoration: underline;
-      font-family: "Archivo Black", $FONT_FAMILY;
       color: $LIGHT_COLOR;
+      font-family: $FONT_FAMILY_HEADER !important;
+      
       &:hover {
         text-decoration-thickness: 2px;
       }
@@ -1949,12 +1960,13 @@ section.pitches-tiles {
         display: block;
         height: 15px;
         width: 100%;
-        background: transparentize($LIGHT_COLOR, 0.8);
+        background: $LIGHT_COLOR;
+        border: $BORDER_THIN;
       }
 
       .progress-current {
         height: 100%;
-        background-color: $SECONDARY_THEME_COLOR;
+        background-color: $SUCCESS_COLOR;
       }
     }
 
@@ -1987,6 +1999,8 @@ section.pitches-tiles {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    border: $BORDER;
+    border-radius: $BORDER_RADIUS;
   }
 
   &.one-display-size {
@@ -2013,7 +2027,14 @@ section.pitches-tiles {
     }
   }
 
-  
+  .buttons {
+    width: calc(100% + 10px);
+    display: flex;
+    
+    & > .button {
+      flex: 1;
+    }
+  }
 }
 
 section.pitches-tiles.dark-style {
@@ -2053,6 +2074,12 @@ section.pitches-tiles.dark-style {
   .footer-container .content-wrapper,
   .header-container.content-wrapper {
     padding: $_20_SPACING_SIZE 15% !important;
+  }
+}
+
+@media screen and (max-width: 1570px) {
+  .header-wrapper {
+    margin: $_20_SPACING_SIZE 0;
   }
 }
 
@@ -2110,7 +2137,7 @@ section.pitches-tiles.dark-style {
     padding-right: 0;
   }
 
-  .recommended-sections section .header-text-style.section-name *{
+  .recommended-sections section .section-name {
     font-size: 18px !important;
   }
 
@@ -2165,7 +2192,6 @@ section.pitches-tiles.dark-style {
     gap: 0 !important;
   }
 
-  // Header
   .header-container > a:not(.hetchfund-header-logo),
   .header-container .start-pitch-button {
     display: none;

@@ -1,33 +1,96 @@
 <ion-content>
   <app-header></app-header>
-  <div class="page-content content-wrapper">
-    <div class="article-wrapper">
-      <div class="article-header">
-        <a href="/support" class="back-button"
-          ><ion-icon name="chevron-back"></ion-icon> Back to all articles</a
-        >
-        <div class="header-text-style article-name">
-          How can I change the credit card on file for my account?
+  <div class="page-content">
+    <div class="content-wrapper split">
+      <div class="article-wrapper">
+        <div class="article-header">
+          <a href="/support" class="back-button"
+            ><ion-icon name="chevron-back"></ion-icon> Back to all articles</a
+          >
+  
+          <br>
+          <div class="article-category"
+            [contentEditable]="this.isCreateNew || this.isEditorMode"
+            #ArticleCategory>{{this.article?.category || "Article category"}}</div>
+          <div class="header-text-style article-name"
+            [contentEditable]="this.isCreateNew || this.isEditorMode"
+            #ArticleHeader>
+            {{this.article?.name || 'Article title'}}
+          </div>
+          
+          <div class="article-short-answer" *ngIf="!this.isCreateNew">
+            Last updated:<b> {{this.article?.age}}</b>
+          </div>
         </div>
-        <div class="article-short-answer">
-          Short Answer:<b> You can make changes in the settings page.</b>
+        
+        <!-- Control buttons for admins. -->
+        <div class="buttons" *ngIf="this.isCreateNew || this.isEditorMode">
+          <button (click)="this.createNewArticle()" *ngIf="this.isCreateNew">Create new article</button>
+          <button (click)="this.toggleVisibility()" *ngIf="!this.isCreateNew">Turn {{this.article?.is_published === true ? "off" : "on"}} article visibilty</button>
+          <button (click)="this.saveArticleChanges()" class="secondary" *ngIf="this.isEditorMode">Save changes made</button>
+        </div>
+  
+        <div class="article-body">
+          <app-rich-text-editor
+            [isAwaitData]="true"
+            #RichTextEditor></app-rich-text-editor>
+        </div>
+  
+        <div class="article-footer">
+          <div class="header-text-style small">Was this article helpful?</div>
+          <div class="article-footer-buttons">
+            <div>
+              <button class="secondary" (click)="this.upvote()" [attr.data-active]="this.article?.upvotes_list.includes(this.sessionService?.data?.email_address)">Yes</button>
+              <span>{{this.upvotes || 0}}%</span>
+            </div>
+            <div>
+              <button class="secondary" (click)="this.downvote()" [attr.data-active]="this.article?.downvotes_list.includes(this.sessionService?.data?.email_address)">No</button>
+              <span>{{this.downvotes || 0}}%</span>
+            </div>
+          </div>
+
+          <br>
+          <br>
+          <div class="delete-article-button center-text-style" (click)="this.deleteArticle()" *ngIf="!this.isCreateNew">Delete this article</div>
         </div>
       </div>
 
-      <div class="article-body">
-        <app-rich-text-editor></app-rich-text-editor>
-      </div>
-
-      <div class="article-footer">
-        <div class="header-text-style">Did this article help you?</div>
-        <div class="article-footer-buttons">
-          <button class="secondary"><ion-icon name="heart"></ion-icon></button>
-          <button class="secondary">
-            <ion-icon name="heart-dislike"></ion-icon>
-          </button>
-        </div>
+      <div class="related-articles">
+        <div class="header-text-style">Related articles</div>
+        <div class="paragraph-text-style">You might be interested in the following articles as well.</div>
+        
+        <ul>
+          <li class="related-article" *ngFor="let relatedArticle of this.relatedArticles"><a [href]="'/support/article/' + relatedArticle?.key">
+            <div class="thumbnail-image" [style.background-image]="'url(' + relatedArticle.thumbnail_image + ')'"></div>
+            <div class="name">{{relatedArticle?.name}}</div>
+          </a></li>
+        </ul>
       </div>
     </div>
   </div>
+
+  <ion-modal class="consent-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Confirm deleting article</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <div class="modal-content-wrapper">
+          <div class="paragraph-text-style">"{{this.article.name}}" is about to be deleted please confirm this action. <b>Remember: Deleting an article will permenatly remove it from the platform.</b></div>
+        </div>
+      </ion-content>
+
+      <ion-toolbar>
+        <div class="modal-buttons-wrapper">
+          <button (click)="this.ionModal.dismiss(true)">Confirm delete</button>
+          <button (click)="this.ionModal.dismiss(false)" class="secondary">Cancel</button>
+        </div>
+      </ion-toolbar>
+    </ng-template>
+  </ion-modal>
+
   <app-footer></app-footer>
 </ion-content>

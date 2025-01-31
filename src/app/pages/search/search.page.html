@@ -46,6 +46,7 @@
           <app-egg
             *ngFor="let result of this.searchResults"
             ref="search"
+            [is_draft]="false"
             [data]="result"
           ></app-egg>
         </div>

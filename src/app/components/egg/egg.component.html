@@ -11,13 +11,16 @@
     <div
       class="thumbnail-container"
       [style.background-image]="'url(' + this.data?.thumbnail_url + ')'"
-    ></div>
+    >
+      <img src="/assets/award-icon.svg" alt="">
+      <div class="company-logo-container" [style.background-image]="'url(' + this.curator?.profile_image + ')'"></div>
+  </div>
     <div class="egg-campaign-details">
       <div class="name-bookmark-section">
         <a
           class="name undecorated smaller"
           [href]="
-            this.data?.is_draft
+            this?.is_draft
               ? '/pitches/create/basics?draft_key=' + this.data?.key
               : '/pitches/' + this.data?.key
           "
@@ -79,4 +82,14 @@
       </div>
     </div>
   </div>
+
+  <div class="bottom-action-button" *ngIf="this.ref === 'profile-page' && ['drafted', 'issued'].includes(this.tab)" (click)="this.tab === 'drafted' ? this.deleteDraft(this.data?.key) : this.endPitch(this.data?.key)">
+    {{ this.tab === 'drafted' ? 'Delete Draft' : 'End Pitch' }}
+  </div>
+  
+  <a class="bottom-action-button normal" 
+    [href]="'/pitches/' + this.data?.key"
+    *ngIf="!(this.ref === 'profile-page' && ['drafted', 'issued'].includes(this.tab))" (click)="this.tab === 'drafted' ? this.deleteDraft(this.data?.key) : this.endPitch(this.data?.key)">
+      View Pitch
+  </a>
 </div>

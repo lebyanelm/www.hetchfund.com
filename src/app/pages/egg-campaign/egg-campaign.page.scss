@@ -14,6 +14,28 @@
   img {
     margin: 20px 0 $_10_SPACING_SIZE 0;
   }
+
+  table {
+    
+    tr td {
+      padding: $_15_SPACING_SIZE 0;
+      vertical-align: text-top;
+
+      &:first-child {
+        justify-self: start;
+        width: 30%;
+        font-family: $FONT_FAMILY_HEADER;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: small;
+      }
+    }
+
+    tr:not(:last-child) td:last-child {
+      border-bottom: $BORDER;
+    }
+  }
 }
 
 app-rich-text-editor {
@@ -32,10 +54,6 @@ app-rich-text-editor {
   margin-bottom: 5px;
   text-transform: uppercase;
   letter-spacing: 1px;
-
-  * {
-    font-family: $FONT_FAMILY !important;
-  }
 }
 
 .categories .primary-category {
@@ -71,15 +89,26 @@ app-rich-text-editor {
   justify-content: space-between;
   gap: $_20_SPACING_SIZE;
   width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: calc($_20_SPACING_SIZE + $_20_SPACING_SIZE);
+  transform: translateY(50%);
+  padding: 0 $_20_SPACING_SIZE;
 }
 
 .egg-campaign-thumbnail-stages .slide-buttons .slide-button {
   display: inline-block;
   padding: 10px;
-  border: $BORDER;
+  height: fit-content;
+  // border: $BORDER;
   border-radius: 100px;
   cursor: pointer;
-  background: $DARK_COLOR;
+  background: $SECONDARY_THEME_COLOR;
+
+  ion-icon {
+    font-size: 32px;
+    transform: scaleY(2) translateY(0.5px);
+  }
 
   &:hover ion-icon {
     color: $SECONDARY_THEME_COLOR !important;
@@ -102,7 +131,7 @@ app-rich-text-editor {
   background: $DARK_COLOR;
 
   &[data-isactive="true"] {
-    background: $WHITE_COLOR;
+    background: $SECONDARY_THEME_COLOR;
   }
 }
 
@@ -138,6 +167,11 @@ app-rich-text-editor {
     opacity: 1;
     cursor: pointer;
   }
+
+  &[data-active="true"] {
+    border-color: $SECONDARY_THEME_COLOR;
+    border-width: 8px;
+  }
 }
 
 .egg-campaign-thumbnail-stages .egg-campaign-thumbnail-container {
@@ -149,24 +183,23 @@ app-rich-text-editor {
   .egg-campaign-thumbnail-container
   .egg-campaign-funding-purpose {
   margin-bottom: $_10_SPACING_SIZE;
+}
 
+.to-prefix,
+.to-suffix {
+  display: inline-block;
   font-size: 40px;
 }
 
 .to-prefix {
-  font-size: 40px;
   text-decoration: underline !important;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
-  opacity: 0.8;
 }
 
-.egg-campaign-thumbnail-stages
-  .egg-campaign-thumbnail-container
-  .egg-campaign-funding-purpose,
-.to-prefix {
-  font-family: "Archivo Black", $FONT_FAMILY;
-  font-weight: normal;
+.to-suffix {
+  font-weight: 300 !important;
+  opacity: 0.8;
 }
 
 .egg-campaign-thumbnail-stages .egg-campaign-thumbnail,
@@ -181,7 +214,7 @@ app-rich-text-editor {
 }
 
 .egg-campaign-thumbnail-stages .egg-campaign-thumbnail {
-  height: 400px;
+  height: 450px;
   background-repeat: no-repeat;
 }
 
@@ -234,11 +267,9 @@ ion-icon[name="heart-circle-outline"] {
   font-size: small;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-family: "IBM Plex Mono";
 }
 
 .pitch-publish-location span.country {
-  // font-weight: bold;
   margin-left: 5px;
 }
 
@@ -276,7 +307,6 @@ ion-icon[name="heart-circle-outline"] {
   text-transform: uppercase;
   border-bottom: 8px solid transparent;
   padding: 30px 0;
-  font-family: $FONT_FAMILY !important;
 }
 
 .tab-selector-section .tabs .tab a:hover {
@@ -416,18 +446,16 @@ ion-icon[name="heart-circle-outline"] {
 .campaign-statistics .statistic .name {
   font-size: small;
   text-transform: uppercase;
-  font-family: "IBM Plex Mono";
   letter-spacing: 1px;
   font-weight: bold;
   transform: translateY(-4px);
-  color: $DARK_COLOR;
   opacity: 0.5;
 }
 
 .hetching-progress {
   width: 100%;
   height: 15px;
-  background-color: $GRAY_COLOR;
+  background-color: $LIGHT_COLOR;
   position: absolute;
   bottom: -18px;
   left: 0;
@@ -435,7 +463,7 @@ ion-icon[name="heart-circle-outline"] {
 
 .hetching-progress-current {
   height: 100%;
-  background: $SECONDARY_THEME_COLOR;
+  background: $SUCCESS_COLOR;
 }
 
 // CURATOR INFORMATION
@@ -623,6 +651,31 @@ app-hetchers-list {
 .mobile-social-buttons app-social-buttons {
   display: block;
   margin-top: 10px;
+}
+
+.end-button {
+  color: $WARNING_COLOR !important;
+}
+
+.delete-button {
+  color: $DANGER_COLOR !important;
+}
+
+.related-pitches {
+  padding: $_10_SPACING_SIZE 0;
+}
+
+ion-content {
+  --background: #192427;
+}
+
+.modal-content-wrapper {
+  padding: $_20_SPACING_SIZE
+}
+
+ion-modal {
+  --border-radius: $BORDER_RADIUS;
+  --height: 250px;
 }
 
 // MOBILE DEVICES

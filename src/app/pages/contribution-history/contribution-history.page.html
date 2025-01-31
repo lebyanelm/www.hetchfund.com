@@ -104,15 +104,14 @@
                 <td>{{this.currencyService.format(transaction?.amount)}}</td>
                 <td>{{transaction?.type ?? "Contribution"}}</td>
                 <td>
-                  {{transaction?.time_created?.formatted_date}},
-                  {{transaction?.time_created?.time}}
+                  {{transaction?.time_created?.formatted_date}}
                 </td>
                 <td [attr.data-status]="transaction?.status || 'error'">
                   {{transaction?.status ?? "Error"}}
                 </td>
                 <td>
                   <a [href]="'/history/contributions/' + transaction?.key"
-                    >View Receipt</a
+                    >Receipt</a
                   >
                 </td>
               </tr>

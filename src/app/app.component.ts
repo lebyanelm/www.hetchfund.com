@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { LoaderService } from './services/loader.service';
 import { TitleService } from './services/title.service';
@@ -7,13 +7,15 @@ import { SidebarMenuService } from './services/sidebar-menu.service';
 import { SessionService } from './services/session.service';
 import { RouterService } from './services/router.service';
 import { SettingsService } from './services/settings.service';
+import { ActivatedRoute } from '@angular/router';
+import { IdentityVerificationModalComponent } from './components/identity-verification-modal/identity-verification-modal.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   isLoaderShown = false;
   isSidebarShown = false;
   isMobileDevice =
@@ -29,7 +31,8 @@ export class AppComponent {
     public toastManager: ToastManagerService,
     public sidebarService: SidebarMenuService,
     public sessionService: SessionService,
-    public settingsService: SettingsService
+    public settingsService: SettingsService,
+    public activatedRoute: ActivatedRoute
   ) {
     this.isLoaderShown = this.loaderService.isLoading();
     this.loaderService.state.subscribe((state) => (this.isLoaderShown = state));
@@ -41,6 +44,9 @@ export class AppComponent {
       console.log('Sidebar', state);
       this.isSidebarShown = state;
     });
+  }
+
+  ngOnInit(): void {
   }
 
   signout() {

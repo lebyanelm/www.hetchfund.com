@@ -17,6 +17,7 @@ import * as superagent from 'superagent';
 export class CreateCuratorsPage implements OnInit {
   curatorSuggestions = [];
   isLoadingSuggestions = false;
+  islivepitch = false;
 
   // Selected curators
   selectedCurators = [];
@@ -37,34 +38,34 @@ export class CreateCuratorsPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {
-      this.draft_key = queryParamMap.get('draft_key');
+      this.draft_key = queryParamMap.get('draft_key') || queryParamMap.get('pitch_key');
+      this.islivepitch = queryParamMap.get('islive') === '1' ? true : false;
 
-      if (this.draft_key) {
-        this.eggService.getSavedDraft(this.draft_key).then((draft) => {
-          this.draft = draft;
+      // To retrieve the draft progress data.
+      this.eggService.get(this.draft_key, {isDraft: !this.islivepitch}).then((draft) => {
+        this.draft = draft;
 
-          // Add the primary curator in the selected items.
-          this.getCurator(this.draft.curator).then((curator) => {
-            const id = curator._id;
-            delete curator._id;
-            this.selectedCurators.push({ ...curator, id });
-          });
+        // Add the primary curator in the selected items.
+        this.getCurator(this.draft.curator).then((curator) => {
+          const id = curator._id;
+          delete curator._id;
+          this.selectedCurators.push({ ...curator, id });
+        });
 
-          // Set the saved and recovered values.
-          this.draft.other_curators.forEach((curatorId) => {
-            this.getCurator(curatorId).then((curator) => {
-              const existingIndex = this.selectedCurators.findIndex(
-                (v) => v.id === curator._id
-              );
-              if (existingIndex === -1) {
-                const id = curator._id;
-                delete curator._id;
-                this.selectedCurators.push({ ...curator, id });
-              }
-            });
+        // Set the saved and recovered values.
+        this.draft.other_curators.forEach((curatorId) => {
+          this.getCurator(curatorId).then((curator) => {
+            const existingIndex = this.selectedCurators.findIndex(
+              (v) => v.id === curator._id
+            );
+            if (existingIndex === -1) {
+              const id = curator._id;
+              delete curator._id;
+              this.selectedCurators.push({ ...curator, id });
+            }
           });
         });
-      }
+      });
     });
   }
 

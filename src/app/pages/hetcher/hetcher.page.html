@@ -45,7 +45,7 @@
             
             <!-- Toggle editing and changing the profile. -->
             <button
-            class="bordered"
+            class="secondary"
             (click)="this.showEditProfileModal()"
             *ngIf="this.hetcher?.username === this.sessionService.data?.username"
             >
@@ -140,7 +140,6 @@
             <!-- ISSUED CONTRACTS -->
             <div
               class="tab-layout page-eggs-layout issued-pitches"
-              [style]="this.pitches_issued?.length || 0 === 0 ? 'grid-template-columns: 1fr !important;' : ''"
               id="issued"
               hidden
             >
@@ -153,9 +152,13 @@
                 >
                 <img src="/assets/illustrations/not_found.svg" alt="" />
               </div>
+
               <app-egg
                 *ngFor="let pitch of this?.pitches_issued"
                 ref="profile-page"
+                tab="issued"
+                [is_draft]="false"
+                [binder]="this.pitches_issued"
                 [data]="pitch"
               ></app-egg>
             </div>
@@ -177,6 +180,9 @@
               </div>
               <app-egg
                 *ngFor="let pitch of this?.pitches_drafted"
+                ref="profile-page"
+                tab="drafted"
+                [is_draft]="true"
                 [data]="pitch"
               ></app-egg>
             </div>
@@ -199,6 +205,7 @@
               </div>
               <app-egg
                 *ngFor="let pitch of this?.pitches_supported"
+                [is_draft]="false"
                 [data]="pitch"
               ></app-egg>
             </div>

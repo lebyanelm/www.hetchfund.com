@@ -14,7 +14,9 @@
       </div>
     </div>
 
-    <div class="toast-message" *ngIf="this.toastManager.persistantMessage">
+    <div class="toast-message"
+      [attr.data-is-error]="this.toastManager.persistantMessage.isError"
+      *ngIf="this.toastManager.persistantMessage">
       <ion-icon name="alert-circle"></ion-icon>
 
       <span class="message">{{
@@ -96,6 +98,7 @@
             <a href="/categories">Categories</a>
             <a href="/about">About Hetchfund</a>
             <a href="/become-a-sponsor">Become a sponsor</a>
+            <a href="/support">Support portal</a>
             <a href="/legal/privacy-policy">Privacy Policy</a>
           </div>
         </section>

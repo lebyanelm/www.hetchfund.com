@@ -54,7 +54,7 @@ export class HetcherPage implements OnInit {
         this.currentTab = queryParamMap.get('tab') || 'issued';
       });
       
-      // Get the data from the "backend"
+      // Get the data from the "backend".
       superagennt
         .get([environment.accounts, this.username].join('/'))
         .end((_, response) => {
@@ -67,14 +67,15 @@ export class HetcherPage implements OnInit {
             );
 
             // Issued pitches.
-            this.pitchService
-              .get(this.hetcher.pitches)
-              .then((issued_pitches: any) => {
-                this.pitches_issued = issued_pitches;
-                this.focusTab(this.currentTab);
+            superagennt.get(
+              [environment.farmhouse, , 'curator', this.sessionService.data?.email_address].join('/'))
+              .end((_, response) => {
+                if (response) {
+                  this.pitches_issued = response.body.data;
+                }
               });
 
-            // Supported pitches
+            // Supported pitches.
             this.pitchService
               .get(this.hetcher.pitches_funded)
               .then((supported_pitches: any) => {
@@ -82,7 +83,7 @@ export class HetcherPage implements OnInit {
                 this.focusTab(this.currentTab);
               });
 
-            // Drafted pitches
+            // Drafted pitches.
             this.pitchService.getSavedDrafts().then((drafted_pitches: any) => {
               this.pitches_drafted = drafted_pitches;
               console.log(this.pitches_drafted)

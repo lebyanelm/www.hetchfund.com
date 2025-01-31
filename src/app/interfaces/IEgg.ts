@@ -20,7 +20,11 @@ export interface IEgg {
   is_approved?: boolean;
   is_funded?: boolean;
   is_draft?: boolean;
+  has_ended?: boolean;
+
   status?: string;
+  status_message?: string;
+  status_fields?: string[];
 
   hetching_goal?: number;
   pitch_period?: number;
@@ -47,10 +51,6 @@ export interface IEgg {
   tags?: string[];
 
   // For sole purposes of drafts:
-  review_documents?: {
-    company_documentations: any;
-    director_documentations: any;
-  };
   draft_progress?: {
     basic?: DraftProgress;
     story?: DraftProgress;
@@ -61,6 +61,7 @@ export interface IEgg {
     documentation?: DraftProgress;
     review?: DraftProgress;
   };
+  
 }
 
 export interface DraftProgress {

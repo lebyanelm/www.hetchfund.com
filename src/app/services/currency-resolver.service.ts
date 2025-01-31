@@ -104,7 +104,6 @@ export class CurrencyResolverService {
             name_plural: response.body.data?.name_plural,
             symbol: response.body.data?.symbol
           };
-          console.log(this.currency);
 
           // Alert for currency change.
           this.currency_state.next(this.currency);
@@ -170,8 +169,8 @@ export class CurrencyResolverService {
   translateTo(amount: number, from: string, to: string) {
     const loaderIdx = this.loaderService.showLoader();
     return new Promise((resolve, reject) => {
-      console.log('from=', from, '; to=', to);
-      superagent
+      if (from !== to) {
+        superagent
         .get(
           [this.SERVICE_API_ENDPOINT, 'translate', amount, from, to].join('/')
         )
@@ -187,6 +186,9 @@ export class CurrencyResolverService {
             reject(ERROR_MESSAGES.NO_INTERNET);
           }
         });
+      } else {
+        resolve(amount);
+      }
     });
   }
 

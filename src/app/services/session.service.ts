@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IBackendResponse } from '../interfaces/IBackendResponse';
 import { IHetcher } from '../interfaces/IHetcher';
 import { ToastManagerService } from './toast-manager.service';
+import * as superagent from 'superagent';
+import { ERROR_MESSAGES } from '../error_messages';
+import { IdentityVerificationModalComponent } from '../components/identity-verification-modal/identity-verification-modal.component';
 
 @Injectable({
   providedIn: 'root',
@@ -14,18 +17,41 @@ export class SessionService {
   public sessionDataSubject: Subject<IHetcher> = new Subject<IHetcher>();
   public data: IHetcher;
   public sessionToken: string;
+  public generatedSmileToken: string;
+  
   constructor(
     private http: HttpClient,
     private router: Router,
-    private toastService: ToastManagerService
+    private toastService: ToastManagerService,
+    private activatedRoute: ActivatedRoute
   ) {
     // Load the token from local storage when page reloads
     if (localStorage.getItem('_session')) {
       const session = JSON.parse(localStorage.getItem('_session'));
       this.setToken(session);
     }
+    
+    this.sessionDataSubject.subscribe((d) => {
+      this.data = d;
+      if (this.data?.kyc_status === "unverified" && window.location.pathname === "/pitches") {
+        if (window.localStorage.getItem("sprskyc")) {
+          try {
+            const sprskycTimestamp = parseInt(window.localStorage.getItem("sprskyc"));
+            const suppressTimeDelta = (Date.now() - sprskycTimestamp) / 3.6e+6;
 
-    this.sessionDataSubject.subscribe((d) => (this.data = d));
+            if (suppressTimeDelta > 24) {
+              localStorage.removeItem("sprskyc");
+              this.toastService.openModalComponentElement(IdentityVerificationModalComponent);
+            }
+          } catch (_){
+            localStorage.removeItem("sprskyc");
+            this.toastService.openModalComponentElement(IdentityVerificationModalComponent);
+          }
+        } else {
+          this.toastService.openModalComponentElement(IdentityVerificationModalComponent);
+        }
+      }
+    });
   }
 
   // Sets session token and retrieves data from the backend about the hetcher.
@@ -47,6 +73,7 @@ export class SessionService {
       .subscribe((response: IBackendResponse<any>) => {
         console.log(response)
         if (response.status_code == '200') {
+          this.data = response.data;
           this.sessionDataSubject.next(response.data);
         } else {
           this.toastService.show(
@@ -71,5 +98,17 @@ export class SessionService {
 
     // Route the user out to the sign in page
     this.router.navigate(['signin']);
+  }
+
+  startRealPersonVerification() {
+    this.toastService.openBrowserPopup(this.getKYCUrl());
+  }
+
+  suppressRealPersonVerification() {
+    window.localStorage.setItem('sprskyc', Date.now().toString());
+  }
+
+  getKYCUrl() {
+    return environment.frontend + '/kyc/verifications?uid=' + this.data?._id;
   }
 }

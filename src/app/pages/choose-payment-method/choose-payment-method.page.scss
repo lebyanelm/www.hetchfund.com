@@ -5,6 +5,33 @@
   font-weight: normal;
 }
 
+.coinbase-background-overlay {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  place-items: center;
+  background: transparentize($BACKGROUND_COLOR, 0.2);
+  border: 4px solid $WHITE_COLOR;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5000000000;
+
+  .overlay-contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    max-width: 30%;
+    text-align: center;
+  
+    img {
+      filter: invert(1) grayscale(1);
+      height: 40px;
+    }
+  }
+}
+
 // PAYMENT METHOD
 .payment-methods-wrapper {
   padding: $_20_SPACING_SIZE 0;
@@ -47,11 +74,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-}
-
-.payment-method .payment-method-code,
-.payment-method .payment-method-exp {
-  font-family: "Fira Code", monospace;
 }
 
 // PAYMENT METHOD SELECTION\\
@@ -142,8 +164,9 @@
   letter-spacing: 1px;
 }
 
-.coinbase-button img {
+.crypto-button img {
   height: 22px !important;
+  filter: invert(1) grayscale(1);
 }
 
 .payment-button span {
@@ -169,11 +192,7 @@
 .yoco-button {
   background: #000;
   position: relative;
-  padding: 15px 10px;
-}
-
-.yoco-button span {
-  font-family: "IBM Plex Sans" !important;
+  padding: 25px 10px;
 }
 
 .credit-card-button {
@@ -196,12 +215,12 @@
   }
 }
 
-.coinbase-button {
-  background: #011082;
-  padding: 25px 0 20px 0;
+.crypto-button {
+  background: #64acff;
+  padding: 20px 0 20px 0;
 }
 
-.coinbase-button span {
+.crypto-button span {
   margin-right: 10px;
   transform: translateY(-2px);
 }
@@ -210,19 +229,31 @@
 .supported-payment-methods {
   display: flex;
   align-items: center;
-  gap: $_5_SPACING_SIZE;
+  gap: $_10_SPACING_SIZE;
   height: 30px;
   justify-content: flex-end;
 }
 
 .supported-payment-methods img {
   height: 100%;
-  // filter: grayscale(1);
+  filter: grayscale(1);
 }
 
-.supported-payment-methods img.amex {
-  height: 40px;
+.supported-payment-methods img {
+  &.visa {
+    height: 25px
+  }
+  
+  &.mastercard {
+    height: 40px;
+  }
+  
+  &.amex {
+    height: 30px;
+  }
 }
+
+
 
 // OTHER METHODS
 .other-methods {
@@ -246,7 +277,7 @@
 }
 
 .yoco-button,
-.coinbase-button {
+.crypto-button {
   border-radius: $BORDER_RADIUS;
 }
 
@@ -266,8 +297,10 @@
 
 .contribution-amount-summary .contribution-add-section {
   display: block;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  margin: 10px;
+  text-decoration: underline;
+  
+  // letter-spacing: 1px;
 }
 
 .contribution-amount-summary span.amount,
@@ -279,6 +312,25 @@
   border-radius: $BORDER_RADIUS;
   background: $BACKGROUND_COLOR;
   border: $BORDER_THIN;
+
+  &.amount {
+    color: $SUCCESS_COLOR !important;
+    border-color: $SUCCESS_COLOR;
+    margin-left: $_10_SPACING_SIZE;
+
+    &:hover {
+      border-color: transparentize($SUCCESS_COLOR, 0.5);
+    }
+
+    &[data-isless="true"] {
+      color: $DANGER_COLOR !important;
+      border-color: $DANGER_COLOR !important;
+
+      &:hover {
+        border-color: transparentize($DANGER_COLOR, 0.5);
+      }
+    }
+  }
 
   &:hover,
   &[data-selected="true"] {

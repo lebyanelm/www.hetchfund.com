@@ -1,26 +1,45 @@
 @import "../../../variables.scss";
 
 // CROSSPLATFORM HEADER
-.header-container {
+.alert-banner-container {
   display: flex;
-  position: relative;
-  padding: 20px;
   align-items: center;
-  gap: 20px;
-  background: $DARK_COLOR;
-  border-bottom: $BORDER !important;
-  position: fixed;
+  justify-content: space-between;
   width: 100%;
-  top: 0px;
-  z-index: 10000;
+  background: black;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  border-bottom: 4px solid $SECONDARY_THEME_COLOR;
+  gap: 40px;
 
+  .banner-message-container {
+    flex: 1;
+    padding-left: $_20_SPACING_SIZE;
+  }
+
+  .buttons {
+    padding-right: $_15_SPACING_SIZE;
+  }
+}
+
+.header-container {
+  background: $DARK_COLOR;
+  border-bottom: $BORDER;
+  width: 100%;
+
+  .header-wrapper {
+    display: flex;
+    align-items: center;
+    gap: $_20_SPACING_SIZE;
+  }
+  
   * {
     color: $LIGHT_COLOR;
   }
 
   .hamburger-menu-button {
     cursor: pointer;
-    padding: 10px;
+    padding: $_10_SPACING_SIZE;
   }
 
   .hamburger-menu-button .hamburger-line {
@@ -41,7 +60,7 @@
     visibility: hidden;
 
     img {
-      height: 40px;
+      height: 55px;
     }
   }
 
@@ -49,6 +68,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    margin-left: $_20_SPACING_SIZE;
   }
 }
 
@@ -56,4 +76,9 @@
   .hetchfund-header-logo {
     visibility: visible;
   }
+}
+
+// MOBILE DEVICES
+@media screen and (min-width: 650px) {
+  
 }

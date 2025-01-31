@@ -1,498 +1,508 @@
 <ion-content>
   <app-header></app-header>
-  <div class="page-content">
-    <div class="header-text-style bold-text-style">Your settings</div>
-    <div class="paragraph-text-style">Manage your preferences, turn on or off settings you need or don't need.</div>
+  <div class="page-content content-wrapper">
+    <div>
+      <div class="header-text-style bold-text-style">Your settings</div>
+      <div class="paragraph-text-style">Manage your preferences, turn on or off settings you need or don't need.</div>
 
-    <!-- Settings page header tabs items. -->
-    <div class="settings-tab-items">
-      <a
-        class="settings-tab-item"
-        href="/settings/security"
-        [attr.data-is-active]="this.activeTab === 'security'"
-        >Security</a
-      >
-      <a
-        class="settings-tab-item"
-        href="/settings/account_activity"
-        [attr.data-is-active]="this.activeTab === 'account_activity'"
-        >Account activity</a
-      >
-      <a
-        class="settings-tab-item"
-        href="/settings/notifications"
-        [attr.data-is-active]="this.activeTab === 'notifications'"
-        >Notifications</a
-      >
-      <a
-        class="settings-tab-item"
-        href="/settings/devices_management"
-        [attr.data-is-active]="this.activeTab === 'devices_management'"
-        >Devices management</a
-      >
-      <a
-        class="settings-tab-item"
-        href="/settings/privacy"
-        [attr.data-is-active]="this.activeTab === 'privacy'"
-        >Privacy</a
-      >
-      <a
-        class="settings-tab-item"
-        href="/settings/contribution"
-        [attr.data-is-active]="this.activeTab === 'contribution'"
-        >Contributions</a
-      >
+      <!-- Settings page header tabs items. -->
+      <div class="settings-tab-items">
+        <a
+          class="settings-tab-item"
+          href="/settings/security"
+          [attr.data-is-active]="this.activeTab === 'security'"
+          >Security</a
+        >
+        <a
+          class="settings-tab-item"
+          href="/settings/account_activity"
+          [attr.data-is-active]="this.activeTab === 'account_activity'"
+          >Account activity</a
+        >
+        <a
+          class="settings-tab-item"
+          href="/settings/notifications"
+          [attr.data-is-active]="this.activeTab === 'notifications'"
+          >Notifications</a
+        >
+        <a
+          class="settings-tab-item"
+          href="/settings/devices_management"
+          [attr.data-is-active]="this.activeTab === 'devices_management'"
+          >Devices management</a
+        >
+        <a
+          class="settings-tab-item"
+          href="/settings/privacy"
+          [attr.data-is-active]="this.activeTab === 'privacy'"
+          >Privacy</a
+        >
+        <a
+          class="settings-tab-item"
+          href="/settings/contribution"
+          [attr.data-is-active]="this.activeTab === 'contribution'"
+          >Contributions</a
+        >
+      </div>
     </div>
-  </div>
 
-  <!-- Settings active tabs content. -->
-  <div class="settings-tabs-content">
-    <div class="tab-content settings" *ngIf="this.activeTab === 'security'">
-      <div class="header-text-style small bold-text-style">
-        Security settings
-      </div>
-      <div class="paragraph-text-style">
-        Your fortress of protection. Control access with password management,
-        2FA setup, and privacy preferences. Safeguard your account with ease.
-      </div>
+    <!-- Settings active tabs content. -->
+    <div class="settings-tabs-content">
+      <div class="tab-content settings" *ngIf="this.activeTab === 'security'">
+        <div class="header-text-style small bold-text-style">
+          Security settings
+        </div>
+        <div class="paragraph-text-style">
+          Your fortress of protection. Control access with password management,
+          2FA setup, and privacy preferences. Safeguard your account with ease.
+        </div>
 
-      <section class="section-content">
-        <label
-          class="control-checkbox"
-          for="2fa_authentication"
-          (click)="this.updateSettingValue('2fa_authentication', TwoFactorAuthentication)"
-        >
-          <input
-            type="checkbox"
-            [checked]="this.sessionService.data?.preferences['2fa_authentication']"
-            id="2fa_authentication"
-            #TwoFactorAuthentication
-          />
-          <div class="header-text-style small">
-            (2FA) Two Factor Authentication
-          </div>
-          <div class="control_indicator"></div>
-          <div class="paragraph-text-style">
-            A double-layered security method requiring users to provide two
-            forms of verification - typically a password and a unique code sent
-            to their device - ensuring enhanced protection against unauthorized
-            access.
-          </div>
-        </label>
-      </section>
-
-      <section class="section-content">
-        <label
-          class="control-checkbox"
-          for="is_expire_login"
-          (click)="this.updateSettingValue('is_expire_login', ExpireLogin)"
-        >
-          <input
-            type="checkbox"
-            [checked]="this.sessionService.data?.preferences['is_expire_login']"
-            id="is_expire_login"
-            #ExpireLogin
-          />
-          <div class="header-text-style small">
-            Expire Logins After One Week
-          </div>
-          <div class="control_indicator"></div>
-          <div class="paragraph-text-style">
-            Set your login sessions to automatically expire after one week of
-            inactivity, adding an extra layer of protection to your account and
-            data.
-          </div>
-        </label>
-      </section>
-
-      <section class="section-content">
-        <label
-          class="control-checkbox"
-          for="track_account_activity"
-          (click)="this.updateSettingValue('track_account_activity', TrackAccountActivity)"
-        >
-          <input
-            type="checkbox"
-            [checked]="this.sessionService.data?.preferences['track_account_activity']"
-            id="track_account_activity"
-            #TrackAccountActivity
-          />
-          <div class="header-text-style small">Track your account activity</div>
-          <div class="control_indicator"></div>
-          <div class="paragraph-text-style">
-            Allow your account's actions to be tracked and reported. Monitor
-            transactions, logins, and updates in one place for a comprehensive
-            view of your crowdfunding engagement. Stay in control and stay
-            informed.
-          </div>
-        </label>
-      </section>
-
-      <section class="section-content">
-        <label class="control-checkbox" for="current_password">
-          <input type="checkbox" disabled="true" />
-          <div class="header-text-style small">Update your password</div>
-          <div class="control_indicator"></div>
-          <div class="paragraph-text-style">
-            Choose a new password to keep your account protected and maintain
-            your peace of mind. This may be recommended if you feel like someone
-            has access to your account,
-            <b
-              >after a password change all connected devices will be logged
-              out.</b
-            >
-          </div>
-
-          <div class="password-change-sections flexbox">
-            <div class="formfields">
-              <div class="formfield">
-                <label for="">Your current password</label>
-                <div class="input-container">
-                  <input
-                    type="text"
-                    placeholder="This refers to your current login password."
-                    id="current_password"
-                    #CurrentPasswordInput
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="formfields">
-              <div class="formfield">
-                <label for="">Enter a new password</label>
-                <div class="input-container">
-                  <input
-                    type="text"
-                    placeholder="Be sure to make it more difficult to guess."
-                    #NewPasswordInput
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <button
-            [disabled]="CurrentPasswordInput.value.length === 0 || NewPasswordInput.value.length === 0"
+        <section class="section-content">
+          <label
+            class="control-checkbox"
+            for="2fa_authentication"
+            (click)="this.updateSettingValue('2fa_authentication', TwoFactorAuthentication)"
           >
-            Request my password change
-          </button>
-        </label>
-      </section>
-    </div>
+            <input
+              type="checkbox"
+              [checked]="this.sessionService.data?.preferences['2fa_authentication']"
+              id="2fa_authentication"
+              #TwoFactorAuthentication
+            />
+            <div class="header-text-style small">
+              (2FA) Two Factor Authentication
+            </div>
+            <div class="control_indicator"></div>
+            <div class="paragraph-text-style">
+              A double-layered security method requiring users to provide two
+              forms of verification - typically a password and a unique code sent
+              to their device - ensuring enhanced protection against unauthorized
+              access.
+            </div>
+          </label>
+        </section>
 
-    <div
-      class="tab-content notifications"
-      *ngIf="this.activeTab === 'account_activity'"
-    >
-      <div class="header-text-style small bold-text-style">
-        Account activity
-      </div>
-      <div class="paragraph-text-style">
-        Stay informed. Monitor your crowdfunding actions, including
-        contribution, and logins, for security purposes. Track your journey with
-        ease.
-      </div>
+        <section class="section-content">
+          <label
+            class="control-checkbox"
+            for="is_expire_login"
+            (click)="this.updateSettingValue('is_expire_login', ExpireLogin)"
+          >
+            <input
+              type="checkbox"
+              [checked]="this.sessionService.data?.preferences['is_expire_login']"
+              id="is_expire_login"
+              #ExpireLogin
+            />
+            <div class="header-text-style small">
+              Expire Logins After One Week
+            </div>
+            <div class="control_indicator"></div>
+            <div class="paragraph-text-style">
+              Set your login sessions to automatically expire after one week of
+              inactivity, adding an extra layer of protection to your account and
+              data.
+            </div>
+          </label>
+        </section>
 
-      <div class="account-activity-items">
-        <label
-          class="control-checkbox account-activity-item"
-          *ngFor="let activity of this.account_activity"
-        >
-          <input type="checkbox" />
-          <div class="header-text-style small">
-            {{activity.type}} from device type: {{activity.device_name}}
-          </div>
-          <div class="control_indicator"></div>
-          <div class="paragraph-text-style">
-            <b>Location:</b> {{activity.location}} -
-            <b>Browser:</b> {{activity.device_details}} - <b>IP Address:</b>{{"
-            "}}
-            <a (click)="this.isShowIPAddresses = !this.isShowIPAddresses"
-              >{{this.isShowIPAddresses ? activity.ip_address + ' (Hide from
-              view)' : '(IP addresses hidden - show)'}}</a
+        <section class="section-content">
+          <label
+            class="control-checkbox"
+            for="track_account_activity"
+            (click)="this.updateSettingValue('track_account_activity', TrackAccountActivity)"
+          >
+            <input
+              type="checkbox"
+              [checked]="this.sessionService.data?.preferences['track_account_activity']"
+              id="track_account_activity"
+              #TrackAccountActivity
+            />
+            <div class="header-text-style small">Track your account activity</div>
+            <div class="control_indicator"></div>
+            <div class="paragraph-text-style">
+              Allow your account's actions to be tracked and reported. Monitor
+              transactions, logins, and updates in one place for a comprehensive
+              view of your crowdfunding engagement. Stay in control and stay
+              informed.
+            </div>
+          </label>
+        </section>
+
+        <section class="section-content">
+          <label class="control-checkbox" for="current_password">
+            <input type="checkbox" disabled="true" />
+            <div class="header-text-style small">Update your password</div>
+            <div class="control_indicator"></div>
+            <div class="paragraph-text-style">
+              Choose a new password to keep your account protected and maintain
+              your peace of mind. This may be recommended if you feel like someone
+              has access to your account,
+              <b
+                >after a password change all connected devices will be logged
+                out.</b
+              >
+            </div>
+
+            <div class="password-change-sections flexbox">
+              <div class="formfields">
+                <div class="formfield">
+                  <label for="">Your current password</label>
+                  <div class="input-container">
+                    <input
+                      type="text"
+                      placeholder="This refers to your current login password."
+                      id="current_password"
+                      #CurrentPasswordInput
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="formfields">
+                <div class="formfield">
+                  <label for="">Enter a new password</label>
+                  <div class="input-container">
+                    <input
+                      type="text"
+                      placeholder="Be sure to make it more difficult to guess."
+                      #NewPasswordInput
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              [disabled]="CurrentPasswordInput.value.length === 0 || NewPasswordInput.value.length === 0"
             >
-          </div>
-        </label>
-
-        <button>Clear all account activity</button>
-      </div>
-    </div>
-
-    <div
-      class="tab-content notifications"
-      *ngIf="this.activeTab === 'notifications'"
-    >
-      <div class="header-text-style small bold-text-style">
-        Notifications and alerts
-      </div>
-      <div class="paragraph-text-style">
-        Tailor when and how you receive notifications about contribution,
-        project updates, and more. Stay connected on your terms.
-        <b
-          >Remember: All notifications will be forwarded to your dedicated email
-          address.</b
-        >
+              Request my password change
+            </button>
+          </label>
+        </section>
       </div>
 
-      <section class="section-content">
-        <label class="control-checkbox" for="2fa">
-          <input type="checkbox" checked="checked" id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">Comment notifications</div>
-          <div class="paragraph-text-style">
-            Receive alerts when users comment on your comments or campaigns,
-            ensuring you never miss an opportunity to connect and respond in the
-            world.
-          </div>
-        </label>
-      </section>
+      <div
+        class="tab-content notifications"
+        *ngIf="this.activeTab === 'account_activity'"
+      >
+        <div class="header-text-style small bold-text-style">
+          Account activity
+        </div>
+        <div class="paragraph-text-style">
+          Stay informed. Monitor your crowdfunding actions, including
+          contribution, and logins, for security purposes. Track your journey with
+          ease.
+        </div>
 
-      <section class="section-content">
-        <label class="control-checkbox" for="2fa">
-          <input type="checkbox" checked="checked" id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">Push notifications</div>
-          <div class="paragraph-text-style">
-            Receive important alerts and updates through push notifications,
-            ensuring you're always in the loop with your crowdfunding
-            activities, even when you're on the move.
-          </div>
-        </label>
-      </section>
+        <br>
+        <div class="paragraph-text-style"><i><b>No account acitivty present at the moment.</b></i></div>
 
-      <section class="section-content">
-        <label class="control-checkbox" for="2fa">
-          <input type="checkbox" checked="checked" id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">
-            Pitchs you've funded notifications
-          </div>
-          <div class="paragraph-text-style">
-            Keep track of the campaigns you've supported through funding,
-            ensuring you're informed about the progress and outcomes of your
-            contribution to the world.
-          </div>
-        </label>
-      </section>
+        <div class="account-activity-items">
+          <label
+            class="control-checkbox account-activity-item"
+            *ngFor="let activity of this.account_activity"
+          >
+            <input type="checkbox"
+              (change)="this.selectAccountActivity(activity.key)"
+            />
+            <div class="header-text-style small">
+              {{activity.type}} from device type: {{activity.device_name}}
+            </div>
+            <div class="control_indicator"></div>
+            <div class="paragraph-text-style">
+              <b>Location:</b> {{activity.location}} -
+              <b>Browser:</b> {{activity.device_details}} - <b>IP Address:</b>{{"
+              "}}
+              <a (click)="this.isShowIPAddresses = !this.isShowIPAddresses"
+                >{{this.isShowIPAddresses ? activity.ip_address + ' (Hide from
+                view)' : '(IP addresses hidden - show)'}}</a
+              >
+            </div>
+          </label>
 
-      <section class="section-content">
-        <label class="control-checkbox" for="2fa">
-          <input type="checkbox" checked="checked" id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">Follow notifications</div>
-          <div class="paragraph-text-style">
-            Receive alerts when creators you're following post updates or launch
-            new campaigns, ensuring you're up to date with their crowdfunding
-            journey.
-          </div>
-        </label>
-      </section>
-
-      <section class="section-content">
-        <label class="control-checkbox" for="2fa">
-          <input type="checkbox" checked="checked" id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">
-            Receive updates on what's new and interesting
-          </div>
-          <div class="paragraph-text-style">
-            Subscribe to our newsletter for the latest updates, project
-            highlights, and insights from the world of crowdfunding. Get
-            informed and inspired.
-          </div>
-        </label>
-      </section>
-
-      <section class="section-content">
-        <label class="control-checkbox" for="2fa">
-          <input type="checkbox" checked="checked" id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">
-            Research programme invite notifications
-          </div>
-          <div class="paragraph-text-style">
-            Get notified about new research programs, updates, and opportunities
-            in your field of interest, keeping you informed and engaged in the
-            world of research.
-          </div>
-        </label>
-      </section>
-    </div>
-
-    <div
-      class="tab-content devices_management"
-      *ngIf="this.activeTab === 'devices_management'"
-    >
-      <div class="header-text-style small bold-text-style">
-        Devices management
-      </div>
-      <div class="paragraph-text-style">
-        Manage your trusted devices. Add, remove, and verify devices for secure
-        access to your crowdfunding account. Keep your interactions under your
-        control.
+          <button>Clear all account activity</button>
+          <button class="secondary danger-text-style"
+                  *ngIf="this.selectedAccountActivities.length"
+                  (click)="this.deleteAccountActivity(this.selectedAccountActivities)">Delete selected activity</button>
+        </div>
       </div>
 
-      <section class="section-content">
-        <label class="control-checkbox" for="2fa">
-          <input type="checkbox" checked="checked" id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">MacBook Pro (Late 2006)</div>
-          <div class="paragraph-text-style">
-            <b>Session status:</b> Active. <b>Last active:</b> 3 weeks ago
-          </div>
-        </label>
-      </section>
+      <div
+        class="tab-content notifications"
+        *ngIf="this.activeTab === 'notifications'"
+      >
+        <div class="header-text-style small bold-text-style">
+          Notifications and alerts
+        </div>
+        <div class="paragraph-text-style">
+          Tailor when and how you receive notifications about contribution,
+          project updates, and more. Stay connected on your terms.
+          <b
+            >Remember: All notifications will be forwarded to your dedicated email
+            address.</b
+          >
+        </div>
 
-      <div class="buttons">
-        <button>Remove disconnected devices</button>
-        <button class="secondary">Remove all connected devices</button>
-      </div>
-    </div>
+        <section class="section-content">
+          <label class="control-checkbox" for="2fa">
+            <input type="checkbox" checked="checked" id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">Comment notifications</div>
+            <div class="paragraph-text-style">
+              Receive alerts when users comment on your comments or campaigns,
+              ensuring you never miss an opportunity to connect and respond in the
+              world.
+            </div>
+          </label>
+        </section>
 
-    <div class="tab-content privacy" *ngIf="this.activeTab === 'privacy'">
-      <div class="header-text-style small bold-text-style">Privacy</div>
-      <div class="paragraph-text-style">
-        Your personal space, your rules. Adjust who sees what and manage data
-        sharing preferences for a tailored crowdfunding experience. Your
-        privacy, your way.
-      </div>
+        <section class="section-content">
+          <label class="control-checkbox" for="2fa">
+            <input type="checkbox" checked="checked" id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">Push notifications</div>
+            <div class="paragraph-text-style">
+              Receive important alerts and updates through push notifications,
+              ensuring you're always in the loop with your crowdfunding
+              activities, even when you're on the move.
+            </div>
+          </label>
+        </section>
 
-      <section class="section-content">
-        <label class="control-checkbox" for="2fa">
-          <input type="checkbox" checked="checked" id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">Opt Out of Following</div>
-          <div class="paragraph-text-style">
-            Choose to stop receiving updates, activities, and content
-            notifications from accounts or topics you're following.
-          </div>
-        </label>
-      </section>
+        <section class="section-content">
+          <label class="control-checkbox" for="2fa">
+            <input type="checkbox" checked="checked" id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">
+              Pitchs you've funded notifications
+            </div>
+            <div class="paragraph-text-style">
+              Keep track of the campaigns you've supported through funding,
+              ensuring you're informed about the progress and outcomes of your
+              contribution to the world.
+            </div>
+          </label>
+        </section>
 
-      <section class="section-content">
-        <label class="control-checkbox" for="2fa">
-          <input type="checkbox" checked="checked" id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">Turn of Recommendations</div>
-          <div class="paragraph-text-style">
-            Opt to stop receiving personalized suggestions and recommendations
-            based on your activity and interests.
-          </div>
-        </label>
-      </section>
+        <section class="section-content">
+          <label class="control-checkbox" for="2fa">
+            <input type="checkbox" checked="checked" id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">Follow notifications</div>
+            <div class="paragraph-text-style">
+              Receive alerts when creators you're following post updates or launch
+              new campaigns, ensuring you're up to date with their crowdfunding
+              journey.
+            </div>
+          </label>
+        </section>
 
-      <section class="section-content">
-        <label class="control-checkbox" for="2fa">
-          <input type="checkbox" checked="checked" id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">
-            Hide my name on Contribution
-          </div>
-          <div class="paragraph-text-style">
-            Choose to keep your name hidden when making contribution or
-            contribution, ensuring a more discreet involvement in crowdfunding
-            pitches.
-          </div>
-        </label>
-      </section>
+        <section class="section-content">
+          <label class="control-checkbox" for="2fa">
+            <input type="checkbox" checked="checked" id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">
+              Receive updates on what's new and interesting
+            </div>
+            <div class="paragraph-text-style">
+              Subscribe to our newsletter for the latest updates, project
+              highlights, and insights from the world of crowdfunding. Get
+              informed and inspired.
+            </div>
+          </label>
+        </section>
 
-      <button>Request all my data</button>
-      <div class="paragraph-text-style">
-        <b>Remember:</b> Third-party data such as data from Google Analytics may
-        not be included in the "All my data" report.
-      </div>
-    </div>
-
-    <div class="tab-content interests" *ngIf="this.activeTab === 'interests'">
-      <div class="header-text-style small">Recommendations</div>
-      <div class="paragraph-text-style">
-        Discover what's next. Receive personalized suggestions based on your
-        crowdfunding interests and engagement. Explore projects that resonate
-        with you.
-      </div>
-    </div>
-
-    <div
-      class="tab-content payment_methods"
-      *ngIf="this.activeTab === 'payment_methods'"
-    >
-      <div class="header-text-style small">Payment methods</div>
-      <div class="paragraph-text-style">
-        Flexible fund flow. Add, update, or remove payment options for seamless
-        contribution and transactions on your crowdfunding journey. Control your
-        giving with ease.
-      </div>
-    </div>
-
-    <div
-      class="tab-content contribution"
-      *ngIf="this.activeTab === 'contribution'"
-    >
-      <div class="header-text-style small bold-text-style">
-        Contribution preferences
-      </div>
-      <div class="paragraph-text-style">
-        Track and manage the delivery of rewards from successful crowdfunding
-        pitches.
+        <section class="section-content">
+          <label class="control-checkbox" for="2fa">
+            <input type="checkbox" checked="checked" id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">
+              Research programme invite notifications
+            </div>
+            <div class="paragraph-text-style">
+              Get notified about new research programs, updates, and opportunities
+              in your field of interest, keeping you informed and engaged in the
+              world of research.
+            </div>
+          </label>
+        </section>
       </div>
 
-      <section class="section-content">
-        <label class="control-checkbox" for="currency">
-          <input type="checkbox" checked="checked" disabled id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">
-            Default contribution currency
-          </div>
-          <div class="paragraph-text-style">
-            Set your preferred currency for contribution, making it easier to
-            support crowdfunding campaigns in your desired monetary unit.
-          </div>
+      <div
+        class="tab-content devices_management"
+        *ngIf="this.activeTab === 'devices_management'"
+      >
+        <div class="header-text-style small bold-text-style">
+          Devices management
+        </div>
+        <div class="paragraph-text-style">
+          Manage your trusted devices. Add, remove, and verify devices for secure
+          access to your crowdfunding account. Keep your interactions under your
+          control.
+        </div>
 
-          <div class="formfields">
-            <div class="formfield">
-              <div class="input-container">
-                <select
-                  name="currency"
-                  id="currency"
-                  placeholder="Set your preferred currency for contribution."
-                >
-                  <option value="ZAR">ZAR (South African Rand)</option>
-                </select>
+        <section class="section-content">
+          <label class="control-checkbox" for="2fa">
+            <input type="checkbox" checked="checked" id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">MacBook Pro (Late 2006)</div>
+            <div class="paragraph-text-style">
+              <b>Session status:</b> Active. <b>Last active:</b> 3 weeks ago
+            </div>
+          </label>
+        </section>
+
+        <div class="buttons">
+          <button>Remove disconnected devices</button>
+          <button class="secondary">Remove all connected devices</button>
+        </div>
+      </div>
+
+      <div class="tab-content privacy" *ngIf="this.activeTab === 'privacy'">
+        <div class="header-text-style small bold-text-style">Privacy</div>
+        <div class="paragraph-text-style">
+          Your personal space, your rules. Adjust who sees what and manage data
+          sharing preferences for a tailored crowdfunding experience. Your
+          privacy, your way.
+        </div>
+
+        <section class="section-content">
+          <label class="control-checkbox" for="2fa">
+            <input type="checkbox" checked="checked" id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">Opt Out of Following</div>
+            <div class="paragraph-text-style">
+              Choose to stop receiving updates, activities, and content
+              notifications from accounts or topics you're following.
+            </div>
+          </label>
+        </section>
+
+        <section class="section-content">
+          <label class="control-checkbox" for="2fa">
+            <input type="checkbox" checked="checked" id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">Turn of Recommendations</div>
+            <div class="paragraph-text-style">
+              Opt to stop receiving personalized suggestions and recommendations
+              based on your activity and interests.
+            </div>
+          </label>
+        </section>
+
+        <section class="section-content">
+          <label class="control-checkbox" for="2fa">
+            <input type="checkbox" checked="checked" id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">
+              Hide my name on Contribution
+            </div>
+            <div class="paragraph-text-style">
+              Choose to keep your name hidden when making contribution or
+              contribution, ensuring a more discreet involvement in crowdfunding
+              pitches.
+            </div>
+          </label>
+        </section>
+
+        <button>Request all my data</button>
+        <div class="paragraph-text-style">
+          <b>Remember:</b> Third-party data such as data from Google Analytics may
+          not be included in the "All my data" report.
+        </div>
+      </div>
+
+      <div class="tab-content interests" *ngIf="this.activeTab === 'interests'">
+        <div class="header-text-style small">Recommendations</div>
+        <div class="paragraph-text-style">
+          Discover what's next. Receive personalized suggestions based on your
+          crowdfunding interests and engagement. Explore projects that resonate
+          with you.
+        </div>
+      </div>
+
+      <div
+        class="tab-content payment_methods"
+        *ngIf="this.activeTab === 'payment_methods'"
+      >
+        <div class="header-text-style small">Payment methods</div>
+        <div class="paragraph-text-style">
+          Flexible fund flow. Add, update, or remove payment options for seamless
+          contribution and transactions on your crowdfunding journey. Control your
+          giving with ease.
+        </div>
+      </div>
+
+      <div
+        class="tab-content contribution"
+        *ngIf="this.activeTab === 'contribution'"
+      >
+        <div class="header-text-style small bold-text-style">
+          Contribution preferences
+        </div>
+        <div class="paragraph-text-style">
+          Track and manage the delivery of rewards from successful crowdfunding
+          pitches.
+        </div>
+
+        <section class="section-content">
+          <label class="control-checkbox" for="currency">
+            <input type="checkbox" checked="checked" disabled id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">
+              Default contribution currency
+            </div>
+            <div class="paragraph-text-style">
+              Set your preferred currency for contribution, making it easier to
+              support crowdfunding campaigns in your desired monetary unit.
+            </div>
+
+            <div class="formfields">
+              <div class="formfield">
+                <div class="input-container">
+                  <select
+                    name="currency"
+                    id="currency"
+                    placeholder="Set your preferred currency for contribution."
+                  >
+                    <option value="ZAR">ZAR (South African Rand)</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-        </label>
-      </section>
+          </label>
+        </section>
 
-      <section class="section-content">
-        <label class="control-checkbox" for="currency">
-          <input type="checkbox" checked="checked" disabled id="2fa" />
-          <div class="control_indicator"></div>
-          <div class="header-text-style small">
-            Default address for rewards delivery
-          </div>
-          <div class="paragraph-text-style">
-            Set your preferred address for reward deliveries from successful
-            crowdfunding campaigns, ensuring smooth and accurate shipments to
-            your chosen location.
-          </div>
+        <section class="section-content">
+          <label class="control-checkbox" for="currency">
+            <input type="checkbox" checked="checked" disabled id="2fa" />
+            <div class="control_indicator"></div>
+            <div class="header-text-style small">
+              Default address for rewards delivery
+            </div>
+            <div class="paragraph-text-style">
+              Set your preferred address for reward deliveries from successful
+              crowdfunding campaigns, ensuring smooth and accurate shipments to
+              your chosen location.
+            </div>
 
-          <div class="formfields">
-            <div class="formfield">
-              <div class="input-container">
-                <input
-                  type="text"
-                  placeholder="Set your preferred address for reward deliveries."
-                />
+            <div class="formfields">
+              <div class="formfield">
+                <div class="input-container">
+                  <input
+                    type="text"
+                    placeholder="Set your preferred address for reward deliveries."
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </label>
-      </section>
-    </div>
+          </label>
+        </section>
+      </div>
 
-    <div class="side-content">
-      <app-settings-help-content></app-settings-help-content>
+      <div class="side-content">
+        <app-settings-help-content></app-settings-help-content>
+      </div>
     </div>
   </div>
   <app-footer></app-footer>

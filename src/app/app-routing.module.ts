@@ -29,11 +29,11 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'pitches/:pitch_key/contribution/completed',
+    path: 'pitches/:pitch_key/contribution/callbacks/:payment_status',
     loadChildren: () =>
-      import(
-        './pages/contribution-completed/contribution-completed.module'
-      ).then((m) => m.ContributionCompletedPageModule),
+      import('./pages/modal-payment-status/modal-payment-status.module').then(
+        (m) => m.ModalPaymentStatusPageModule
+      ),
   },
   {
     path: 'pitches/:pitch_key/contribution/choose-method',
@@ -96,13 +96,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'pitches/create/documentation',
-    loadChildren: () =>
-      import('./pages/create-documentation/create-documentation.module').then(
-        (m) => m.CreateDocumentationPageModule
-      ),
-  },
-  {
     path: 'pitches/create/curators',
     loadChildren: () =>
       import('./pages/create-curators/create-curators.module').then(
@@ -111,14 +104,12 @@ const routes: Routes = [
   },
   {
     path: 'pitches/create/review',
-    loadChildren: () =>
-      import('./pages/create-curators/create-curators.module').then(
-        (m) => m.CreateCuratorsPageModule
-      ),
+    loadChildren: () => 
+      import('./pages/create-review/create-review.module').then( m => m.CreateReviewPageModule)
   },
 
   {
-    path: 'pitches/view-history',
+    path: 'view-history',
     loadChildren: () =>
       import('./pages/view-history/view-history.module').then(
         (m) => m.ViewHistoryPageModule
@@ -161,6 +152,10 @@ const routes: Routes = [
       import(
         './pages/two-fa-verification-code/two-fa-verification-code.module'
       ).then((m) => m.TwoFaVerificationCodePageModule),
+  },
+  {
+    path: 'kyc/verifications',
+    loadChildren: () => import('./pages/identity-kyc-verification/identity-kyc-verification.module').then( m => m.IdentityKycVerificationPageModule)
   },
 
   // SETTINGS MANAGEMENT
@@ -214,7 +209,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'support/article/:key',
+    path: 'support/article/:article_key',
     loadChildren: () =>
       import('./pages/support-article/support-article.module').then(
         (m) => m.SupportArticlePageModule
@@ -232,7 +227,7 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'errors/404',
     pathMatch: 'full',
-  },
+  }
 ];
 
 @NgModule({

@@ -1,0 +1,54 @@
+@import "../../../variables.scss";
+
+.payment-response-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-status-circled-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+    border: $BORDER;
+    border-color: $DANGER_COLOR;
+    border-radius: 100px;
+    margin-bottom: $_20_SPACING_SIZE;
+
+    ion-icon {
+        font-size: 40px;
+        color: $DANGER_COLOR !important;
+    }
+
+    &[data-success="true"] {
+        border-color: $SUCCESS_COLOR !important;
+
+        ion-icon {
+            color: $SUCCESS_COLOR !important;
+        }
+    }
+}
+
+.payment-status-description,
+.payment-status-sub {
+    width: 30%;
+    text-align: center;
+    margin-top: $_10_SPACING_SIZE;
+}
+
+.payment-status-sub {
+    font-weight: bolder;
+}
+
+.buttons {
+    margin-top: $_20_SPACING_SIZE;
+
+    .button.secondary {
+        background: $BACKGROUND_COLOR;
+    }
+}

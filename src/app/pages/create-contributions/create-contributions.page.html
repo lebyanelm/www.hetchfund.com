@@ -1,15 +1,15 @@
 <ion-content>
   <app-header [hasBackground]="true"></app-header>
 
-  <!-- Header that shows the steps of the pitch creation process -->
-  <app-pitch-create-steps
-    [step]="3"
-    [saveMethod]="this.saveContributions"
-    [draftProgress]="this.draft?.draft_progress"
-    [binder]="this"
-  ></app-pitch-create-steps>
-
   <div class="page-content content-wrapper">
+    <!-- Header that shows the steps of the pitch creation process -->
+    <app-pitch-create-steps
+      [step]="3"
+      [saveMethod]="this.saveContributions"
+      [draftProgress]="this.draft?.draft_progress"
+      [binder]="this"
+    ></app-pitch-create-steps>
+    
     <div class="header-text-style">Costs breakdown</div>
     <div class="field-status">(REQUIRED)</div>
 
@@ -58,11 +58,11 @@
       <div class="field-section-input">
         <div class="split-finance-inputs" *ngFor="let finance_category_item of this.finance_categories_list">
           <div class="formfield"  *ngIf="true">
-            <label for="">{{this.finance_categories_details[finance_category_item].name}}</label>
-            <div class="field-status" [class.optional]="!this.finance_categories_details[finance_category_item].required">({{this.finance_categories_details[finance_category_item].required ? 'REQUIRED' : 'OPTIONAL'}})</div>
+            <label for="">{{this.finance_categories_details[finance_category_item]?.name}}</label>
+            <div class="field-status" [class.optional]="!this.finance_categories_details[finance_category_item]?.required">({{this.finance_categories_details[finance_category_item]?.required ? 'REQUIRED' : 'OPTIONAL'}})</div>
 
             <div class="paragraph-text-style">
-              {{this.finance_categories_details[finance_category_item].description}}
+              {{this.finance_categories_details[finance_category_item]?.description}}
             </div>
 
             <div class="input-container">

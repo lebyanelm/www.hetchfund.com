@@ -42,6 +42,8 @@ export class SettingsPage implements OnInit {
       location: 'Gauteng, Pretoria',
     },
   ];
+  selectedAccountActivities = [];
+  
   isShowIPAddresses = false;
 
   constructor(
@@ -95,5 +97,28 @@ export class SettingsPage implements OnInit {
           }
         });
     });
+  }
+
+  deleteAccountActivity(keys: string[]): void {
+    const delectedActivies = [];
+    for (const key of keys) {
+      const accountActivityIndex = this.account_activity.findIndex((activity) => activity.key === key);
+      if (accountActivityIndex !== -1) {
+        this.account_activity.splice(accountActivityIndex, 1);
+        delectedActivies.push(key);
+      } 
+    }
+
+    // Send this update to the server for processing.
+    console.log(delectedActivies);
+  }
+
+  selectAccountActivity(key: string): void {
+    if (this.selectedAccountActivities.includes(key)) {
+      const activityIndex = this.selectedAccountActivities.findIndex(activityKey => activityKey === key);
+      this.selectedAccountActivities.splice(activityIndex, 1);
+    } else {
+      this.selectedAccountActivities.push(key);
+    }
   }
 }

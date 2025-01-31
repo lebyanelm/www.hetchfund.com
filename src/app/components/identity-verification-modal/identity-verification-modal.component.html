@@ -1,0 +1,15 @@
+<div class="identity-verification-container">
+  <div class="smileid-logo"><img src="/assets/smile-id_logo.svg" alt="SmileID Logo"></div>
+    <div class="header-text-style small">Your Identity has not been verified.</div>
+    <div class="paragraph-text-style">We are required by law to comply with Anti-Fraud and KYC regulations. Please verify your identity for the safety of everyone in this platform.</div>
+
+    <br>
+    <br>
+    <div class="header-text-style smaller">For a better verification experience use your smartphone.</div>
+    <img [src]="this.kycQrcode" alt="KYC QR Code">
+    
+    <div class="buttons">
+      <button (click)="this.startVerification()">Verify with this device</button>
+      <button (click)="this.supresssKycFlow()" class="secondary">Do this later</button>
+    </div>
+</div>

@@ -13,11 +13,15 @@ import { SessionService } from 'src/app/services/session.service';
 export class EggComponent implements OnInit {
   @Input('data') data: IEgg;
   @Input('ref') ref: string;
+  @Input('tab') tab: string;
+  @Input('binder') binder: any;
   @Input('color_style') colorStyle: string;
+  @Input('is_draft') is_draft: boolean = false;
   @Input('embedded') embedded: boolean = false;
 
   isbookmarked = false;
   sessionData: IHetcher;
+  curator: IHetcher;
 
   constructor(
     public currencyResolver: CurrencyResolverService,
@@ -26,10 +30,16 @@ export class EggComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.sessionService.sessionData.
     this.isbookmarked = this.data?.bookmarks?.includes(
       this.sessionService.data?.email_address
     );
+    console.log(this.data)
+
+    this.eggService.getCurator(this.data?.curator)
+      .then((curator: IHetcher) => {
+        this.curator = {display_name: curator.display_name, profile_image: curator.profile_image, email_address: curator.email_address};
+        console.log(this.curator)
+      }).catch((error) => console.error(error))
   }
 
   toLocaleString(number: number): string {
@@ -53,5 +63,22 @@ export class EggComponent implements OnInit {
     }
 
     return input;
+  }
+
+  deleteDraft(draftKey: string): void {
+    this.eggService.deleteDraft(draftKey).then(() => {
+      console.log("Deleted");
+      if (this.binder) {
+        const draftIndex = this.binder.findIndex((draft) => draft.key === draftKey);
+        if (draftIndex > -1) {
+          const field = [this.tab, 'pitches'].join('_');
+          this.binder[field].splice(draftIndex, 1);
+        }
+      }
+    });
+  }
+
+  endPitch(draftKey): void {
+
   }
 }

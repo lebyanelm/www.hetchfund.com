@@ -4,11 +4,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: $BORDER;
+  border: $BORDER;
+  border-radius: $BORDER_RADIUS;
   padding: 0 $_20_SPACING_SIZE;
-  top: 60px;
+  margin: 70px 0 $_20_SPACING_SIZE 0;
   width: 100%;
-  background: $BACKGROUND_COLOR;
+  background: $DARK_COLOR;
   z-index: 1000;
 }
 

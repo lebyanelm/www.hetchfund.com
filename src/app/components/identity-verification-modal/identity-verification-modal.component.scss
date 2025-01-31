@@ -1,0 +1,21 @@
+@import "../../../variables.scss";
+
+.identity-verification-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: $_20_SPACING_SIZE;
+    width: 100%;
+
+    * {
+        text-align: center;
+    }
+}
+
+.qr-code {
+    padding: 10px;
+    border: 1px solid $BORDER_RADIUS;
+    height: 400px;
+    width: 400px;
+}

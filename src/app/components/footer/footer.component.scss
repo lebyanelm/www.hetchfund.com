@@ -1,10 +1,10 @@
 @import "../../../variables.scss";
 
 .footer-container {
-  background: $THEME_COLOR;
+  background: #000000;
   color: $WHITE_COLOR;
-  border-top: $BORDER;
-  padding: $_20_SPACING_SIZE 0 40px 0;
+  border-top: $BORDER_THIN;
+  padding: $_20_SPACING_SIZE 0 40px $_20_SPACING_SIZE;
 }
 
 // FOOTER SITE LOGO
@@ -34,8 +34,11 @@
 
 // FOOTER NAVIGATION LINKS
 .footer-container .desktop-footer-container .footer-navigation-sections {
-  display: flex;
+  width: 100% !important;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: space-between;
+  align-items: end;
 }
 
 .navigation-section-title {
@@ -57,7 +60,8 @@
 
 .footer-container .desktop-footer-container .footer-navigation-sections a {
   display: block;
-  margin: $_10_SPACING_SIZE 0;
+  margin: $_20_SPACING_SIZE 0;
+  font-size: large;
   color: $WHITE_COLOR;
 }
 
@@ -118,7 +122,6 @@
   gap: $_10_SPACING_SIZE;
   padding: $_10_SPACING_SIZE $_20_SPACING_SIZE;
   border: $BORDER;
-  border-color: $WHITE_COLOR;
   border-radius: $BORDER_RADIUS;
   margin-top: $_10_SPACING_SIZE;
   width: fit-content;
@@ -140,7 +143,7 @@
 }
 
 .bottom-currency-selector:hover {
-  background: $WHITE_COLOR;
+  border-color: $SECONDARY_THEME_COLOR;
 
   span,
   ion-icon {

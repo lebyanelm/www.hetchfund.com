@@ -13,6 +13,7 @@ import { IHetcher } from 'src/app/interfaces/IHetcher';
 import { CurrencyResolverService } from 'src/app/services/currency-resolver.service';
 import { SessionService } from 'src/app/services/session.service';
 import { SidebarMenuService } from 'src/app/services/sidebar-menu.service';
+import { ToastManagerService } from 'src/app/services/toast-manager.service';
 import { environment } from 'src/environments/environment';
 import * as superagent from 'superagent';
 
@@ -29,19 +30,24 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @Input() hasBackground = true;
   @Input() highlightHeader: string;
 
+  isShownVerificationAlert = false;
   isSessionActive = false;
   isUnableToLoadCurrencies = false;
 
   constructor(
     public sessionService: SessionService,
     public currencyService: CurrencyResolverService,
-    public sidebarService: SidebarMenuService
-  ) {}
-
-  ngOnInit() {
+    public sidebarService: SidebarMenuService,
+    private toastService: ToastManagerService
+  ) {
     this.sessionService.sessionDataSubject.subscribe(() => {
       this.isSessionActive = true;
+      this.isShownVerificationAlert = this.sessionService.data?.kyc_status === "unverified";
     });
+  }
+
+  ngOnInit() {
+    
   }
 
   ngAfterViewInit(): void {
@@ -50,14 +56,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     };
   }
 
-  // @HostListener('window:scroll', ['$event']) // for window scroll events
-  onScroll(event) {
-    const verticalOffset =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0;
+  startVerification() {
+    this.sessionService.startRealPersonVerification();
+  }
 
-    console.log(verticalOffset);
+  supresssKycFlow() {
+    this.sessionService.suppressRealPersonVerification();
   }
 }

@@ -2,42 +2,65 @@
 
 .support-portal-header-searchbox {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: $_20_SPACING_SIZE;
-  height: auto;
+  height: 80px;
+
+  .search-button {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 95px;
+    border: $BORDER;
+    border-radius: $BORDER_RADIUS;
+    background: $SECONDARY_THEME_COLOR;
+    cursor: pointer;
+  }
+
+  .search-button.add-button {
+    background: $DARK_COLOR;
+    border-radius: 100px;
+
+    &:hover  {
+      border-color: $SECONDARY_THEME_COLOR;
+      ion-icon {
+        color: $SECONDARY_THEME_COLOR !important;
+      }
+    }
+  }
+
+  .search-button ion-icon {
+    font-size: 30px;
+  }
+}
+
+.search-input-container {
+  height: 100%;
   width: 100%;
-  background: $THEME_COLOR;
-  padding: $_20_SPACING_SIZE;
+  border: $BORDER;
+  border-radius: $BORDER_RADIUS;
 }
 
-.support-portal-header-searchbox * {
-  color: $WHITE_COLOR;
-}
-
-.support-portal-header-searchbox .search-input-container {
-  height: auto;
-  width: 80%;
-  background: $WHITE_COLOR;
-}
-
-.support-portal-header-searchbox .search-input-container input {
+.search-input-container input {
   border: none;
   outline: none;
   width: 100%;
   height: 100%;
-  text-align: center;
+  background: $DARK_COLOR !important;
+  border-radius: $BORDER_RADIUS;
+
+  .search-input-container:focus-within {
+    border-color: $SECONDARY_THEME_COLOR !important;
+  }
 }
 
-.support-portal-header-searchbox .search-input-container input,
-.support-portal-header-searchbox .search-input-container input::placeholder {
+.search-input-container input,
+.search-input-container input::placeholder {
   font-size: 42px;
   font-weight: 600;
 }
 
-.support-portal-header-searchbox .search-input-container ion-icon {
+.search-input-container ion-icon {
   font-size: 42px;
-  color: $DARK_COLOR;
   position: absolute;
   top: 0;
   left: 20px;
@@ -58,6 +81,10 @@
 .support-portal-articles .articles-content .article {
   display: flex;
   flex-direction: column;
+  gap: $_10_SPACING_SIZE;
+  border-radius: $BORDER_RADIUS;
+  border: $BORDER;
+  background: $DARK_COLOR;
 }
 
 .support-portal-articles .articles-content .article .thumbnail-container {
@@ -68,18 +95,36 @@
   background-image: url(https://cdn.openart.ai/uploads/image_knhkoCT4_1695310397517_512.webp);
   background-size: cover;
   background-position: center;
+  border-top-left-radius: $BORDER_RADIUS;
+  border-top-right-radius: $BORDER_RADIUS;
 }
+
+.support-portal-articles
+  .articles-content
+  .article
+  .article-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50%;
+    padding: 0 $_10_SPACING_SIZE $_20_SPACING_SIZE $_10_SPACING_SIZE;
+  }
 
 .support-portal-articles
   .articles-content
   .article
   .article-content
   .article-category {
-  text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-size: small;
-  margin-bottom: 5px;
+    display: block;
+    width: fit-content;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: small;
+    padding: $_5_SPACING_SIZE $_10_SPACING_SIZE;
+    margin-bottom: $_10_SPACING_SIZE;
+    background: $BACKGROUND_COLOR;
+    border-radius: 100px;
 }
 
 .article-content .article-main-author {
@@ -112,4 +157,6 @@
   letter-spacing: 1px;
   margin-right: 10px;
   color: $LIGHT_COLOR;
+  border: $BORDER;
+  border-radius: $BORDER_RADIUS;
 }

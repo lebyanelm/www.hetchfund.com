@@ -1,13 +1,13 @@
 <ion-content>
   <app-header [hasBackground]="true"></app-header>
 
-  <!-- Header that shows the steps of the pitch creation process -->
-  <app-pitch-create-steps
-    [step]="4"
-    [draftProgress]="this.draft?.draft_progress"
-  ></app-pitch-create-steps>
-
   <div class="page-content content-wrapper">
+    <!-- Header that shows the steps of the pitch creation process -->
+    <app-pitch-create-steps
+      [step]="4"
+      [draftProgress]="this.draft?.draft_progress"
+    ></app-pitch-create-steps>
+    
     <div class="header-text-style">Rewards</div>
     <div class="field-status">(REQUIRED)</div>
 
@@ -15,8 +15,8 @@
       <ion-icon name="information-circle"></ion-icon>
 
       Setup rewards, perks and benefits that your funders will recieve for
-      funding a contribution on your pitch. Rewards can be shares of your business, based on amount provided and total authorized shares or non-financial rewards such as early access to the product or
-      service being developed, and discounted prices.
+      funding a contribution on your pitch. At the moment rewards can be non-financial rewards such as early access to the product or
+      service being developed, and discounted/or prices.
 
       <div class="readmore" hidden>
         As a business owner seeking funding for a contribution on a pitch, it is
@@ -52,15 +52,13 @@
           Rewards offer type
         </div>
         <div class="paragraph-text-style field-description">
-          Decide whether you look forward to offering shares of your business or non-financial rewards such as early access to the product or
-          service being developed, and discounted prices. 
+          Decide non-financial rewards you're willing to give to contributors of your pitch.
         </div>
 
         <div class="paragraph-text-style">
           <ion-icon name="information-circle"></ion-icon>
 
-          <b><i>Remember:</i> For share rewards, you have to set defined amount of authorized 
-            shares as consulted on CIPC platform to be administered to funders. Depending on contribution amount shares will be divided acording to total funds required as a percentage representing shares per contributor. <a href="">Learn more.</a></b>
+          <b><i>Remember:</i> Share rewards are not active yet, as soon as they are you'll be able to promise your contributors a share of your company in exchange of contributions to jumpstart your business venture. <a href="">Learn more.</a></b>
         </div>
       </div>
 
@@ -70,7 +68,7 @@
           <div class="field-status">(REQUIRED)</div>
 
           <div class="input-container">
-           <select name="rewards-type" id="rewards-type" [(ngModel)]="this.rewardsType" #RewardsTypeInput>
+           <select name="rewards-type" id="rewards-type" [(ngModel)]="this.rewardsType" disabled #RewardsTypeInput>
               <option value="shares" id="shares">Share rewards</option>
               <option value="non-shares" id="non-shares">Non-share rewards</option>
            </select>

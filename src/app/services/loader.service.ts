@@ -11,22 +11,17 @@ export class LoaderService {
   _processes = [];
   isPersist = false;
 
-  constructor() {
-    
-  }
+  constructor() { }
 
-  // Every 10 seconds check if the processes are loading or not.
+  // Every 120 seconds check if the processes are loading or not.
   createLoaderChecker() {
     let checkLoaderCompleteness: any = setInterval(() => {
       const isLoading = this.isLoading();
+      console.log("Loader status:", isLoading)
       // For memory purposes stop the interval once all loaders are completed.
       if (!isLoading) {
         clearInterval(checkLoaderCompleteness);
         checkLoaderCompleteness = null;
-      } else {
-        if (checkLoaderCompleteness === null) {
-          this.createLoaderChecker();
-        }
       }
     }, 10000);
   }
@@ -34,21 +29,22 @@ export class LoaderService {
   showLoader() {
     const idx = this.addProcess();
     this.state.next(this.isLoading());
+    console.log(this._processes)
     return idx;
   }
 
   hideLoader(idx: string) {
     this.removeProcess(idx);
     this.state.next(this.isLoading());
+    console.log(this._processes)
     return this._processes;
   }
 
-  addProcess(timeout: number = 60000) {
+  addProcess(timeout: number = 6000) {
     // Create a process with a timestamp to be able to remove the loader incase the process takes long.
     const idx = nanoid.nanoid();
     this._processes.push({ state: true, timestamp: Date.now(), timeout, idx });
     this.createLoaderChecker();
-    console.log(this._processes);
     return idx;
   }
 
@@ -63,17 +59,22 @@ export class LoaderService {
     let loaderStatus = false;
     let now = Date.now();
     for (let i = 0; i <= this._processes.length - 1; i++) {
+      console.log(this._processes[i])
       if (this._processes[i].state === true) {
         loaderStatus = true;
-        break;
-      } else {
+        
+        console.log(now - this._processes[i].timestamp >= this._processes[i].timeout)
         if (now - this._processes[i].timestamp >= this._processes[i].timeout) {
           // Remove the process because the timeout has been reached.
           this.removeProcess(this._processes[i].idx);
         }
+        break;
       }
     }
 
+    if (loaderStatus == false) {
+      this.state.next(loaderStatus);
+    }
     return loaderStatus;
   }
 }

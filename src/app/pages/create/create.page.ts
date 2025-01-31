@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ERROR_MESSAGES } from 'src/app/error_messages';
-import { FileUploadInterface } from 'src/app/interfaces/FileUploadInterface';
 import { EggService } from 'src/app/services/egg.service';
 import { RouterService } from 'src/app/services/router.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -44,6 +43,7 @@ export class CreatePage implements OnInit, AfterViewInit {
   ) {}
 
   isLoading = true;
+  islivepitch = false;
 
   primaryCategories = [];
   categories = [];
@@ -70,7 +70,7 @@ export class CreatePage implements OnInit, AfterViewInit {
   basicPitch: any = {};
 
   ngOnInit() {
-    this.titleService.onTitleChange.next('Pitch basics | Create: Hetchfund.com');
+    this.titleService.onTitleChange.next('Pitch Create | Basics: Hetchfund.com');
     // Loading categories
     superagent
       .get([environment.farmhouse, 'categories'].join('/'))
@@ -109,56 +109,34 @@ export class CreatePage implements OnInit, AfterViewInit {
 
     // Load the draft pitch if continueing to edit
     this.activatedRoute.queryParamMap.subscribe((queryParams) => {
-      this.draft_key = queryParams.get('draft_key');
+      this.draft_key = queryParams.get('draft_key') || queryParams.get('pitch_key');
+      this.islivepitch = queryParams.get('islive') === '1' ? true : false;
 
-      if (this.draft_key) {
-        // Pull the draft from the backend
-        superagent
-          .get(
-            [environment.farmhouse, 'pitch', 'draft', this.draft_key].join('/')
-          )
-          .set(
-            'Authorization',
-            ['Bearer', this.sessionService.sessionToken].join(' ')
-          )
-          .end((_, response) => {
-            console.log(response);
-
-            if (response) {
-              if (response.statusCode === 200) {
-                this.basicPitch = response.body.data;
-
-                setTimeout(() => {
-                  if (this.basicPitch.primary_category)
-                    this.primaryCategory.nativeElement.value =
-                      this.basicPitch.primary_category;
-
-                  if (this.basicPitch.country_published) {
-                    this.selectedCountry = this.basicPitch.country_published;
-                    this.countrySelector.nativeElement.value =
-                      this.basicPitch.country_published;
-                  }
-
-                  // Load the thumbnail and placeholder images.
-                  if (this.basicPitch.thumbnail_url)
-                    this.selectedPlaceholder = {
-                      cdnUrl: this.basicPitch.thumbnail_url,
-                    };
-                  if (this.basicPitch.presentation_video)
-                    this.selectedPresentationVideo = {
-                      cdnUrl: this.basicPitch.presentation_video,
-                    };
-                }, 100);
-              } else {
-                this.toastService.show(
-                  response.body.reason || ERROR_MESSAGES.UNEXPECTED_ERROR
-                );
-              }
-            } else {
-              this.toastService.show(ERROR_MESSAGES.NO_INTERNET);
+      // Pull the draft from the backend
+      this.eggService.get(this.draft_key, { isDraft: !this.islivepitch })
+        .then((data) => {
+          this.basicPitch = data;
+          setTimeout(() => {
+            if (this.basicPitch.primary_category) {
+              this.primaryCategory.nativeElement.value = this.basicPitch.primary_category;
             }
-          });
-      }
+
+            if (this.basicPitch.country_published) {
+              this.selectedCountry = this.basicPitch.country_published;
+              this.countrySelector.nativeElement.value = this.basicPitch.country_published;
+            }
+
+            // Load the thumbnail and placeholder images.
+            if (this.basicPitch.thumbnail_url)
+              this.selectedPlaceholder = {
+                cdnUrl: this.basicPitch.thumbnail_url,
+              };
+            if (this.basicPitch.presentation_video)
+              this.selectedPresentationVideo = {
+                cdnUrl: this.basicPitch.presentation_video,
+              };
+          }, 100);
+        })
     });
   }
 
@@ -170,8 +148,6 @@ export class CreatePage implements OnInit, AfterViewInit {
       this.selectedPresentationVideo = file;
       this.isPresentationVideoUploading = true;
     }
-
-    console.log("Uploading file...")
 
     uploadcareClient.uploadFile(file, { onProgress: (event: any) => {
       if (isPlaceholderImage) {
@@ -188,17 +164,14 @@ export class CreatePage implements OnInit, AfterViewInit {
         if (uploadResult?.cdnUrl) {
           if (isPlaceholderImage) {
             this.selectedPlaceholder = uploadResult;
-            this.basicPitch['thumbnail_url'] = uploadResult.cdnUrl+ "sharp/format/auto/quality/smart";
+            this.basicPitch['thumbnail_url'] = uploadResult.cdnUrl;
           } else {
             this.selectedPresentationVideo = uploadResult;
-            this.basicPitch['presentation_video'] =
-              uploadResult.cdnUrl;
+            this.basicPitch['presentation_video'] = uploadResult.cdnUrl;
             this.isPresentationVideoUploading = false;
             this.isPresentationVideoUploaded = true;
           }
         }
-
-        console.log("Updated pitch:", this.basicPitch)
       }
     }).catch((error) => {
       console.log("File upload failed: ", error);
@@ -297,7 +270,7 @@ export class CreatePage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     setTimeout(() => {
       const selectedProvinceOption = document.getElementById(
-        this.basicPitch.province_published.replace(' ', ' ')
+        this.basicPitch.province_published?.replace(' ', ' ')
       );
       if (selectedProvinceOption)
         selectedProvinceOption.setAttribute('selected', 'selected');

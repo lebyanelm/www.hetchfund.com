@@ -18,6 +18,7 @@ export class CreateStoryPage implements OnInit {
   @ViewChild('TextEditor') textEditor: CustomRichTextEditorComponent;
   draft_key: string;
   draft: IEgg;
+  islivepitch = false;
 
   constructor(
     private sessionService: SessionService,
@@ -30,13 +31,14 @@ export class CreateStoryPage implements OnInit {
     this.titleService.onTitleChange.next('Pitch story | Create: Basics - Hetchfund.com');
 
     this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {
-      this.draft_key = queryParamMap.get('draft_key');
-      if (this.draft_key) {
-        this.eggService.getSavedDraft(this.draft_key).then((draft) => {
-          this.draft = draft;
-          this.textEditor.setData(this.draft.story);
-        });
-      }
+      this.draft_key = queryParamMap.get('draft_key') || queryParamMap.get('pitch_key');
+      this.islivepitch = queryParamMap.get('islive') === '1' ? true : false;
+
+      this.eggService.get(this.draft_key, { isDraft: !this.islivepitch, enableInterest: false, enableRecent: false })
+        .then((data) => {
+          this.draft = data;
+          this.textEditor.setData(this.draft.story, true);
+        })
     });
   }
 

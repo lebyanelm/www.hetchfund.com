@@ -25,15 +25,7 @@
         <!-- The thumbnail / video. -->
         <div class="egg-campaign-thumbnail-container">
           <div class="egg-campaign-funding-purpose header-text-style">
-            <span class="to-prefix">To: </span> {{ this.data?.funding_purpose }}
-          </div>
-
-          <div class="slide-buttons">
-            <div class="slide-button slide-left" (click)="this.previousMedia()"><ion-icon name="chevron-back-outline"></ion-icon></div>
-            <div class="middle-bubbles">
-              <div class="bubble" [attr.data-isactive]="this.currentMediaFile === mediaFile.index" *ngFor="let mediaFile of this.mediaFiles" (click)="this.showMediaFile(mediaFile.index)"></div>
-            </div>
-            <div class="slide-button slide-right" (click)="this.nextMedia()"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+            <span class="to-prefix">To: <span class="to-suffix">{{ this.data?.funding_purpose }}</span></span> 
           </div>
 
           <div
@@ -41,7 +33,13 @@
             *ngIf="this.mediaFiles[this.currentMediaFile]?.fileType === 'image'"
             [style.background-image]="'url(' + this.mediaFiles[this.currentMediaFile]?.cdnUrl + ')'"
           >
-            <div class="hetchfund-attribution"></div>
+            <div class="slide-buttons">
+              <div class="slide-button slide-left" (click)="this.previousMedia()"><ion-icon name="chevron-back-outline"></ion-icon></div>
+              <div class="middle-bubbles">
+                <div class="bubble" [attr.data-isactive]="this.currentMediaFile === mediaFile.index" *ngFor="let mediaFile of this.mediaFiles" (click)="this.showMediaFile(mediaFile.index)"></div>
+              </div>
+              <div class="slide-button slide-right" (click)="this.nextMedia()"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+            </div>
           </div>
 
           <div
@@ -50,34 +48,6 @@
           >
             <div class="hetchfund-attribution"></div>
             <app-video [src]="this.mediaFiles[this.currentMediaFile]?.cdnUrl"></app-video>
-          </div>
-
-          <div class="bottom-attribute-items">
-            <div
-              class="bottom-attribute-item pitch-publish-location"
-              *ngIf="!this.data?.is_hetch_favourite"
-            >
-              <ion-icon name="heart-circle-outline"></ion-icon>
-              <span class="country">Our favourite</span>
-            </div>
-
-            <div
-              class="bottom-attribute-item pitch-publish-location"
-              *ngIf="this.data?.country_published && this.data?.province_published"
-            >
-              <ion-icon name="compass-outline"></ion-icon>
-              <span class="country comma"
-                >{{this.data?.country_published}}</span
-              >
-              <span class="province">{{this.data?.province_published}}</span>
-            </div>
-
-            <div class="bottom-attribute-item pitch-publish-location">
-              <ion-icon name="calendar-outline"></ion-icon>
-              <span class="country"
-                >Published on {{this.data?.time_created?.formatted_date}}</span
-              >
-            </div>
           </div>
         </div>
 
@@ -95,6 +65,7 @@
                 class="media-file"
                 *ngFor="let mediaFile of this.mediaFiles"
                 (click)="this.currentMediaFile = mediaFile.index"
+                [attr.data-active]="this.currentMediaFile == mediaFile.index"
                 [style.background-image]="'url(' + mediaFile.cdnUrl + ')'"
               ></div>
             </div>
@@ -123,7 +94,7 @@
             class="tab no-decoration header-text-style smaller"
             [attr.isActiveTab]="this.activeTab === 'story'"
             (click)="this.setActiveTab('story')"
-            >Story</a
+            >Brief information</a
           >
           <a
             class="tab no-decoration header-text-style smaller"
@@ -142,6 +113,7 @@
         <div class="campaign-statistics">
           <div class="statistic" data-title="Progress contributed.">
             <span class="value smaller"
+                style="font-weight: bolder;"
               >{{ this.data?.hetched_funds_perc + '%' }}</span
             >
             <div class="name">Progress</div>
@@ -149,6 +121,7 @@
 
           <div class="statistic" data-title="Funds raised.">
             <span class="value smaller currency-selectable"
+                style="font-weight: bolder;"
               >{{this.currencyResolver.translate(this.data?.hetched_funds)}}</span
             >
             <div class="name">Funded</div>
@@ -156,13 +129,16 @@
 
           <div class="statistic hetching-goal" data-title="Target funding.">
             <span class="value smaller currency-selectable"
+                style="font-weight: bolder;"
               >{{this.currencyResolver.translate(this.data?.hetching_goal)}}</span
             >
             <div class="name">Goal</div>
           </div>
 
-          <div class="statistic" data-title="Total contribution made.">
-            <span class="value smaller">{{this.data?.hetchers.length}}</span>
+          <div class="statistic" data-title="Total contributions made.">
+            <span class="value smaller"
+                style="font-weight: bolder;"
+              >{{this.data?.hetchers.length}}</span>
             <div class="name">Contributions</div>
           </div>
 
@@ -183,8 +159,8 @@
         <div class="selected-tab-view">
           <div class="story-tab tab-view" *ngIf="this.activeTab === 'story'">
             <app-rich-text-editor
-              [isReadOnly]="true"
               [isAwaitData]="true"
+              [textSize]="21"
               #StoryBody
             ></app-rich-text-editor>
           </div>
@@ -252,15 +228,28 @@
 
       <div class="sticky-funding-button">
         <div class="pitch-buttons">
-          <button class="pledge-button icon-button" (click)="this.commitPledge()">
-            <!-- <ion-icon name="hand-right-sharp"></ion-icon> -->
+          <button class="pledge-button icon-button" (click)="this.commitPledge()" *ngIf="!this.iscurator">
             Make a contribution
+          </button>
+
+          <button class="pledge-button icon-button" (click)="this.openPitchEditor()" *ngIf="this.iscurator">
+            Edit pitch
+          </button>
+
+          <button class="icon-button secondary end-button" (click)="this.requestEndingPitch()" *ngIf="this.iscurator">
+            End pitch
+          </button>
+
+          <button class="icon-button secondary delete-button" (click)="this.requestDeletingPitch()" *ngIf="this.data?.has_ended">
+            Delete pitch
           </button>
 
           <button
             [class]="(this.isbookmarked ? 'danger-text-style' : 'theme-text-style') + ' icon-button follow-button'"
             [attr.data-is-bookmarked]="this.isbookmarked"
             (click)="this.bookmark()"
+            [disabled]="this.iscurator"
+            *ngIf="!this.iscurator"
           >
             <!-- <ion-icon
               [name]="this.isbookmarked ? 'heart' : 'heart-outline'"
@@ -274,6 +263,7 @@
             class="bordered mobile-follow-button"
             [attr.data-is-bookmarked]="this.isbookmarked"
             (click)="this.bookmark()"
+            [disabled]="this.iscurator"
           >
             <ion-icon
               [name]="this.isbookmarked ? 'heart' : 'heart-outline'"
@@ -306,7 +296,7 @@
           Loading related
         </div>
 
-        <div class="page-eggs-layout" *ngIf="this.related.length > 0">
+        <div class="page-eggs-layout related-pitches" *ngIf="this.related.length > 0">
           <app-egg
             *ngFor="let related of this.related"
             [data]="related"
@@ -316,5 +306,31 @@
     </div>
   </div>
 
+  <ion-modal class="end-pitch-modal" trigger="open-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Confirm ending: {{this.data?.name}}, your about to hide it.</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <div class="modal-content-wrapper">
+          <div class="paragraph-text-style">{{this.modalMessage}}<b>{{this.modalRemarks}}</b></div>
+        </div>
+      </ion-content>
+
+      <ion-toolbar>
+        <div class="modal-content-wrapper">
+          <button>Confirm ending</button>
+          <button class="secondary">Cancel</button>
+        </div>
+      </ion-toolbar>
+    </ng-template>
+  </ion-modal>
+  
   <app-footer></app-footer>
 </ion-content>
+<!-- <ion-buttons slot="end">
+  <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+</ion-buttons> -->
