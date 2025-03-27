@@ -4,7 +4,7 @@
 **Tech Stack:** Angular, Python (Flask/FastAPI), PostgreSQL, Heroku  
 **Integrations:** Yoco, SmileID, Coinbase Commerce, PayPal, ChatGPT API  
 **Type:** Full-Stack Web Application  
-**Status:** 🚀 Live / In Development *(adjust as needed)*
+**Status:** 🚀 Paused
 
 ### 📌 Overview  
 Hetchfund.com is a full-stack crowdfunding platform built to support **innovative start-up businesses** and directly address **rising youth unemployment**. Designed to be both impactful and scalable, the platform empowers young entrepreneurs to raise capital, pitch their ideas, and connect with backers — all within a streamlined and secure environment.
