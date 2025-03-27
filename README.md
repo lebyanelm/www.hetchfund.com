@@ -1,5 +1,5 @@
 ## 🌍 Hetchfund.com – Crowdfunding for Start-Up Innovation & Youth Empowerment
-![Hetchfund.com Logo](https://i.postimg.cc/XvdqVvjZ/logos-hetchfund.png)
+<img src="./assets/hetchfund-preview.png" alt="Preview" width="600"/>
 
 **Tech Stack:** Angular, Python (Flask/FastAPI), PostgreSQL, Heroku  
 **Integrations:** Yoco, SmileID, Coinbase Commerce, PayPal, ChatGPT API  
